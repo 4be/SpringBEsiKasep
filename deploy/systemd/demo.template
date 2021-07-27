@@ -4,8 +4,8 @@ After=syslog.target
 
 [Service]
 User=adiabdurrakh
-WorkingDirectory=/opt/sinarmas/demo
-ExecStart=java -jar /opt/sinarmas/demo/gege.jar
+WorkingDirectory=/home/adiabdurrakh/opt/sinarmas/demo
+ExecStart=java -jar /home/adiabdurrakh/opt/sinarmas/demo/gege.jar
 SuccessExitStatus=143
 Restart=on-failure
 RestartSec=5
