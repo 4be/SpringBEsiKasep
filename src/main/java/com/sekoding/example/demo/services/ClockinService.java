@@ -23,4 +23,11 @@ public class ClockinService {
         return clockinRepo.findAll();
     }
 
+    public Clockin FindByid(Long id){
+        return clockinRepo.findById(id).get();
+    }
+    public void removeOne(Long id){
+        clockinRepo.deleteById(id);
+    }
+
 }
