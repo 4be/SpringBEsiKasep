@@ -1,12 +1,17 @@
 package com.sekoding.example.demo.model.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
+@Getter
+@Setter
 @Entity
 @Table(name = "tbl_clock")
 public @Data class Clockin implements Serializable{
@@ -18,12 +23,11 @@ public @Data class Clockin implements Serializable{
         @Column(length = 10)
         private Long user_id;
 
-        private Date start_time;
+        private LocalDateTime start_time;
 
         private Date end_time;
 
-        @Column(columnDefinition = "boolean default false")
-        private Boolean working;
+        private Boolean working = false;
 
         @Column(length = 100)
         private String location_clockin;
