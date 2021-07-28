@@ -1,5 +1,6 @@
 package com.sekoding.example.demo.controller;
 
+import ch.qos.logback.core.rolling.helper.FileFilterUtil;
 import com.sekoding.example.demo.dto.ClockinData;
 import com.sekoding.example.demo.dto.ResponseData;
 import com.sekoding.example.demo.model.entity.Clockin;
@@ -12,8 +13,10 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,13 +38,17 @@ public class ClockController {
         ResponseData<Clockin> responseData = new ResponseData<>();
         Clockin clockinr = new Clockin();
 
+//        if(Files.notExists()){ // check kondisi
+////            RedirectAttributes.addAtribute("Message","sucesss");
+//        }
         try {
             byte[] bytes = picture.getBytes();
             Path path = Paths.get((UPLOADED_PATH)+picture.getOriginalFilename());
             Files.write(path,bytes);
+//            RedirectAttributes.addAtribute("Message","sucesss"); // check kondisi berhasil
             clockinr.setUrl_foto_clockin(path.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
 
         if (errors.hasErrors()) {
