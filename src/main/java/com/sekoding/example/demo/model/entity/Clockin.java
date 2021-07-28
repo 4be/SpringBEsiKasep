@@ -1,14 +1,14 @@
 package com.sekoding.example.demo.model.entity;
 
 import lombok.Data;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Date;
 
 
 @Entity
-@Table(name = "tbl_clockin")
+@Table(name = "tbl_clock")
 public @Data class Clockin implements Serializable{
 
         @Id
@@ -26,19 +26,22 @@ public @Data class Clockin implements Serializable{
         private Boolean working;
 
         @Column(length = 100)
-        private String location;
+        private String location_clockin;
 
-        @NotEmpty(message = ("Url foto not found"))
         @Column(length = 100)
-        private String url_foto;
+        private String location_clockout;
+
+        @Column(length = 100)
+        private String url_foto_clockin;
+
+        @Column(length = 100)
+        private String url_foto_clockout;
 
         @Column(length = 10)
-        private Long level_kesehatan_id;
+        private Long level_kesehatan_fisik_id;
 
-        @Column(length = 100)
-        private String description;
-
-
+        @Column(length = 10)
+        private Long level_kesehatan_mental_Id;
 
 }
 
