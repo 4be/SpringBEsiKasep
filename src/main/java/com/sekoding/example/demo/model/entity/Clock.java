@@ -7,14 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
-
 
 @Getter
 @Setter
 @Entity
 @Table(name = "tbl_clock")
-public @Data class Clockin implements Serializable{
+public @Data class Clock implements Serializable{
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +23,7 @@ public @Data class Clockin implements Serializable{
 
         private LocalDateTime start_time;
 
-        private Date end_time;
+        private LocalDateTime end_time;
 
         private Boolean working = false;
 
