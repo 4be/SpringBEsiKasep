@@ -36,14 +36,14 @@ public class ClockController {
     @PostMapping("/clockin")
     public ResponseEntity<ResponseData<Clock>> clockin(@Valid @RequestParam("picture") @RequestBody MultipartFile picture, @ModelAttribute ClockinData clockinData, Errors errors) {
 
-        ResponseData<Clock>responseData = new ResponseData<>();
+        ResponseData<Clock> responseData = new ResponseData<>();
         Clock clockinr = new Clock();
         Date date = new Date();
 
         try {
             byte[] bytes = picture.getBytes();
-            Path path = Paths.get((UPLOADED_PATH)+ date.getTime() + picture.getOriginalFilename());
-            Files.write(path,bytes);
+            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
+            Files.write(path, bytes);
             clockinr.setUrl_foto_clockin(path.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -70,19 +70,17 @@ public class ClockController {
     }
 
 
-
-
     @PostMapping("/clockout")
     public ResponseEntity<ResponseData<Clock>> clockout(@Valid @RequestParam("picture") @RequestBody MultipartFile picture, @ModelAttribute ClockoutData clockoutData, Errors errors) {
 
-        ResponseData<Clock>responseData = new ResponseData<>();
+        ResponseData<Clock> responseData = new ResponseData<>();
         Clock clockinr = new Clock();
         Date date = new Date();
 
         try {
             byte[] bytes = picture.getBytes();
-            Path path = Paths.get((UPLOADED_PATH)+ date.getTime() + picture.getOriginalFilename());
-            Files.write(path,bytes);
+            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
+            Files.write(path, bytes);
             clockinr.setUrl_foto_clockout(path.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -109,12 +107,12 @@ public class ClockController {
     }
 
     @GetMapping("/clockin")
-    public Iterable<Clock> findAll(){
+    public Iterable<Clock> findAll() {
         return clockService.findAll();
     }
 
     @GetMapping("/time")
-    public String getWaktu(){
+    public String getWaktu() {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Jakarta"));
         Date date = new Date();
         String test = date.toString();
@@ -123,20 +121,19 @@ public class ClockController {
     }
 
     @GetMapping("/clockin/{id}")
-    public Clock findOne(@PathVariable("id") Long id){
+    public Clock findOne(@PathVariable("id") Long id) {
         return clockService.findByid(id);
     }
 
     @PutMapping("/clockin")
-    public Clock update(@RequestBody Clock clockin){
+    public Clock update(@RequestBody Clock clockin) {
         return clockService.create(clockin);
     }
 
     @DeleteMapping("/clockin/delete/{id}")
-    public void removeOne(@PathVariable("id") Long id){
+    public void removeOne(@PathVariable("id") Long id) {
         clockService.removeOne(id);
     }
-
 
 
 }
