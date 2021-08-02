@@ -26,6 +26,7 @@ public class ClockService {
         return clockRepo.findById(id).get();
     }
     public void removeOne(Long id){
+
         clockRepo.deleteById(id);
     }
 

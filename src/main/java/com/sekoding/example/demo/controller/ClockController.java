@@ -108,67 +108,6 @@ public class ClockController {
     }
 
 
-    @PostMapping("/clocking")
-    public ResponseEntity<ResponseData<Clock>> clocking(@Valid @RequestBody ClockinData clockinData, Errors errors) {
-        ResponseData<Clock>responseData = new ResponseData<>();
-        Clock clockinr = new Clock();
-        Date date = new Date();
-
-        if (errors.hasErrors()) {
-            for (ObjectError error : errors.getAllErrors()) {
-                responseData.getMessages().add(error.getDefaultMessage());
-            }
-            responseData.setStatus(false);
-            responseData.setPayload(null);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
-        }
-        clockinr.setStart_time(java.time.LocalDateTime.now());
-        clockinr.setLocation_clockin(clockinData.getLocation_clockin());
-        clockinr.setWorking(true);
-        clockinr.setLevel_kesehatan_fisik_id(clockinData.getLevel_kesehatan_fisik_id());
-        clockinr.setLevel_kesehatan_mental_Id(clockinData.getLevel_kesehatan_mental_Id());
-        clockinr.setUser_id(clockinData.getUser_id());
-
-        responseData.setStatus(true);
-        responseData.setPayload(clockService.create(clockinr));
-        return ResponseEntity.ok(responseData);
-    }
-
-    @PostMapping("/clockoutg")
-    public ResponseEntity<ResponseData<Clock>> clockoutg(@Valid @RequestBody ClockoutData clockoutData, Errors errors) {
-
-        ResponseData<Clock>responseData = new ResponseData<>();
-        Clock clockinr = new Clock();
-        Date date = new Date();
-
-        if (errors.hasErrors()) {
-            for (ObjectError error : errors.getAllErrors()) {
-                responseData.getMessages().add(error.getDefaultMessage());
-            }
-            responseData.setStatus(false);
-            responseData.setPayload(null);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
-        }
-
-        clockinr.setEnd_time(java.time.LocalDateTime.now());
-        clockinr.setLocation_clockout(clockoutData.getLocation_clockout());
-        clockinr.setWorking(false);
-        clockinr.setLevel_kesehatan_fisik_id(clockoutData.getLevel_kesehatan_fisik_id());
-        clockinr.setLevel_kesehatan_mental_Id(clockoutData.getLevel_kesehatan_mental_Id());
-        clockinr.setUser_id(clockoutData.getUser_id());
-
-        responseData.setStatus(true);
-        responseData.setPayload(clockService.create(clockinr));
-        return ResponseEntity.ok(responseData);
-    }
-
-
-
-
-
-
-
-
     @GetMapping("/clockin")
     public Iterable<Clock> findAll(){
         return clockService.findAll();
