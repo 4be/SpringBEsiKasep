@@ -1,7 +1,5 @@
 package com.sekoding.example.demo.model.request;
 
-import java.util.Set;
-
 public class UserRequest {
 
     private String nik;
@@ -9,7 +7,7 @@ public class UserRequest {
     private String tanggalLahir;
     private String email;
     private String password;
-    private Set<String> role;
+    private String role;
 
     public String getNik() {
         return nik;
@@ -51,11 +49,11 @@ public class UserRequest {
         this.password = password;
     }
 
-    public Set<String> getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Set<String> role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }

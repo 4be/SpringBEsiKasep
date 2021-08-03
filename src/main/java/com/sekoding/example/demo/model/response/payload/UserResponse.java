@@ -1,9 +1,5 @@
 package com.sekoding.example.demo.model.response.payload;
 
-import com.sekoding.example.demo.model.entity.Role;
-
-import java.util.Set;
-
 public class UserResponse {
 
     private Long id;
@@ -11,15 +7,15 @@ public class UserResponse {
     private String alamat;
     private String tanggalLahir;
     private String email;
-    private Set<Role> roles;
+    private String role;
 
-    public UserResponse(Long id, String nik, String alamat, String tanggalLahir, String email, Set<Role> roles) {
+    public UserResponse(Long id, String nik, String alamat, String tanggalLahir, String email, String role) {
         this.id = id;
         this.nik = nik;
         this.alamat = alamat;
         this.tanggalLahir = tanggalLahir;
         this.email = email;
-        this.roles = roles;
+        this.role = role;
     }
 
     public Long getId() {
@@ -62,12 +58,12 @@ public class UserResponse {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
 }

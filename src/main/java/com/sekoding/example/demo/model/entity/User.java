@@ -1,8 +1,6 @@
 package com.sekoding.example.demo.model.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "tbl_user")
@@ -30,22 +28,20 @@ public class User {
     @Column(length = 100)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "tbl_user_roles",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @Column(length = 100)
+    private String role;
 
     public User() {
     }
 
-    public User(String username, String nik, String alamat, String tanggalLahir, String email, String password) {
+    public User(String username, String nik, String alamat, String tanggalLahir, String email, String password, String role) {
         this.username = username;
         this.nik = nik;
         this.alamat = alamat;
         this.tanggalLahir = tanggalLahir;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -104,11 +100,11 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 }
