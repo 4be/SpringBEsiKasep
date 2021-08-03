@@ -15,6 +15,15 @@ public class User {
     @Column(length = 20)
     private String username;
 
+    @Column(length = 20)
+    private String nik;
+
+    @Column(length = 100)
+    private String alamat;
+
+    @Column(length = 20)
+    private String tanggalLahir;
+
     @Column(length = 100)
     private String email;
 
@@ -30,8 +39,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String nik, String alamat, String tanggalLahir, String email, String password) {
         this.username = username;
+        this.nik = nik;
+        this.alamat = alamat;
+        this.tanggalLahir = tanggalLahir;
         this.email = email;
         this.password = password;
     }
@@ -50,6 +62,30 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getNik() {
+        return nik;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getTanggalLahir() {
+        return tanggalLahir;
+    }
+
+    public void setTanggalLahir(String tanggalLahir) {
+        this.tanggalLahir = tanggalLahir;
     }
 
     public String getEmail() {

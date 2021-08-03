@@ -12,18 +12,22 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
+
     private static final long serialVersionUID = 1L;
     private Long id;
     private String username;
+    private String alamat;
+    private String tanggalLahir;
     private String email;
     @JsonIgnore
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password,
-                           Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String alamat, String tanggalLahir, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
+        this.alamat = alamat;
+        this.tanggalLahir = tanggalLahir;
         this.email = email;
         this.password = password;
         this.authorities = authorities;
@@ -31,12 +35,14 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetailsImpl build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-            new SimpleGrantedAuthority(role.getNameRole().name())).collect(Collectors.toList()
+            new SimpleGrantedAuthority(role.getRolename().name())).collect(Collectors.toList()
         );
 
         return new UserDetailsImpl(
             user.getId(),
             user.getUsername(),
+            user.getAlamat(),
+            user.getTanggalLahir(),
             user.getEmail(),
             user.getPassword(),
             authorities
@@ -44,16 +50,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -62,8 +60,8 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return username;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
     }
 
     @Override

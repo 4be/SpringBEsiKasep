@@ -1,34 +1,15 @@
-package com.sekoding.example.demo.model.response.payload;
-
-import com.sekoding.example.demo.model.entity.Role;
+package com.sekoding.example.demo.model.request;
 
 import java.util.Set;
 
-public class UserResponse {
+public class UserRequest {
 
-    private Long id;
     private String nik;
     private String alamat;
     private String tanggalLahir;
     private String email;
-    private Set<Role> roles;
-
-    public UserResponse(Long id, String nik, String alamat, String tanggalLahir, String email, Set<Role> roles) {
-        this.id = id;
-        this.nik = nik;
-        this.alamat = alamat;
-        this.tanggalLahir = tanggalLahir;
-        this.email = email;
-        this.roles = roles;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private String password;
+    private Set<String> role;
 
     public String getNik() {
         return nik;
@@ -62,12 +43,19 @@ public class UserResponse {
         this.email = email;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
+    public Set<String> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<String> role) {
+        this.role = role;
+    }
 }

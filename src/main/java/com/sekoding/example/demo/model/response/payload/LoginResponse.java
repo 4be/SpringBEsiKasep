@@ -1,10 +1,10 @@
 package com.sekoding.example.demo.model.response.payload;
 
-public class SignInResponse {
+public class LoginResponse {
 
     private String token;
 
-    public SignInResponse(String token) {
+    public LoginResponse(String token) {
         this.token = token;
     }
 
@@ -15,4 +15,5 @@ public class SignInResponse {
     public void setToken(String token) {
         this.token = token;
     }
+
 }
