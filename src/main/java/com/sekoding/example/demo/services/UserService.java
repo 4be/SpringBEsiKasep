@@ -1,10 +1,13 @@
 package com.sekoding.example.demo.services;
 
-import org.springframework.stereotype.Service;
+import com.sekoding.example.demo.model.request.UserRequest;
 
-@Service
 public interface UserService {
 
     Object getAllUser();
+
+    Object createUser(UserRequest userRequest);
+
+    Object deleteUser(Long id);
 
 }

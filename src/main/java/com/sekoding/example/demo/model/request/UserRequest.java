@@ -1,30 +1,13 @@
-package com.sekoding.example.demo.model.response.payload;
+package com.sekoding.example.demo.model.request;
 
-public class UserResponse {
+public class UserRequest {
 
-    private Long id;
     private String nik;
     private String alamat;
     private String tanggalLahir;
     private String email;
+    private String password;
     private String role;
-
-    public UserResponse(Long id, String nik, String alamat, String tanggalLahir, String email, String role) {
-        this.id = id;
-        this.nik = nik;
-        this.alamat = alamat;
-        this.tanggalLahir = tanggalLahir;
-        this.email = email;
-        this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNik() {
         return nik;
@@ -58,6 +41,14 @@ public class UserResponse {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getRole() {
         return role;
     }
@@ -65,5 +56,4 @@ public class UserResponse {
     public void setRole(String role) {
         this.role = role;
     }
-
 }
