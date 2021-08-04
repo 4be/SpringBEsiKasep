@@ -2,10 +2,11 @@ var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OSIsImlhdCI6MTYyODA0ODA4OCwiZXhwIj
 
 $(document).ready(function () {
     $.ajax({
-        url: "localhost:8080/api/role/",
+        url: "http://localhost:8080/api/user/",
         type: "GET",
         success: function (result) {
             console.log(result);
+            $("#bebas").html(JSON.stringify(result));
         },
         error: function (result) {
             console.log(result);
