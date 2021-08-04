@@ -128,18 +128,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object deleteUser(Long id) {
         try {
-            User user = userRepository.findById(id).get();
-            UserResponse userResponse = new UserResponse(
-                user.getId(),
-                user.getNik(),
-                user.getAlamat(),
-                user.getTanggalLahir(),
-                user.getEmail(),
-                user.getRoles()
-            );
-            SuccessResponse successResponse = new SuccessResponse(HttpStatus.OK, "Deleted", userResponse);
             userRepository.deleteById(id);
-            return successResponse;
+            return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
             return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }

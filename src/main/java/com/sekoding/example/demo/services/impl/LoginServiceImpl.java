@@ -1,9 +1,11 @@
 package com.sekoding.example.demo.services.impl;
 
+import com.sekoding.example.demo.model.entity.User;
 import com.sekoding.example.demo.model.request.LoginRequest;
 import com.sekoding.example.demo.model.response.FailedResponse;
 import com.sekoding.example.demo.model.response.SuccessResponse;
 import com.sekoding.example.demo.model.response.payload.LoginResponse;
+import com.sekoding.example.demo.repository.UserRepository;
 import com.sekoding.example.demo.security.jwt.JwtUtils;
 import com.sekoding.example.demo.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Override
     public Object loginUser(LoginRequest loginRequest) {
         try {
@@ -35,7 +40,16 @@ public class LoginServiceImpl implements LoginService {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateJwtToken(authentication);
-            LoginResponse loginResponse = new LoginResponse(jwt);
+            User user = userRepository.findUserByUsernameOrEmail(loginRequest.getUsername(), loginRequest.getUsername());
+            LoginResponse loginResponse = new LoginResponse(
+                user.getId(),
+                user.getNik(),
+                user.getAlamat(),
+                user.getTanggalLahir(),
+                user.getEmail(),
+                user.getRoles(),
+                jwt
+            );
 
             return new SuccessResponse(HttpStatus.OK, "Success", loginResponse);
         } catch (Exception e) {
