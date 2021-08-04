@@ -14,18 +14,19 @@ public class ClockService {
     @Autowired
     private ClockRepo clockRepo;
 
-    public Clock create(Clock clock){
+    public Clock create(Clock clock) {
         return clockRepo.save(clock);
     }
 
-    public Iterable<Clock> findAll(){
+    public Iterable<Clock> findAll() {
         return clockRepo.findAll();
     }
 
-    public Clock findByid(Long id){
+    public Clock findByid(Long id) {
         return clockRepo.findById(id).get();
     }
-    public void removeOne(Long id){
+
+    public void removeOne(Long id) {
         clockRepo.deleteById(id);
     }
 

@@ -2,10 +2,10 @@
 <html lang="eng"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/main_layout.html}">
+      layout:decorate="~{fragments/main_layout}">
 <head>
     <meta charset="utf-8">
-    <title>Dashboard</title>
+    <title th:text="${title}"></title>
 </head>
 <body>
 

@@ -11,7 +11,7 @@ public class DashboardController {
 
     @GetMapping("/")
     public String index(Model model) {
-//        model.addAttribute("message","Jordy 123");
+        model.addAttribute("title", "Dashboard");
         return "dashboard";
     }
 }
