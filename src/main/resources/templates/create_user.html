@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="eng"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout.html}">
+<head>
+    <meta charset="utf-8">
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800" th:text="${title}"></h1>
+    <br>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <!--        <div class="card-header py-3">-->
+        <!--            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i>  Tabel Data Sakit</h6>-->
+        <!--        </div>-->
+        <div class="card-header py-3">
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form th:action="@{/user/}" method="POST">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="nikKaryawan">NIK</label>
+                                    <input type="text" class="form-control" id="nikKaryawan"
+                                           placeholder="Masukkan NIK Karyawan"
+                                           name="nikKaryawan">
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </td>
+                            <td style="width: 100px"></td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="namaKaryawan">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="namaKaryawan"
+                                           placeholder="Masukkan Nama Lengkap Karyawan"
+                                           name="namaKaryawan">
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </td>
+                            <td style="width: 100px"></td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="idKaryawan">Email</label>
+                                    <input type="text" class="form-control" id="idKaryawan"
+                                           placeholder="Masukkan Email Karyawan"
+                                           name="idKaryawan">
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <label for="idKaryawan">Tanggal Lahir</label>
+                                    <input type="text" class="form-control" id="idKaryawan"
+                                           placeholder="Masukkan Tanggal Lahir Karyawan"
+                                           name="idKaryawan">
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </td>
+                            <td style="width: 100px"></td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="idKaryawan">Alamat</label>
+                                    <input type="text" class="form-control" id="idKaryawan"
+                                           placeholder="Masukkan Alamat Karyawan"
+                                           name="idKaryawan">
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </td>
+                            <td style="width: 100px"></td>
+                            <td>
+                                <div class="form-group">
+                                    <label for="idKaryawan">Role</label>
+                                    <input type="text" class="form-control" id="idKaryawan"
+                                           placeholder="Masukkan Role Karyawan"
+                                           name="idKaryawan">
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <button type="submit" name="submit" id="kirim" class="btn btn-primary">Submit !</button>
+                    <a th:href="@{/user/}">
+                        <button type="button" name="button" id="kembali" class="btn btn-primary">Kembali
+                        </button>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script></script>
+</th:block>
+<th:block layout:fragment="custom_script">
+    <script src="/static/js/dataClock.js"></script>
+</th:block>
+<script>
+    $(document).ready(function () {
+        $('#dataSakitTable').DataTable();
+    });
+</script>
+</body>
+</html>

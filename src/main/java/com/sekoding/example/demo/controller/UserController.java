@@ -22,8 +22,14 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> addUser(@Valid @RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
         Object data = userService.createUser(userRequest);
+        return ResponseEntity.ok(data);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getUserById(@PathVariable Long id) {
+        Object data = userService.getUserById(id);
         return ResponseEntity.ok(data);
     }
 

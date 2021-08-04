@@ -9,9 +9,9 @@ public class DataClockController {
 
     private ModelMapper modelMapper;
 
-    @GetMapping("/dataclock")
-    public String index(Model model) {
-        model.addAttribute("title", "Data Clock");
-        return "dataClock/index";
-    }
+//    @GetMapping("/dataclock")
+//    public String index(Model model) {
+//        model.addAttribute("title", "Data Clock");
+//        return "dataClock/index";
+//    }
 }
