@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="eng"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/main_layout.html}">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+</head>
+<body>
+
+<th:block layout:fragment="content">
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <div class="col-xl-4 col-md-4 mt-2">
+            <div class="no-arrow">
+                <h1 class="h3 text-gray-800">Summary Clock In/Out</h1>
+            </div>
+            <span class="text-success">Kamis, 3 Agustus 2021</span>
+        </div>
+        <!-- Earnings (Monthly) Card Example -->
+        <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock In</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pending Requests Card Example -->
+        <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock Out
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">97</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+</body>
+</html>

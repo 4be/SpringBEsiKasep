@@ -1,13 +1,11 @@
 package com.sekoding.example.demo.dto;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-//validator nomor harus brp , jenis harus apa, dlll
 public class ResponseData<T> {
     private boolean status;
-    private List<String> messages = new ArrayList<>();     //penampung message error
+    private List<String> messages = new ArrayList<>();
     private T payload;
 
     public boolean isStatus() {

@@ -44,7 +44,7 @@ test:
     SPRING_DATASOURCE_PASSWORD: sample_password
   script:
     - mvn $MAVEN_CLI_OPTS test
-    - grep "Total" target/site/jacoco/index.html
+    - grep "Total" target/site/jacoco/dashboard.html
   artifacts:
     when: always
     paths:
