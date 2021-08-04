@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
             for (User user : userList) {
                 UserResponse userResponse = new UserResponse(
                     user.getId(),
+                    user.getNama(),
                     user.getNik(),
                     user.getAlamat(),
                     user.getTanggalLahir(),
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User(
             userRequest.getNik(),
+            userRequest.getNama(),
             userRequest.getNik(),
             userRequest.getAlamat(),
             userRequest.getTanggalLahir(),
@@ -115,7 +117,8 @@ public class UserServiceImpl implements UserService {
 
         UserResponse userResponse = new UserResponse(
             save.getId(),
-            save.getUsername(),
+            save.getNama(),
+            save.getNik(),
             save.getAlamat(),
             save.getTanggalLahir(),
             save.getEmail(),

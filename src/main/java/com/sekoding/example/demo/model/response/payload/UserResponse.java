@@ -11,6 +11,7 @@ import java.util.Set;
 public class UserResponse {
 
     private Long id;
+    private String nama;
     private String nik;
     private String alamat;
     private String tanggalLahir;

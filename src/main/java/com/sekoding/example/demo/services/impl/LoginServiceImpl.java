@@ -43,6 +43,7 @@ public class LoginServiceImpl implements LoginService {
             User user = userRepository.findUserByUsernameOrEmail(loginRequest.getUsername(), loginRequest.getUsername());
             LoginResponse loginResponse = new LoginResponse(
                 user.getId(),
+                user.getNama(),
                 user.getNik(),
                 user.getAlamat(),
                 user.getTanggalLahir(),

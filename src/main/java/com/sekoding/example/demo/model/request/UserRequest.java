@@ -7,6 +7,7 @@ import java.util.Set;
 @Data
 public class UserRequest {
 
+    private String nama;
     private String nik;
     private String alamat;
     private String tanggalLahir;
