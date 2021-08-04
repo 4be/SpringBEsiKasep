@@ -1,15 +1,10 @@
 package com.sekoding.example.demo.model.request;
 
+import lombok.Data;
+
+@Data
 public class RoleRequest {
 
     private String rolename;
-
-    public String getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
-    }
 
 }

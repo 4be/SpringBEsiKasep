@@ -1,7 +1,14 @@
 package com.sekoding.example.demo.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "tbl_roles")
 public class Role {
@@ -13,26 +20,8 @@ public class Role {
     @Column(length = 20)
     private ERole rolename;
 
-    public Role() {
-    }
-
     public Role(ERole rolename) {
         this.rolename = rolename;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public ERole getRolename() {
-        return rolename;
-    }
-
-    public void setRolename(ERole rolename) {
-        this.rolename = rolename;
-    }
 }

@@ -1,7 +1,9 @@
 package com.sekoding.example.demo.model.response;
 
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
+@Data
 public class FailedResponse {
 
     private int status;
@@ -12,19 +14,4 @@ public class FailedResponse {
         this.message = message;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }
