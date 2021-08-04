@@ -17,103 +17,89 @@
     <br>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <!--        <div class="card-header py-3">-->
-        <!--            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i>  Tabel Data Sakit</h6>-->
-        <!--        </div>-->
-        <div class="card-header py-3">
-        </div>
         <div class="card-body">
             <div class="table-responsive">
-                <form th:action="@{/user/}" method="POST">
-                    <table>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <label for="nikKaryawan">NIK</label>
-                                    <input type="text" class="form-control" id="nikKaryawan"
-                                           placeholder="Masukkan NIK Karyawan"
-                                           name="nikKaryawan">
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </td>
-                            <td style="width: 100px"></td>
-                            <td>
-                                <div class="form-group">
-                                    <label for="namaKaryawan">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="namaKaryawan"
-                                           placeholder="Masukkan Nama Lengkap Karyawan"
-                                           name="namaKaryawan">
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </td>
-                            <td style="width: 100px"></td>
-                            <td>
-                                <div class="form-group">
-                                    <label for="idKaryawan">Email</label>
-                                    <input type="text" class="form-control" id="idKaryawan"
-                                           placeholder="Masukkan Email Karyawan"
-                                           name="idKaryawan">
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <label for="idKaryawan">Tanggal Lahir</label>
-                                    <input type="text" class="form-control" id="idKaryawan"
-                                           placeholder="Masukkan Tanggal Lahir Karyawan"
-                                           name="idKaryawan">
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </td>
-                            <td style="width: 100px"></td>
-                            <td>
-                                <div class="form-group">
-                                    <label for="idKaryawan">Alamat</label>
-                                    <input type="text" class="form-control" id="idKaryawan"
-                                           placeholder="Masukkan Alamat Karyawan"
-                                           name="idKaryawan">
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </td>
-                            <td style="width: 100px"></td>
-                            <td>
-                                <div class="form-group">
-                                    <label for="idKaryawan">Role</label>
-                                    <input type="text" class="form-control" id="idKaryawan"
-                                           placeholder="Masukkan Role Karyawan"
-                                           name="idKaryawan">
-                                    <div class="valid-feedback">Valid.</div>
-                                    <div class="invalid-feedback">Please fill out this field.</div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                    <br>
-                    <button type="submit" name="submit" id="kirim" class="btn btn-primary">Submit !</button>
-                    <a th:href="@{/user/}">
-                        <button type="button" name="button" id="kembali" class="btn btn-primary">Kembali
-                        </button>
-                    </a>
-                </form>
+                <table>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="nikKaryawan">NIK</label>
+                                <input type="text" class="form-control" id="nikKaryawan"
+                                       placeholder="Masukkan NIK"
+                                       name="nikKaryawan">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                        <td style="width: 100px"></td>
+                        <td>
+                            <div class="form-group">
+                                <label for="namaKaryawan">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="namaKaryawan"
+                                       placeholder="Masukkan Nama"
+                                       name="namaKaryawan">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                        <td style="width: 100px"></td>
+                        <td>
+                            <div class="form-group">
+                                <label for="emailKaryawan">Email</label>
+                                <input type="email" class="form-control" id="emailKaryawan"
+                                       placeholder="Masukkan Email"
+                                       name="emailKaryawan">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label for="ttlKaryawan">Tanggal Lahir</label>
+                                <input type="date" class="form-control" id="ttlKaryawan"
+                                       placeholder="Masukkan Tanggal Lahir"
+                                       name="ttlKaryawan">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                        <td style="width: 100px"></td>
+                        <td>
+                            <div class="form-group">
+                                <label for="alamatKaryawan">Alamat</label>
+                                <input type="text" class="form-control" id="alamatKaryawan"
+                                       placeholder="Masukkan Alamat"
+                                       name="alamatKaryawan">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                        <td style="width: 100px"></td>
+                        <td>
+                            <div class="form-group">
+                                <label for="roleKaryawan">Role</label>
+                                <br>
+                                <select class="form-select form-select-sm"
+                                        name="roleKaryawan" id="roleKaryawan">
+                                    <option value="EMPLOYEE" selected>Employee</option>
+                                    <option value="MANAGER">Manager</option>
+                                    <option value="HCM">HCM</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <button type="submit" name="submit" id="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
     <script></script>
 </th:block>
 <th:block layout:fragment="custom_script">
-    <script src="/static/js/dataClock.js"></script>
+    <script src="/js/createuser.js"></script>
 </th:block>
-<script>
-    $(document).ready(function () {
-        $('#dataSakitTable').DataTable();
-    });
-</script>
 </body>
 </html>

@@ -19,8 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
@@ -56,29 +56,23 @@
         </div>
 
         <!-- Nav Item - Pages Collapse Menu -->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"-->
-<!--               aria-expanded="true" aria-controls="collapseTwo">-->
-<!--                <i class="fas fa-user-cog"></i>-->
-<!--                <span>Kelola User</span>-->
-<!--            </a>-->
-<!--            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
-<!--                <div class="bg-white py-2 collapse-inner rounded">-->
-<!--                    <a class="collapse-item" th:href="@{/hcms/create}">-->
-<!--                        <i class="fas fa-fw fa-user"></i>&nbsp;<span>Data User</span>-->
-<!--                    </a>-->
-<!--                    <a class="collapse-item" th:href="@{/hcms/create}">-->
-<!--                        <i class="fas fa-fw fa-user-plus"></i>&nbsp;<span>Tambah User</span>-->
-<!--                    </a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </li>-->
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/hcms/create}">
-                <i class="fas fa-fw fa-user-plus"></i>
-                <span>Tambah User</span></a>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+               aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-user-cog"></i>
+                <span>Kelola User</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" th:href="@{/hcms/datauser}">
+                        <i class="fas fa-fw fa-user"></i>&nbsp;<span>Data User</span>
+                    </a>
+                    <a class="collapse-item" th:href="@{/hcms/create}">
+                        <i class="fas fa-fw fa-user-plus"></i>&nbsp;<span>Tambah User</span>
+                    </a>
+                </div>
+            </div>
         </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider">
 
@@ -86,12 +80,6 @@
         <div class="sidebar-heading">
             FITUR
         </div>
-
-        <li class="nav-item">
-            <a class="nav-link" th:href="@{/hcms/datauser}">
-                <i class="fas fa-fw fa-user"></i>
-                <span>Data User</span></a>
-        </li>
 
         <li class="nav-item">
             <a class="nav-link" th:href="@{/hcms/dataclock}">
@@ -144,9 +132,9 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-<!--                <div class="no-arrow mt-2">-->
-<!--                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>-->
-<!--                </div>-->
+                <!--                <div class="no-arrow mt-2">-->
+                <!--                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>-->
+                <!--                </div>-->
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
@@ -232,13 +220,13 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
-                </div>
-            </div>
-        </footer>
+<!--        <footer class="sticky-footer bg-white">-->
+<!--            <div class="container my-auto">-->
+<!--                <div class="copyright text-center my-auto">-->
+<!--                    <span>Copyright &copy; Your Website 2019</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </footer>-->
         <!-- End of Footer -->
     </div>
     <!-- End of Content Wrapper -->

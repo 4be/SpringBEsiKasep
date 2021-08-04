@@ -14,19 +14,14 @@
 <th:block layout:fragment="content">
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800" th:text="${title}"></h1>
-    <h1 id="bebas"></h1>
     <br>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <!--        <div class="card-header py-3">-->
-        <!--            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i>  Tabel Data Sakit</h6>-->
-        <!--        </div>-->
-        <div class="card-header py-3">
-        </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped display select cell-border" id="dataSakitTable"
+                <table class="table table-bordered table-striped display select cell-border" id="dataUser"
                        width="100%" cellspacing="0">
+                    <thead>
                     <tr align="center">
                         <th>No</th>
                         <th>Nik</th>
@@ -37,104 +32,15 @@
                         <th>Role</th>
                         <th>Aksi</th>
                     </tr>
-                    <tr align="center">
-                        <td>1</td>
-                        <td>M00507</td>
-                        <td>Fathur</td>
-                        <td>fathur@test.com</td>
-                        <td>19 Juni 2019</td>
-                        <td>Singkawang</td>
-                        <td>Employee</td>
-                        <td>
-                            <a th:href="@{/user/ubahKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-info">Ubah</button>
-                            </a>
-                            <a th:href="@{/user/deleteKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-danger">Hapus</button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>2</td>
-                        <td>M00508</td>
-                        <td>Syafri</td>
-                        <td>syafri@test.com</td>
-                        <td>19 Juni 2019</td>
-                        <td>Singkawang</td>
-                        <td>Employee</td>
-                        <td>
-                            <a th:href="@{/user/ubahKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-info">Ubah</button>
-                            </a>
-                            <a th:href="@{/user/deleteKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-danger">Hapus</button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>3</td>
-                        <td>M00509</td>
-                        <td>Jordy</td>
-                        <td>jordy@test.com</td>
-                        <td>19 Juni 2019</td>
-                        <td>Singkawang</td>
-                        <td>Employee</td>
-                        <td>
-                            <a th:href="@{/user/ubahKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-info">Ubah</button>
-                            </a>
-                            <a th:href="@{/user/deleteKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-danger">Hapus</button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>4</td>
-                        <td>M00510</td>
-                        <td>Adi</td>
-                        <td>adi@test.com</td>
-                        <td>19 Juni 2019</td>
-                        <td>Singkawang</td>
-                        <td>Employee</td>
-                        <td>
-                            <a th:href="@{/user/ubahKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-info">Ubah</button>
-                            </a>
-                            <a th:href="@{/user/deleteKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-danger">Hapus</button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr align="center">
-                        <td>5</td>
-                        <td>M00511</td>
-                        <td>Ichsan</td>
-                        <td>ichsan@test.com</td>
-                        <td>19 Juni 2019</td>
-                        <td>Singkawang</td>
-                        <td>Employee</td>
-                        <td>
-                            <a th:href="@{/user/ubahKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-info">Ubah</button>
-                            </a>
-                            <a th:href="@{/user/deleteKaryawan(idKaryawan)}">
-                                <button type="button" class="btn btn-danger">Hapus</button>
-                            </a>
-                        </td>
-                    </tr>
+                    </thead>
+                    <tbody id="bodyDataUser"></tbody>
                 </table>
             </div>
         </div>
     </div>
-    <script></script>
 </th:block>
 <th:block layout:fragment="custom_script">
-    <script src="/js/dataClock.js"></script>
+    <script src="/js/datauser.js"></script>
 </th:block>
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--        $('#dataSakitTable').DataTable();-->
-<!--    });-->
-<!--</script>-->
 </body>
 </html>
