@@ -5,13 +5,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class DashboardController {
+public class DataClockController {
 
     private ModelMapper modelMapper;
 
-    @GetMapping("/")
+    @GetMapping("/dataclock")
     public String index(Model model) {
-//        model.addAttribute("message","Jordy 123");
-        return "dashboard";
+        model.addAttribute("title", "Data Clock");
+        return "dataClock/index";
     }
 }
