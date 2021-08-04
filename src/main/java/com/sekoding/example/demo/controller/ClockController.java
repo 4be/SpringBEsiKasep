@@ -31,7 +31,8 @@ public class ClockController {
 
     private ModelMapper modelMapper;
 
-    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset";
+    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
+//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset";
 
     @PostMapping("/clockin")
     public ResponseEntity<ResponseData<Clock>> clockin(@Valid @RequestParam("picture") @RequestBody MultipartFile picture, @ModelAttribute ClockinData clockinData, Errors errors) {
