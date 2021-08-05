@@ -27,7 +27,8 @@ public class KeteranganController {
     @Autowired
     private KeteranganService keteranganService;
 
-    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
+//    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
+    private static String UPLOADED_PATH = "C:/Users/HP/Documents/pusilkom-ui/project-sprint/spring-backend/src/main/resources/static/files/";
 //    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset/";
 
     @PostMapping("/add")

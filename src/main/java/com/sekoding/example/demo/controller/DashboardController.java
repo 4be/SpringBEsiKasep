@@ -14,4 +14,16 @@ public class DashboardController {
         model.addAttribute("title", "Dashboard");
         return "dashboard";
     }
+
+    @GetMapping("/dataketerangan")
+    public String dataKeterangan(Model model) {
+        model.addAttribute("title", "Data Keterangan");
+        return "dataKeterangan/index";
+    }
+
+    @GetMapping("/dataclock")
+    public String dataClock(Model model) {
+        model.addAttribute("title", "Data Clock");
+        return "dataClock/index";
+    }
 }

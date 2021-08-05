@@ -1,11 +1,11 @@
 //var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OSIsImlhdCI6MTYyODA0ODA4OCwiZXhwIjoxNjI4MTM0NDg4fQ.xmosnnHJGUWrts0trjbsR5P4YTuja1-z3PrMdGdG9OirFy7oUKqJoQMtQERIxCi3TggvDDAJj9tz0dgR1xcOPw";
-var temp = null;
+var data = null;
 $(document).ready(function () {
     $.ajax({
         url: "/api/clockin",
         type: "GET",
         success: function (result) {
-            temp = {data: result};
+            data = {data: result};
         },
         error: function (result) {
             console.log(result);
@@ -32,7 +32,7 @@ $(document).ready(function () {
     var table = $('#dataClockTable').DataTable({
         "ajax": {
             "url": '/api/clockin',
-            "dataSrc": temp,
+            "dataSrc": data,
             "type": "GET",
         //  "beforeSend": function (xhr) {
         //      xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
