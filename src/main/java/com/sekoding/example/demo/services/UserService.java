@@ -10,6 +10,10 @@ public interface UserService {
 
     Object getUserById(Long id);
 
+    Object updateUserById(UserRequest userRequest, Long id);
+
     Object deleteUser(Long id);
+
+    Object deleteUserByNik(String nik);
 
 }

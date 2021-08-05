@@ -39,7 +39,8 @@
                                 <label for="nikKaryawan">NIK</label>
                                 <input type="text" class="form-control" id="nikKaryawan"
                                        placeholder="Masukkan NIK"
-                                       name="nikKaryawan">
+                                       name="nikKaryawan"
+                                       th:value="${karyawan.nik}">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -85,17 +86,6 @@
                                 <input type="text" class="form-control" id="alamatKaryawan"
                                        placeholder="Masukkan Alamat"
                                        name="alamatKaryawan">
-                                <div class="valid-feedback">Valid.</div>
-                                <div class="invalid-feedback">Please fill out this field.</div>
-                            </div>
-                        </td>
-                        <td style="width: 100px"></td>
-                        <td>
-                            <div class="form-group">
-                                <label for="divisiKaryawan">Divisi</label>
-                                <input type="text" class="form-control" id="divisiKaryawan"
-                                       placeholder="Masukkan Divisi"
-                                       name="divisiKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>

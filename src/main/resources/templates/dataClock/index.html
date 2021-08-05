@@ -17,13 +17,15 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-<!--        <div class="card-header py-3">-->
-<!--            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i> Tabel Data Clock</h6>-->
-<!--        </div>-->
+        <!--        <div class="card-header py-3">-->
+        <!--            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i> Tabel Data Clock</h6>-->
+        <!--        </div>-->
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped display select cell-border" id="dataClockTable" width="100%" cellspacing="0">
-                    <tr align="center">
+                <table class="table table-bordered table-striped hover row-border compact stripe order-column"
+                       id="dataClockTable" cellspacing="0" style="width:100%">
+                    <thead>
+                    <tr>
                         <th>No</th>
                         <th>Nama</th>
                         <th>Tanggal</th>
@@ -33,14 +35,12 @@
                         <th>Lokasi Clock Out</th>
                         <th>Kondisi Fisik</th>
                         <th>Kondisi Mental</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
                     </tr>
+                    </thead>
                 </table>
             </div>
         </div>
     </div>
-    <script></script>
 </th:block>
 <th:block layout:fragment="custom_script">
     <script src="/js/dataClock.js"></script>
