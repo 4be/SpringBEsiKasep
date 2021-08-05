@@ -129,6 +129,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Object getUserById(Long id) {
+        try {
+            User user = userRepository.findById(id).get();
+            UserResponse userResponse = new UserResponse(
+                user.getId(),
+                user.getNama(),
+                user.getNik(),
+                user.getAlamat(),
+                user.getTanggalLahir(),
+                user.getEmail(),
+                user.getRoles()
+            );
+            return new SuccessResponse(HttpStatus.OK, "Success", userResponse);
+        } catch (Exception e) {
+            return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+
+    @Override
     public Object deleteUser(Long id) {
         try {
             userRepository.deleteById(id);
@@ -137,4 +157,6 @@ public class UserServiceImpl implements UserService {
             return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
+
+
 }

@@ -37,4 +37,8 @@ public class ClockService {
         return clockRepo.findAllDesc();
     }
 
+    public List<Clock> findByIdDesc(Long id){
+        return clockRepo.findByIdDesc(id);
+    }
+
 }

@@ -32,8 +32,8 @@ public class ClockController {
 
     private ModelMapper modelMapper;
 
-    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/demo/public/img/";
-//    private static String UPLOADED_PATH = "/home/joshuamartua/opt/sinarmas/demo/public/img/";
+//    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/clockin")
     public ResponseEntity<ResponseData<Clock>> clockin(@Valid @RequestParam("picture") @RequestBody MultipartFile picture, @ModelAttribute ClockinData clockinData, Errors errors) {
@@ -46,7 +46,8 @@ public class ClockController {
             byte[] bytes = picture.getBytes();
             Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
             Files.write(path, bytes);
-            clockinr.setUrl_foto_clockin(path.toString());
+            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename();
+            clockinr.setUrl_foto_clockin(urlImage);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -69,7 +70,6 @@ public class ClockController {
         responseData.setStatus(true);
         responseData.setPayload(clockService.create(clockinr));
         return ResponseEntity.status(HttpStatus.CREATED).body(responseData);
-//        return ResponseEntity.ok(responseData);
     }
 
 
@@ -84,7 +84,8 @@ public class ClockController {
             byte[] bytes = picture.getBytes();
             Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
             Files.write(path, bytes);
-            clockinr.setUrl_foto_clockout(path.toString());
+            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename();
+            clockinr.setUrl_foto_clockout(urlImage);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -138,9 +139,14 @@ public class ClockController {
         clockService.removeOne(id);
     }
 
-    @GetMapping("/bisas")
+    @GetMapping("/clock/desc")
     public List<Clock> getClockDesc(){
       return clockService.findAllDesc();
+    }
+
+    @GetMapping("clock/last/{id}")
+    public List<Clock> getLastClock(@PathVariable("id") Long id){
+        return clockService.findByIdDesc(id);
     }
 
 }
