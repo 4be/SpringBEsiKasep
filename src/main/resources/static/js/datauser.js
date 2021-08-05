@@ -18,6 +18,7 @@ function awal() {
             "orderable": false,
             "targets": 0
         }],
+        "ScrollX": true,
         "order": [[1, 'asc']],
         "columns": [
             {data: null},

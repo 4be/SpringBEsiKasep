@@ -2,7 +2,7 @@ package com.sekoding.example.demo.services;
 
 import com.sekoding.example.demo.model.request.UserRequest;
 
-public interface UserService {
+public interface UserService  {
 
     Object getAllUser();
 
@@ -15,5 +15,6 @@ public interface UserService {
     Object deleteUser(Long id);
 
     Object deleteUserByNik(String nik);
+
 
 }
