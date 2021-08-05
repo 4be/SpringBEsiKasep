@@ -12,12 +12,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class DashboardControllerTest {
+public class WebControllerTest {
 
     @Autowired
     private final MockMvc mockMvc;
 
-    public DashboardControllerTest(MockMvc mockMvc) {
+    public WebControllerTest(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
     }
 

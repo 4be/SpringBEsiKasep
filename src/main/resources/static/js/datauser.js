@@ -9,7 +9,7 @@ $(document).ready(function () {
 function awal() {
     var t = $('#dataUser').DataTable({
         "ajax": {
-            "url": "/api/user/",
+            "url": "/api/user/list",
             "type": "GET",
             "data": "data",
         },
@@ -18,6 +18,7 @@ function awal() {
             "orderable": false,
             "targets": 0
         }],
+        "ScrollX": true,
         "order": [[1, 'asc']],
         "columns": [
             {data: null},

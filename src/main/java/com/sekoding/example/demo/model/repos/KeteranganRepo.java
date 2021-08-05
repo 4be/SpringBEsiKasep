@@ -1,9 +1,17 @@
 package com.sekoding.example.demo.model.repos;
 
+import com.sekoding.example.demo.model.entity.Clock;
 import com.sekoding.example.demo.model.entity.Keterangan;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.websocket.server.PathParam;
+import java.util.List;
+
 public interface KeteranganRepo extends CrudRepository<Keterangan,Long> {
+
+    @Query(value = "SELECT * FROM tbl_keterangan WHERE tbl_keterangan.user_id_id=:masuk ORDER BY id DESC LIMIT 10;", nativeQuery = true)
+    public List<Keterangan> findKesByIdDesc(@PathParam("masuk") Long masuk);
 
 
 }

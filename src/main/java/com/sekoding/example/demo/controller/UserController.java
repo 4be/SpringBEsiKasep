@@ -15,19 +15,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public ResponseEntity<Object> getAllUser() {
         Object data = userService.getAllUser();
         return ResponseEntity.ok(data);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserRequest userRequest) {
         Object data = userService.createUser(userRequest);
         return ResponseEntity.ok(data);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Object> getUserById(@PathVariable Long id) {
         Object data = userService.getUserById(id);
         return ResponseEntity.ok(data);
@@ -39,7 +39,8 @@ public class UserController {
         return ResponseEntity.ok(data);
     }
 
-    @DeleteMapping("/{id}")
+
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         Object data = userService.deleteUser(id);
         return ResponseEntity.ok(data);

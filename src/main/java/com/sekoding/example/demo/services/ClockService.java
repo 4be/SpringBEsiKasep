@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 @Service
 @Transactional
 public class ClockService {
@@ -28,6 +32,14 @@ public class ClockService {
 
     public void removeOne(Long id) {
         clockRepo.deleteById(id);
+    }
+
+    public List<Clock> findAllDesc(){
+        return clockRepo.findAllDesc();
+    }
+
+    public List<Clock> findByIdDesc(Long id){
+        return clockRepo.findByIdDesc(id);
     }
 
 }

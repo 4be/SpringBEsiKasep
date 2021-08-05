@@ -14,15 +14,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 @Controller
-public class DashboardController {
+public class WebController {
 
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping("/hcms/")
+    @GetMapping("/")
+    public String login(Model model) {
+        model.addAttribute("title", "Login");
+        return "login";
+    }
+
+    @GetMapping("/hcms")
     public String index(Model model) {
         model.addAttribute("title", "Dashboard");
         return "dashboard";
+    }
+
+    @GetMapping("/hcms/dataketerangan")
+    public String dataKeterangan(Model model) {
+        model.addAttribute("title", "Data Keterangan");
+        return "dataKeterangan/index";
+    }
+
+    @GetMapping("/hcms/dataclock")
+    public String index2(Model model) {
+        model.addAttribute("title", "Data Clock");
+        return "dataClock/index";
     }
 
     @GetMapping("/hcms/create")
@@ -43,17 +61,5 @@ public class DashboardController {
     public String dataUser(Model model) {
         model.addAttribute("title", "Data User");
         return "data_user";
-    }
-
-    @GetMapping("/hcms/dataketerangan")
-    public String dataKeterangan(Model model) {
-        model.addAttribute("title", "Data Keterangan");
-        return "dataKeterangan/index";
-    }
-
-    @GetMapping("/hcms/dataclock")
-    public String dataClock(Model model) {
-        model.addAttribute("title", "Data Clock");
-        return "dataClock/index";
     }
 }
