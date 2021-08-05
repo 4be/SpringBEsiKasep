@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 @RestController
@@ -31,8 +32,8 @@ public class ClockController {
 
     private ModelMapper modelMapper;
 
-    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
-//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset";
+    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/demo/public/img/";
+//    private static String UPLOADED_PATH = "/home/joshuamartua/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/clockin")
     public ResponseEntity<ResponseData<Clock>> clockin(@Valid @RequestParam("picture") @RequestBody MultipartFile picture, @ModelAttribute ClockinData clockinData, Errors errors) {
@@ -67,7 +68,8 @@ public class ClockController {
 
         responseData.setStatus(true);
         responseData.setPayload(clockService.create(clockinr));
-        return ResponseEntity.ok(responseData);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseData);
+//        return ResponseEntity.ok(responseData);
     }
 
 
@@ -136,6 +138,10 @@ public class ClockController {
         clockService.removeOne(id);
     }
 
+    @GetMapping("/bisas")
+    public List<Clock> getClockDesc(){
+      return clockService.findAllDesc();
+    }
 
 }
 

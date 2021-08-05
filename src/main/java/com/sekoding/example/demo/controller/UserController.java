@@ -15,13 +15,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
+    @GetMapping("/list")
     public ResponseEntity<Object> getAllUser() {
         Object data = userService.getAllUser();
         return ResponseEntity.ok(data);
     }
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<?> addUser(@Valid @RequestBody UserRequest userRequest) {
         Object data = userService.createUser(userRequest);
         return ResponseEntity.ok(data);
