@@ -12,6 +12,7 @@ public class DashboardController {
 
     @GetMapping("/hcms/")
     public String index(Model model) {
+        model.addAttribute("title", "Dashboard");
         return "dashboard";
     }
 
