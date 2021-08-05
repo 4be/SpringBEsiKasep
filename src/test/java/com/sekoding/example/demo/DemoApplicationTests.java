@@ -3,7 +3,6 @@ package com.sekoding.example.demo;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.sekoding.example.demo.controller.DashboardController;
-import com.sekoding.example.demo.controller.HelloWorldController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

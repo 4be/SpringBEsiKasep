@@ -25,18 +25,6 @@ public class DashboardController {
         return "dashboard";
     }
 
-    @GetMapping("/hcms/dataclock")
-    public String index2(Model model) {
-        model.addAttribute("title", "Data Clock");
-        return "dataClock/index";
-    }
-
-    @GetMapping("/hcms/datasakit")
-    public String dataSakit(Model model) {
-        model.addAttribute("title", "Data Keterangan Sakit");
-        return "data_sakit";
-    }
-
     @GetMapping("/hcms/create")
     public String createUser(Model model) {
         model.addAttribute("title", "Tambah User");
@@ -55,5 +43,17 @@ public class DashboardController {
     public String dataUser(Model model) {
         model.addAttribute("title", "Data User");
         return "data_user";
+    }
+
+    @GetMapping("/hcms/dataketerangan")
+    public String dataKeterangan(Model model) {
+        model.addAttribute("title", "Data Keterangan");
+        return "dataKeterangan/index";
+    }
+
+    @GetMapping("/hcms/dataclock")
+    public String dataClock(Model model) {
+        model.addAttribute("title", "Data Clock");
+        return "dataClock/index";
     }
 }
