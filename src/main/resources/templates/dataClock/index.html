@@ -12,9 +12,6 @@
 
 <th:block layout:fragment="content">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800" th:text="${title}"></h1>
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -22,43 +19,24 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped display select cell-border" id="dataClockTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-striped hover row-border compact stripe order-column" id="dataClockTable" cellspacing="0" style="width:100%">
                     <thead>
-                    <tr align="center">
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Tanggal</th>
-                        <th>Waktu Clock In</th>
-                        <th>Lokasi Clock In</th>
-                        <th>Waktu Clock Out</th>
-                        <th>Lokasi Clock Out</th>
-                        <th>Kondisi Fisik</th>
-                        <th>Kondisi Mental</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Tanggal</th>
+                            <th>Waktu Clock In</th>
+                            <th>Lokasi Clock In</th>
+                            <th>Waktu Clock Out</th>
+                            <th>Lokasi Clock Out</th>
+                            <th>Kondisi Fisik</th>
+                            <th>Kondisi Mental</th>
+                        </tr>
                     </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                    <tr align="center">
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Tanggal</th>
-                        <th>Waktu Clock In</th>
-                        <th>Lokasi Clock In</th>
-                        <th>Waktu Clock Out</th>
-                        <th>Lokasi Clock Out</th>
-                        <th>Kondisi Fisik</th>
-                        <th>Kondisi Mental</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
-    <script></script>
 </th:block>
 <th:block layout:fragment="custom_script">
     <script src="/js/dataClock.js"></script>
