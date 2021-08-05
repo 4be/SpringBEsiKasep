@@ -28,14 +28,17 @@ function awal() {
             {data: "tanggalLahir"},
             {data: "alamat"},
             {data: "divisi"},
-            {data: "roles[0].rolename"},
+            {data: "role"},
             {
                 data: "nik",
                 render: function (data) {
-                    return '<div style="">' +
-                        '<a href="/hcms/update/' + data + '" style="display: inline-block;"><button id="' + data + '" class="btn btn-info">Edit</button></a>' +
-                        '&ensp;' +
-                        '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger" style="display: inline-block;">Delete</button>'
+                    return '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info">Ubah</button></a>'
+                }
+            },
+            {
+                data: "nik",
+                render: function (data) {
+                    return '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger">Hapus</button>'
                 }
             }
         ],
