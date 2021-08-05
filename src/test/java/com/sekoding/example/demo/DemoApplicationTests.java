@@ -11,14 +11,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class DemoApplicationTests {
 
-    @Autowired
-    private HelloWorldController helloWorldController;
-    private DashboardController dashboardController;
-
-    @Test
-    @DisplayName("Autowiring beans berfungsi")
-    void contextLoads() {
-        assertThat(dashboardController).isNotNull();
-    }
+//    @Autowired
+//    private HelloWorldController helloWorldController;
+//    private DashboardController dashboardController;
+//
+//    @Test
+//    @DisplayName("Autowiring beans berfungsi")
+//    void contextLoads() {
+//        assertThat(dashboardController).isNotNull();
+//    }
 
 }

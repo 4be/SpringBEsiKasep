@@ -18,22 +18,16 @@ $("#submit").click(function () {
             "}";
 
         $.ajax({
-            url: '/api/user/',
-            type: 'POST',
+            url: '/api/user/' + $("#nikKaryawan").val(),
+            type: 'PATCH',
             data: user,
             dataType: 'json',
             contentType: 'application/json',
             success: function (result) {
                 if (result.status == 200) {
-                    $("#sisukses").show();
-                    setTimeout(function () {
-                        location.href = "/hcms/datauser";
-                    }, 1000);
+                    location.href = "/hcms/datauser";
                 } else {
-                    $("#sigagal").show();
-                    setTimeout(function () {
-                        location.reload();
-                    }, 1000)
+                    window.location = window.location;
                 }
             }
         });

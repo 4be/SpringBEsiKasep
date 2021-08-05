@@ -10,7 +10,7 @@ public interface UserService {
 
     Object getUserById(Long id);
 
-    Object updateUserById(UserRequest userRequest, Long id);
+    Object updateUserByNik(UserRequest userRequest, String nik);
 
     Object deleteUser(Long id);
 
