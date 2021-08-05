@@ -14,6 +14,6 @@ public class UserRequest {
     private String email;
     private String password;
     private String divisi;
-    private Set<String> role;
+    private String role;
 
 }

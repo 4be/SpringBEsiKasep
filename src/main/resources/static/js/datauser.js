@@ -27,14 +27,17 @@ function awal() {
             {data: "tanggalLahir"},
             {data: "alamat"},
             {data: "divisi"},
-            {data: "roles[0].rolename"},
+            {data: "role"},
             {
                 data: "nik",
                 render: function (data) {
-                    return '' +
-                        '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info">Edit</button></a>' +
-                        '&ensp;' +
-                        '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger">Delete</button>'
+                    return '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info">Ubah</button></a>'
+                }
+            },
+            {
+                data: "nik",
+                render: function (data) {
+                    return '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger">Hapus</button>'
                 }
             }
         ],
@@ -52,7 +55,7 @@ function deleteUser(obj) {
     var confir = confirm("Apakah anda yakin akan menghapus data user ?");
     if (confir == true) {
         $.ajax({
-            url: "/api/user/nik/" + nik,
+            url: "/api/user/" + nik,
             type: "DELETE",
             success: function () {
                 window.scrollTo(0, 0);

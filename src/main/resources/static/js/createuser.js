@@ -13,7 +13,7 @@ $("#submit").click(function () {
             "\"tanggalLahir\" : \"" + $("#ttlKaryawan").val() + "\"," +
             "\"alamat\" : \"" + $("#alamatKaryawan").val() + "\"," +
             "\"divisi\" : \"" + $("#divisiKaryawan").val() + "\"," +
-            "\"role\": [\"" + $("#roleKaryawan").val() + "\"]," +
+            "\"role\": \"" + $("#roleKaryawan").val() + "\"," +
             "\"password\" : \"" + $("#nikKaryawan").val() + "\"" +
             "}";
 

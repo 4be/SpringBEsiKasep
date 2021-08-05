@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
                     user.getTanggalLahir(),
                     user.getEmail(),
                     user.getDivisi(),
-                    user.getRoles()
+                    user.getRoles().iterator().next().getRolename().toString()
                 );
                 UserResponseList.add(userResponse);
             }
@@ -75,6 +75,21 @@ public class UserServiceImpl implements UserService {
             );
         }
 
+        Set<Role> roles = new HashSet<>();
+        switch (userRequest.getRole()) {
+            case "HCM":
+                Role adminRole = roleRepository.findByRolename(ERole.HCM);
+                roles.add(adminRole);
+                break;
+            case "MANAGER":
+                Role modRole = roleRepository.findByRolename(ERole.MANAGER);
+                roles.add(modRole);
+                break;
+            default:
+                Role defRole = roleRepository.findByRolename(ERole.EMPLOYEE);
+                roles.add(defRole);
+        }
+
         User user = new User(
             userRequest.getNik(),
             userRequest.getNama(),
@@ -85,36 +100,10 @@ public class UserServiceImpl implements UserService {
             encoder.encode(
                 userRequest.getPassword()
             ),
-            userRequest.getDivisi()
+            userRequest.getDivisi(),
+            roles
         );
 
-        Set<String> strRoles = userRequest.getRole();
-        Set<Role> roles = new HashSet<>();
-
-        if (strRoles.isEmpty()) {
-            FailedResponse response = new FailedResponse(
-                HttpStatus.BAD_REQUEST, "Role tidak boleh kosong!"
-            );
-            return response;
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "HCM":
-                        Role adminRole = roleRepository.findByRolename(ERole.HCM);
-                        roles.add(adminRole);
-                        break;
-                    case "MANAGER":
-                        Role modRole = roleRepository.findByRolename(ERole.MANAGER);
-                        roles.add(modRole);
-                        break;
-                    default:
-                        Role defRole = roleRepository.findByRolename(ERole.EMPLOYEE);
-                        roles.add(defRole);
-                }
-            });
-        }
-
-        user.setRoles(roles);
         User save = userRepository.save(user);
 
         UserResponse userResponse = new UserResponse(
@@ -125,7 +114,7 @@ public class UserServiceImpl implements UserService {
             save.getTanggalLahir(),
             save.getEmail(),
             save.getDivisi(),
-            roles
+            user.getRoles().iterator().next().getRolename().toString()
         );
 
         return new SuccessResponse(HttpStatus.OK, "Success", userResponse);
@@ -143,7 +132,7 @@ public class UserServiceImpl implements UserService {
                 user.getTanggalLahir(),
                 user.getEmail(),
                 user.getDivisi(),
-                user.getRoles()
+                user.getRoles().iterator().next().getRolename().toString()
             );
             return new SuccessResponse(HttpStatus.OK, "Success", userResponse);
         } catch (Exception e) {
@@ -156,39 +145,30 @@ public class UserServiceImpl implements UserService {
         try {
             User user = userRepository.findUserByNik(nik);
 
+            Set<Role> roles = new HashSet<>();
+            switch (userRequest.getRole()) {
+                case "HCM":
+                    Role adminRole = roleRepository.findByRolename(ERole.HCM);
+                    roles.add(adminRole);
+                    break;
+                case "MANAGER":
+                    Role modRole = roleRepository.findByRolename(ERole.MANAGER);
+                    roles.add(modRole);
+                    break;
+                default:
+                    Role defRole = roleRepository.findByRolename(ERole.EMPLOYEE);
+                    roles.add(defRole);
+            }
+
             user.setNama(userRequest.getNama());
             user.setAlamat(userRequest.getAlamat());
             user.setTanggalLahir(userRequest.getTanggalLahir());
             user.setEmail(userRequest.getEmail());
             user.setDivisi(userRequest.getDivisi());
-
-            Set<String> strRoles = userRequest.getRole();
-            Set<Role> roles = new HashSet<>();
-            if (strRoles.isEmpty()) {
-                FailedResponse response = new FailedResponse(
-                    HttpStatus.BAD_REQUEST, "Role tidak boleh kosong!"
-                );
-                return response;
-            } else {
-                strRoles.forEach(role -> {
-                    switch (role) {
-                        case "HCM":
-                            Role adminRole = roleRepository.findByRolename(ERole.HCM);
-                            roles.add(adminRole);
-                            break;
-                        case "MANAGER":
-                            Role modRole = roleRepository.findByRolename(ERole.MANAGER);
-                            roles.add(modRole);
-                            break;
-                        default:
-                            Role defRole = roleRepository.findByRolename(ERole.EMPLOYEE);
-                            roles.add(defRole);
-                    }
-                });
-            }
-
             user.setRoles(roles);
+
             User save = userRepository.save(user);
+
             UserResponse userResponse = new UserResponse(
                 save.getId(),
                 user.getNama(),
@@ -197,7 +177,7 @@ public class UserServiceImpl implements UserService {
                 user.getTanggalLahir(),
                 user.getEmail(),
                 user.getDivisi(),
-                user.getRoles()
+                user.getRoles().iterator().next().getRolename().toString()
             );
             return new SuccessResponse(HttpStatus.OK, "Updated", userResponse);
         } catch (Exception e) {
