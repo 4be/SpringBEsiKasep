@@ -34,10 +34,10 @@ class Clock implements Serializable {
     @Column(length = 100)
     private String location_clockout;
 
-    @Column(length = 100)
+    @Column(length = 300)
     private String url_foto_clockin;
 
-    @Column(length = 100)
+    @Column(length = 300)
     private String url_foto_clockout;
 
     @Column(length = 10)

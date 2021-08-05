@@ -6,6 +6,7 @@ import com.sekoding.example.demo.model.entity.User;
 import com.sekoding.example.demo.model.request.UserRequest;
 import com.sekoding.example.demo.model.response.FailedResponse;
 import com.sekoding.example.demo.model.response.SuccessResponse;
+import com.sekoding.example.demo.model.response.payload.RoleResponse;
 import com.sekoding.example.demo.model.response.payload.UserResponse;
 import com.sekoding.example.demo.repository.RoleRepository;
 import com.sekoding.example.demo.repository.UserRepository;
@@ -47,6 +48,7 @@ public class UserServiceImpl implements UserService {
                     user.getAlamat(),
                     user.getTanggalLahir(),
                     user.getEmail(),
+                    user.getDivisi(),
                     user.getRoles()
                 );
                 UserResponseList.add(userResponse);
@@ -83,7 +85,8 @@ public class UserServiceImpl implements UserService {
             userRequest.getEmail(),
             encoder.encode(
                 userRequest.getPassword()
-            )
+            ),
+            userRequest.getDivisi()
         );
 
         Set<String> strRoles = userRequest.getRole();
@@ -122,6 +125,7 @@ public class UserServiceImpl implements UserService {
             save.getAlamat(),
             save.getTanggalLahir(),
             save.getEmail(),
+            save.getDivisi(),
             roles
         );
 
@@ -129,9 +133,65 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Object getUserById(Long id) {
+        try {
+            User user = userRepository.findById(id).get();
+            UserResponse userResponse = new UserResponse(
+                user.getId(),
+                user.getNama(),
+                user.getNik(),
+                user.getAlamat(),
+                user.getTanggalLahir(),
+                user.getEmail(),
+                user.getDivisi(),
+                user.getRoles()
+            );
+            return new SuccessResponse(HttpStatus.OK, "Success", userResponse);
+        } catch (Exception e) {
+            return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public Object updateUserById(UserRequest userRequest, Long id) {
+        try {
+            User user = userRepository.findById(id).get();
+            user.setUsername(userRequest.getNik());
+            user.setNama(userRequest.getNama());
+            user.setNik(userRequest.getNik());
+            user.setAlamat(userRequest.getAlamat());
+            User save = userRepository.save(user);
+            UserResponse userResponse = new UserResponse(
+                save.getId(),
+                user.getNama(),
+                user.getNik(),
+                user.getAlamat(),
+                user.getTanggalLahir(),
+                user.getEmail(),
+                user.getDivisi(),
+                user.getRoles()
+            );
+            return new SuccessResponse(HttpStatus.OK, "Updated", userResponse);
+        } catch (Exception e) {
+            return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
     public Object deleteUser(Long id) {
         try {
             userRepository.deleteById(id);
+            return new SuccessResponse(HttpStatus.OK, "Deleted", "");
+        } catch (Exception e) {
+            return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public Object deleteUserByNik(String nik) {
+        try {
+            User user = userRepository.findUserByNik(nik);
+            userRepository.deleteById(user.getId());
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
             return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

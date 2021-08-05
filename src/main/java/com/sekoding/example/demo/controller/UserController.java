@@ -22,14 +22,32 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> addUser(@Valid @RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
         Object data = userService.createUser(userRequest);
+        return ResponseEntity.ok(data);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getUserById(@PathVariable Long id) {
+        Object data = userService.getUserById(id);
+        return ResponseEntity.ok(data);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateUser(@RequestBody UserRequest userRequest, @PathVariable Long id) {
+        Object data = userService.updateUserById(userRequest, id);
         return ResponseEntity.ok(data);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         Object data = userService.deleteUser(id);
+        return ResponseEntity.ok(data);
+    }
+
+    @DeleteMapping("/nik/{nik}")
+    public ResponseEntity<Object> deleteUserBYNik(@PathVariable String nik) {
+        Object data = userService.deleteUserByNik(nik);
         return ResponseEntity.ok(data);
     }
 }

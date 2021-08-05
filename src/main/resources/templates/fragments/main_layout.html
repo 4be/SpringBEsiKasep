@@ -16,18 +16,18 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-<!--    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">-->
+    <!--    <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">-->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
+        <link href="/css/custom.css" rel="stylesheet">
 </head>
 <body id="page-top">
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
@@ -42,7 +42,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" th:href="@{/}">
+            <a class="nav-link" th:href="@{/hcms/}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -64,16 +64,15 @@
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="#">
+                    <a class="collapse-item" th:href="@{/hcms/datauser}">
                         <i class="fas fa-fw fa-user"></i>&nbsp;<span>Data User</span>
                     </a>
-                    <a class="collapse-item" href="#">
+                    <a class="collapse-item" th:href="@{/hcms/create}">
                         <i class="fas fa-fw fa-user-plus"></i>&nbsp;<span>Tambah User</span>
                     </a>
                 </div>
             </div>
         </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider">
 
@@ -83,14 +82,14 @@
         </div>
 
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/dataclock}">
+            <a class="nav-link" th:href="@{/hcms/dataclock}">
                 <i class="fas fa-fw fa-user-clock"></i>
                 <span>Data Clock In/Out</span></a>
         </li>
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" th:href="@{/dataketerangan}">
+            <a class="nav-link" th:href="@{/hcms/dataketerangan}">
                 <i class="fas fa-fw fa-head-side-cough"></i>
                 <span>Data Keterangan Sakit</span>
             </a>
@@ -111,6 +110,14 @@
             </a>
         </li>
 
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <!--        <div class="text-center d-none d-md-inline">-->
+        <!--            <button class="rounded-circle border-0" id="sidebarToggle"></button>-->
+        <!--        </div>-->
+
     </ul>
     <!-- End of Sidebar -->
 
@@ -125,20 +132,20 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
-                <div class="no-arrow mt-2">
-                    <h1 class="h3 mb-0 text-gray-800" th:text="${title}"></h1>
-                </div>
+                <!--                <div class="no-arrow mt-2">-->
+                <!--                    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>-->
+                <!--                </div>-->
 
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
-                        </a>
+                        <!--                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"-->
+                        <!--                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                        <!--                            <i class="fas fa-bell fa-fw"></i>-->
+                        <!--                            &lt;!&ndash; Counter - Alerts &ndash;&gt;-->
+                        <!--                            <span class="badge badge-danger badge-counter">3+</span>-->
+                        <!--                        </a>-->
                         <!-- Dropdown - Alerts -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="alertsDropdown">
@@ -200,9 +207,7 @@
                             </a>
                         </div>
                     </li>
-
                 </ul>
-
             </nav>
             <!-- End of Topbar -->
 
@@ -215,18 +220,16 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2019</span>
-                </div>
-            </div>
-        </footer>
+        <!--        <footer class="sticky-footer bg-white">-->
+        <!--            <div class="container my-auto">-->
+        <!--                <div class="copyright text-center my-auto">-->
+        <!--                    <span>Copyright &copy; Your Website 2019</span>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </footer>-->
         <!-- End of Footer -->
-
     </div>
     <!-- End of Content Wrapper -->
-
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
@@ -240,15 +243,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-body">Apakah anda yakin untuk Logout?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" th:href="@{/}">Logout</a>
             </div>
         </div>
     </div>

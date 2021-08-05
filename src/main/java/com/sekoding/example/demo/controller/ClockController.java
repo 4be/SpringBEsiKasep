@@ -31,8 +31,8 @@ public class ClockController {
 
     private ModelMapper modelMapper;
 
-    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
-//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset";
+    //    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img";
+    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset/";
 
     @PostMapping("/clockin")
     public ResponseEntity<ResponseData<Clock>> clockin(@Valid @RequestParam("picture") MultipartFile picture, @ModelAttribute ClockinData clockinData, Errors errors) {
@@ -110,7 +110,7 @@ public class ClockController {
 
     @PostMapping("/clocking")
     public ResponseEntity<ResponseData<Clock>> clocking(@Valid @RequestBody ClockinData clockinData, Errors errors) {
-        ResponseData<Clock>responseData = new ResponseData<>();
+        ResponseData<Clock> responseData = new ResponseData<>();
         Clock clockinr = new Clock();
         Date date = new Date();
 
@@ -137,7 +137,7 @@ public class ClockController {
     @PostMapping("/clockoutg")
     public ResponseEntity<ResponseData<Clock>> clockoutg(@Valid @RequestBody ClockoutData clockoutData, Errors errors) {
 
-        ResponseData<Clock>responseData = new ResponseData<>();
+        ResponseData<Clock> responseData = new ResponseData<>();
         Clock clockinr = new Clock();
         Date date = new Date();
 
@@ -161,12 +161,6 @@ public class ClockController {
         responseData.setPayload(clockService.create(clockinr));
         return ResponseEntity.ok(responseData);
     }
-
-
-
-
-
-
 
 
     @GetMapping("/clockin")

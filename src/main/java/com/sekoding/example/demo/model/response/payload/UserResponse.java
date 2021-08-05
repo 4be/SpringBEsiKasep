@@ -16,6 +16,7 @@ public class UserResponse {
     private String alamat;
     private String tanggalLahir;
     private String email;
+    private String divisi;
     private Set<Role> roles;
 
 }
