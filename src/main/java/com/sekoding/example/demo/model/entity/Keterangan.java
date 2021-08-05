@@ -18,9 +18,6 @@ public class Keterangan implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10)
-    private Long user_id;
-
     private LocalDate start_date;
 
     private LocalDate end_date;
@@ -30,6 +27,9 @@ public class Keterangan implements Serializable {
 
     @Column(length = 300)
     private String description;
+
+    @ManyToOne
+    private User user_id;
 
 
 }
