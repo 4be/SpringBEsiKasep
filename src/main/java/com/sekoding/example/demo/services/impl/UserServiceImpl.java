@@ -6,7 +6,6 @@ import com.sekoding.example.demo.model.entity.User;
 import com.sekoding.example.demo.model.request.UserRequest;
 import com.sekoding.example.demo.model.response.FailedResponse;
 import com.sekoding.example.demo.model.response.SuccessResponse;
-import com.sekoding.example.demo.model.response.payload.RoleResponse;
 import com.sekoding.example.demo.model.response.payload.UserResponse;
 import com.sekoding.example.demo.repository.RoleRepository;
 import com.sekoding.example.demo.repository.UserRepository;
@@ -153,13 +152,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Object updateUserById(UserRequest userRequest, Long id) {
+    public Object updateUserByNik(UserRequest userRequest, String nik) {
         try {
-            User user = userRepository.findById(id).get();
-            user.setUsername(userRequest.getNik());
+            User user = userRepository.findUserByNik(nik);
+
             user.setNama(userRequest.getNama());
-            user.setNik(userRequest.getNik());
             user.setAlamat(userRequest.getAlamat());
+            user.setTanggalLahir(userRequest.getTanggalLahir());
+            user.setEmail(userRequest.getEmail());
+            user.setDivisi(userRequest.getDivisi());
+
+            Set<String> strRoles = userRequest.getRole();
+            Set<Role> roles = new HashSet<>();
+            if (strRoles.isEmpty()) {
+                FailedResponse response = new FailedResponse(
+                    HttpStatus.BAD_REQUEST, "Role tidak boleh kosong!"
+                );
+                return response;
+            } else {
+                strRoles.forEach(role -> {
+                    switch (role) {
+                        case "HCM":
+                            Role adminRole = roleRepository.findByRolename(ERole.HCM);
+                            roles.add(adminRole);
+                            break;
+                        case "MANAGER":
+                            Role modRole = roleRepository.findByRolename(ERole.MANAGER);
+                            roles.add(modRole);
+                            break;
+                        default:
+                            Role defRole = roleRepository.findByRolename(ERole.EMPLOYEE);
+                            roles.add(defRole);
+                    }
+                });
+            }
+
+            user.setRoles(roles);
             User save = userRepository.save(user);
             UserResponse userResponse = new UserResponse(
                 save.getId(),

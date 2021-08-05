@@ -12,49 +12,13 @@ function awal() {
             "url": "/api/user/",
             "type": "GET",
             "data": "data",
-            // "columns": [
-            //     {data: 'nik'},
-            //     {data: 'nama'},
-            //     {data: 'email'},
-            //     {data: 'tanggalLahir'},
-            //     {data: 'alamat'},
-            //     // {"data": 'roles.rolename'},
-            // ],
-            // columnDefs: [{
-            //     "defaultContent": "-",
-            //     "targets": "_all"
-            // }]
-            // success: function (result) {
-            //     var data = result.data;
-            //     var hasil = '';
-            //     $.each(data, function (i, item) {
-            //         var j = i + 1;
-            //         hasil += "<tr align=\"center\">\n" +
-            //             "<td>" + j + "</td>\n" +
-            //             "<td>" + data[i].nik + "</td>\n" +
-            //             "<td>" + data[i].nama + "</td>\n" +
-            //             "<td>" + data[i].email + "</td>\n" +
-            //             "<td>" + data[i].tanggalLahir + "</td>\n" +
-            //             "<td>" + data[i].alamat + "</td>\n" +
-            //             "<td>" + data[i].roles[0].rolename + "</td>\n" +
-            //             "<td>\n" +
-            //             "<button onclick=\"myFunction()\" type=\"button\" class=\"btn btn-info\">Ubah</button>\n" +
-            //             "<br><br>\n" +
-            //             "<button onclick=\"deleteUser(" + data[i].id + ")\" type=\"button\" class=\"btn btn-danger\">Hapus</button>\n" +
-            //             "</td>\n" +
-            //             "</tr>";
-            //     });
-            //     $("#bodyDataUser").html(hasil);
-            // },
-            // error: function (result) {
-            //     console.log(result);
-            // }
         },
         "columnDefs": [{
             "searchable": false,
             "orderable": false,
             "targets": 0
         }],
+        "ScrollX": true,
         "order": [[1, 'asc']],
         "columns": [
             {data: null},
@@ -63,14 +27,15 @@ function awal() {
             {data: "email"},
             {data: "tanggalLahir"},
             {data: "alamat"},
+            {data: "divisi"},
             {data: "roles[0].rolename"},
             {
                 data: "nik",
                 render: function (data) {
-                    return '' +
-                        '<button id="' + data + '" onclick="editClick(this)" type="button" class="btn btn-info">Edit</button>' +
+                    return '<div style="">' +
+                        '<a href="/hcms/update/' + data + '" style="display: inline-block;"><button id="' + data + '" class="btn btn-info">Edit</button></a>' +
                         '&ensp;' +
-                        '<button id="' + data + '" onclick="deleteUser(this)" type="button" class="btn btn-danger">Delete</button>'
+                        '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger" style="display: inline-block;">Delete</button>'
                 }
             }
         ],
@@ -102,12 +67,4 @@ function deleteUser(obj) {
             }
         });
     }
-}
-
-function editClick(obj) {
-    var nik = $(obj).attr('id');
-    $.ajax({
-        url: "/hcms/update/" + nik,
-        type: "GET"
-    })
 }

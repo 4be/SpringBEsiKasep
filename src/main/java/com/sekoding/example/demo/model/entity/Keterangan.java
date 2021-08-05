@@ -1,16 +1,11 @@
 package com.sekoding.example.demo.model.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Setter
@@ -35,7 +30,6 @@ public class Keterangan implements Serializable {
 
     @Column(length = 300)
     private String description;
-
 
 
 }

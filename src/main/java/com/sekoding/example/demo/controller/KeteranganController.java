@@ -26,22 +26,22 @@ public class KeteranganController {
 
     @Autowired
     private KeteranganService keteranganService;
-
 //    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
-    private static String UPLOADED_PATH = "C:/Users/HP/Documents/pusilkom-ui/project-sprint/spring-backend/src/main/resources/static/files/";
+//    private static String UPLOADED_PATH = "C:/Users/HP/Documents/pusilkom-ui/project-sprint/spring-backend/src/main/resources/static/files/";
+    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
 //    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset/";
 
     @PostMapping("/add")
     public ResponseEntity<ResponseData<Keterangan>> addket(@Valid @RequestParam("files") MultipartFile files, @ModelAttribute KeteranganData keteranganData, Errors errors) {
 
-        ResponseData<Keterangan>responseData = new ResponseData<>();
+        ResponseData<Keterangan> responseData = new ResponseData<>();
         Keterangan keterangan = new Keterangan();
         Date date = new Date();
 
         try {
             byte[] bytes = files.getBytes();
             Path path = Paths.get((UPLOADED_PATH) + files.getOriginalFilename());
-            Files.write(path,bytes);
+            Files.write(path, bytes);
             keterangan.setFiles(path.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -68,25 +68,19 @@ public class KeteranganController {
     }
 
     @GetMapping("/list")
-    public Iterable<Keterangan> findAll(){
+    public Iterable<Keterangan> findAll() {
         return keteranganService.findAll();
     }
 
     @GetMapping("/list/id/{id}")
-    public Keterangan findOne(@PathVariable("id") Long id){
+    public Keterangan findOne(@PathVariable("id") Long id) {
         return keteranganService.findByid(id);
     }
 
     @DeleteMapping("/delete/id/{id}")
-    public void removeOne(@PathVariable("id") Long id){
+    public void removeOne(@PathVariable("id") Long id) {
         keteranganService.removeOne(id);
     }
-
-
-
-
-
-
 
 
 }
