@@ -4,15 +4,16 @@ $(document).ready(function () {
     $.ajax({
         url: "/api/keterangan/list",
         type: "GET",
+        headers: {Authorization: localStorage.getItem("token")},
         success: function (result) {
             data = {data: result};
         },
-        error: function (result) {
-            console.log(result);
+        error: function () {
+            location.href = "/";
         }
     });
 
-    $('#dataKeteranganTable thead tr').clone(true).appendTo( '#dataKeteranganTable thead' );
+    $('#dataKeteranganTable thead tr').clone(true).appendTo('#dataKeteranganTable thead');
     // Search mode
 //    $('#dataClockTable thead tr:eq(1) th').each( function (i) {
 //        var title = $(this).text();
@@ -34,49 +35,50 @@ $(document).ready(function () {
             "url": '/api/keterangan/list',
             "dataSrc": data,
             "type": "GET",
+            "headers": {Authorization: localStorage.getItem("token")},
 //            "beforeSend": function (xhr) {
 //                xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
 //                xhr.setRequestHeader("Authorization", token);
 //            },
         },
         "columns": [
-            { "data": 'id' },
-            { "data": 'user_id' },
-            { "data": 'start_date' },
-            { "data": 'end_date' },
-            { "data": 'description' },
-            { "data": 'files' },
+            {"data": 'id'},
+            {"data": 'user_id'},
+            {"data": 'start_date'},
+            {"data": 'end_date'},
+            {"data": 'description'},
+            {"data": 'files'},
         ],
         "columnDefs": [{
             "targets": 5,
-            "render": function(data, type, full, meta){
-              if(type === 'display'){
-                 data = '<a href="'+data+'"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
-              }
-              return data;
+            "render": function (data, type, full, meta) {
+                if (type === 'display') {
+                    data = '<a href="' + data + '"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
+                }
+                return data;
             }
         }],
         //Select box mode
         "initComplete": function () {
-            this.api().columns().every( function (index) {
-                if(index < 5) {
+            this.api().columns().every(function (index) {
+                if (index < 5) {
                     var column = this;
                     var select = $('<select><option value="">Semua</option></select>')
-                        .appendTo( $(column.header()).empty())
-                        .on( 'change', function () {
+                        .appendTo($(column.header()).empty())
+                        .on('change', function () {
                             var val = $.fn.dataTable.util.escapeRegex(
                                 $(this).val()
                             );
                             column
-                                .search( val ? '^'+val+'$' : '', true, false )
+                                .search(val ? '^' + val + '$' : '', true, false)
                                 .draw();
-                        } );
-                    column.data().unique().sort().each( function ( d, j ) {
-                        select.append( '<option value="'+d+'">'+d+'</option>' );
+                        });
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>');
                     });
                 } else {
                     $('Download')
-                    .appendTo( $(column.header()).empty());
+                        .appendTo($(column.header()).empty());
                 }
             });
         }

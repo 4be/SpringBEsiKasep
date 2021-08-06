@@ -18,6 +18,7 @@ $("#login").click(function () {
         success: function (result) {
             if (result.status == 200) {
                 if (result.data.role == 'HCM') {
+                    localStorage.setItem("token", result.data.token);
                     location.href = "/hcms/datauser";
                 } else {
                     $("#sigagal2").show();
@@ -31,6 +32,9 @@ $("#login").click(function () {
                     location.reload();
                 }, 2000)
             }
+        },
+        error: function () {
+            location.href = "/";
         }
     });
 });

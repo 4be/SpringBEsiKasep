@@ -23,12 +23,16 @@ $("#submit").click(function () {
             data: user,
             dataType: 'json',
             contentType: 'application/json',
+            headers: {Authorization: localStorage.getItem("token")},
             success: function (result) {
                 if (result.status == 200) {
                     location.href = "/hcms/datauser";
                 } else {
                     window.location = window.location;
                 }
+            },
+            error: function () {
+                location.href = "/";
             }
         });
     }

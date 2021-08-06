@@ -251,7 +251,7 @@
             <div class="modal-body">Apakah anda yakin untuk Logout?</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" th:href="@{/}">Logout</a>
+                <button class="btn btn-primary" type="button" data-dismiss="modal" id="logout">Logout</button>
             </div>
         </div>
     </div>
@@ -259,6 +259,12 @@
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+    $("#logout").click(function () {
+        localStorage.removeItem("token")
+        location.href = "/";
+    })
+</script>
 
 <!-- Core plugin JavaScript-->
 <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
