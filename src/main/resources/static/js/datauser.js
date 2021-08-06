@@ -9,7 +9,7 @@ $(document).ready(function () {
 function awal() {
     var t = $('#dataUser').DataTable({
         "ajax": {
-            "url": "/api/user/",
+            "url": "/api/user/list",
             "type": "GET",
             "data": "data",
         },
@@ -56,7 +56,7 @@ function deleteUser(obj) {
     var confir = confirm("Apakah anda yakin akan menghapus data user ?");
     if (confir == true) {
         $.ajax({
-            url: "/api/user/nik/" + nik,
+            url: "/api/user/" + nik,
             type: "DELETE",
             success: function () {
                 window.scrollTo(0, 0);

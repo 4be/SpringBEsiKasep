@@ -46,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok(data);
     }
 
-    @DeleteMapping("/nik/{nik}")
+    @DeleteMapping("/{nik}")
     public ResponseEntity<Object> deleteUserBYNik(@PathVariable String nik) {
         Object data = userService.deleteUserByNik(nik);
         return ResponseEntity.ok(data);
