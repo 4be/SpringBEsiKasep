@@ -4,15 +4,16 @@ $(document).ready(function () {
     $.ajax({
         url: "/api/clockin",
         type: "GET",
+        headers: {Authorization: localStorage.getItem("token")},
         success: function (result) {
             data = {data: result};
         },
-        error: function (result) {
-            console.log(result);
+        error: function () {
+            location.href = "/";
         }
     });
 
-    $('#dataClockTable thead tr').clone(true).appendTo( '#dataClockTable thead' );
+    $('#dataClockTable thead tr').clone(true).appendTo('#dataClockTable thead');
     // Search mode
 //    $('#dataClockTable thead tr:eq(1) th').each( function (i) {
 //        var title = $(this).text();
@@ -34,38 +35,39 @@ $(document).ready(function () {
             "url": '/api/clockin',
             "dataSrc": data,
             "type": "GET",
-        //  "beforeSend": function (xhr) {
-        //      xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
-        //      xhr.setRequestHeader("Authorization", "Bearer " + token);
-        //  },
+            "headers": {Authorization: localStorage.getItem("token")},
+            //  "beforeSend": function (xhr) {
+            //      xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
+            //      xhr.setRequestHeader("Authorization", "Bearer " + token);
+            //  },
         },
         "columns": [
-            { "data": 'id' },
-            { "data": 'user_id' },
-            { "data": 'start_time' },
-            { "data": 'start_time' },
-            { "data": 'location_clockin' },
-            { "data": 'end_time' },
-            { "data": 'location_clockout' },
-            { "data": 'level_kesehatan_fisik_id' },
-            { "data": 'level_kesehatan_mental_Id' },
+            {"data": 'id'},
+            {"data": 'user_id'},
+            {"data": 'start_time'},
+            {"data": 'start_time'},
+            {"data": 'location_clockin'},
+            {"data": 'end_time'},
+            {"data": 'location_clockout'},
+            {"data": 'level_kesehatan_fisik_id'},
+            {"data": 'level_kesehatan_mental_Id'},
         ],
         //Select box mode
         "initComplete": function () {
-            this.api().columns().every( function () {
+            this.api().columns().every(function () {
                 var column = this;
                 var select = $('<select><option value="">Semua</option></select>')
-                    .appendTo( $(column.header()).empty())
-                    .on( 'change', function () {
+                    .appendTo($(column.header()).empty())
+                    .on('change', function () {
                         var val = $.fn.dataTable.util.escapeRegex(
                             $(this).val()
                         );
                         column
-                            .search( val ? '^'+val+'$' : '', true, false )
+                            .search(val ? '^' + val + '$' : '', true, false)
                             .draw();
-                    } );
-                column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' );
+                    });
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>');
                 });
             });
         }

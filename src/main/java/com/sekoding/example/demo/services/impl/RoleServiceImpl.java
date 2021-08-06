@@ -55,6 +55,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Object getRole(Integer id) {
+        Role role = roleRepository.findById(id).get();
+        RoleResponse roleResponse = new RoleResponse(
+            role.getId(),
+            role.getRolename()
+        );
+        return new SuccessResponse(HttpStatus.OK, "Success", roleResponse);
+    }
+
+    @Override
     public Object updateRole(Integer id, RoleRequest roleRequest) {
         try {
             Role role = roleRepository.findById(id).get();

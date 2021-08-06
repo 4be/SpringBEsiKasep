@@ -8,6 +8,8 @@ public interface RoleService {
 
     Object createRole(RoleRequest roleRequest);
 
+    Object getRole(Integer id);
+
     Object updateRole(Integer id, RoleRequest roleRequest);
 
     Object deleteRole(Integer id);
