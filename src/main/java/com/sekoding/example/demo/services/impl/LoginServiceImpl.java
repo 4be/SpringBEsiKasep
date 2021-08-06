@@ -48,7 +48,7 @@ public class LoginServiceImpl implements LoginService {
                 user.getAlamat(),
                 user.getTanggalLahir(),
                 user.getEmail(),
-                user.getRoles(),
+                user.getRoles().iterator().next().getRolename().toString(),
                 jwt
             );
 
