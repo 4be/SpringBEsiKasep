@@ -27,6 +27,12 @@ public class RoleController {
         return ResponseEntity.ok(data);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getRole(@PathVariable Integer id) {
+        Object data = roleService.getRole(id);
+        return ResponseEntity.ok(data);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateRole(@PathVariable Integer id, @RequestBody RoleRequest roleRequest) {
         Object data = roleService.updateRole(id, roleRequest);

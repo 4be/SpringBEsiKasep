@@ -23,6 +23,7 @@ $("#submit").click(function () {
             data: user,
             dataType: 'json',
             contentType: 'application/json',
+            headers: {Authorization: localStorage.getItem("token")},
             success: function (result) {
                 if (result.status == 200) {
                     $("#sisukses").show();
@@ -35,6 +36,9 @@ $("#submit").click(function () {
                         location.reload();
                     }, 1000)
                 }
+            },
+            error: function () {
+                location.href = "/";
             }
         });
     }

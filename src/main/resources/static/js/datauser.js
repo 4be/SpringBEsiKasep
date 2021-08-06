@@ -8,19 +8,23 @@ $(document).ready(function () {
 
 function awal() {
     var t = $('#dataUser').DataTable({
-        "ajax": {
-            "url": "/api/user/list",
-            "type": "GET",
-            "data": "data",
+        ajax: {
+            url: "/api/user/list",
+            type: "GET",
+            data: "data",
+            headers: {Authorization: localStorage.getItem("token")},
+            error: function () {
+                location.href = "/";
+            }
         },
-        "columnDefs": [{
-            "searchable": false,
-            "orderable": false,
-            "targets": 0
+        columnDefs: [{
+            searchable: false,
+            orderable: false,
+            targets: 0
         }],
-        "ScrollX": true,
-        "order": [[1, 'asc']],
-        "columns": [
+        ScrollX: true,
+        order: [[1, 'asc']],
+        columns: [
             {data: null},
             {data: "nik"},
             {data: "nama"},
@@ -58,6 +62,7 @@ function deleteUser(obj) {
         $.ajax({
             url: "/api/user/" + nik,
             type: "DELETE",
+            headers: {Authorization: localStorage.getItem("token")},
             success: function () {
                 window.scrollTo(0, 0);
                 $("#sihapus").show();
@@ -65,8 +70,8 @@ function deleteUser(obj) {
                     location.reload();
                 }, 1500);
             },
-            error: function (result) {
-                console.log(result);
+            error: function () {
+                location.href = "/";
             }
         });
     }
