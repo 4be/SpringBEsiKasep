@@ -15,4 +15,6 @@ public interface ClockRepo extends CrudRepository<Clock, Long> {
     @Query(value = "SELECT * FROM tbl_clock WHERE tbl_clock.user_id_id=:masuk ORDER BY id DESC LIMIT 1", nativeQuery = true)
     public List<Clock> findByIdDesc(@PathParam("masuk") Long masuk);
 
+
+
 }
