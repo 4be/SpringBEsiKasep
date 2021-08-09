@@ -5,6 +5,7 @@ import com.sekoding.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -27,6 +28,12 @@ public class UserController {
         return ResponseEntity.ok(data);
     }
 
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile fileRequest) {
+        Object data = userService.createUserByUpload(fileRequest);
+        return ResponseEntity.ok(data);
+    }
+
     @GetMapping("/id/{id}")
     public ResponseEntity<Object> getUserById(@PathVariable Long id) {
         Object data = userService.getUserById(id);
@@ -46,13 +53,13 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         Object data = userService.deleteUser(id);
         return ResponseEntity.ok(data);
     }
 
-    @DeleteMapping("/{nik}")
+    @DeleteMapping("/nik/{nik}")
     public ResponseEntity<Object> deleteUserBYNik(@PathVariable String nik) {
         Object data = userService.deleteUserByNik(nik);
         return ResponseEntity.ok(data);
