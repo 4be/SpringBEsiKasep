@@ -9,7 +9,7 @@ $(document).ready(function () {
 function awal() {
     var t = $('#dataUser').DataTable({
         ajax: {
-            url: "/api/user/list",
+            url: "/api/user/",
             type: "GET",
             data: "data",
             headers: {Authorization: localStorage.getItem("token")},

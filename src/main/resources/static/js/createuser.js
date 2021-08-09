@@ -18,7 +18,7 @@ $("#submit").click(function () {
             "}";
 
         $.ajax({
-            url: '/api/user/add',
+            url: '/api/user/',
             type: 'POST',
             data: user,
             dataType: 'json',
