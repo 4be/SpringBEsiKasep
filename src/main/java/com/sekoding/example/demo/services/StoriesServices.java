@@ -3,6 +3,7 @@ package com.sekoding.example.demo.services;
 import com.sekoding.example.demo.model.entity.Stories;
 import com.sekoding.example.demo.model.repos.StoriesRepo;
 import jdk.dynalink.linker.LinkerServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -11,6 +12,8 @@ import java.util.List;
 @Service
 @Transactional
 public class StoriesServices {
+
+    @Autowired
     private StoriesRepo storiesRepo;
 
     public Stories create(Stories stories){

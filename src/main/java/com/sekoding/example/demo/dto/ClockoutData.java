@@ -9,8 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 @Getter
 public class ClockoutData {
-    private String end_time;
-    private String location_clockout;
+    private String times;
+    private String location_clock;
     private Long level_kesehatan_fisik_id;
     private Long level_kesehatan_mental_Id;
     private MultipartFile picture;

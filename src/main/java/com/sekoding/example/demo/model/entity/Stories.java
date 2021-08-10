@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -23,7 +24,7 @@ public class Stories {
     @Column(length = 300)
     private String description;
 
-    private LocalDate date_published;
+    private LocalDateTime date_published;
 
     @ManyToOne
     private User user_id;

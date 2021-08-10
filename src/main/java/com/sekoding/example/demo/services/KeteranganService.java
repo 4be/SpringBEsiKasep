@@ -37,5 +37,10 @@ public class KeteranganService {
         return keteranganRepo.findKesByIdDesc(id);
     }
 
+    public List<Keterangan>findKesByTeam(String team){
+        return keteranganRepo.findKesByTeam(team);
+    }
+
+
 
 }

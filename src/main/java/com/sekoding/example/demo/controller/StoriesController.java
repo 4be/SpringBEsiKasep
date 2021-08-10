@@ -22,7 +22,8 @@ import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
 
-@RestController("/api/stories")
+@RestController
+@RequestMapping("/api/stories/")
 public class StoriesController {
 
 
@@ -32,11 +33,11 @@ public class StoriesController {
     @Autowired
     private ModelMapper modelMapper;
 
-    //    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
-    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
+        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
-    @PostMapping("/add/")
-    public ResponseEntity<ResponseData<Stories>> create(@Valid @RequestParam("picture") MultipartFile picture, @ModelAttribute StoriesRequest storiesRequest, Errors errors){
+    @PostMapping("/add")
+    public ResponseEntity<ResponseData<Stories>> addstories(@Valid @RequestParam("picture") MultipartFile picture, @ModelAttribute StoriesRequest storiesRequest, Errors errors){
         ResponseData<Stories> responseData = new ResponseData<>();
         Stories stories = new Stories();
         Date date = new Date();
@@ -58,7 +59,7 @@ public class StoriesController {
             responseData.setPayload(null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
-        stories.setDate_published(java.time.LocalDate.parse(storiesRequest.getDate_published()));
+        stories.setDate_published(java.time.LocalDateTime.now());
         stories.setDescription(storiesRequest.getDescription());
         stories.setUser_id(storiesRequest.getUser_id());
 
@@ -73,7 +74,6 @@ public class StoriesController {
         return storiesServices.findAll();
 
     }
-
 
     @GetMapping("/list/desc/")
     public List<Stories> findAllDesc(){

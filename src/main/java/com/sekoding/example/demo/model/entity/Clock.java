@@ -19,23 +19,15 @@ class Clock implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime start_time;
-
-    private LocalDateTime end_time;
+    private LocalDateTime times;
 
     private Boolean working = false;
 
     @Column(length = 100)
-    private String location_clockin;
-
-    @Column(length = 100)
-    private String location_clockout;
+    private String location_clock;
 
     @Column(length = 300)
-    private String url_foto_clockin;
-
-    @Column(length = 300)
-    private String url_foto_clockout;
+    private String url_foto_clock;
 
     @Column(length = 10)
     private Long level_kesehatan_fisik_id;
