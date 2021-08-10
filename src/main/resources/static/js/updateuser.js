@@ -10,9 +10,10 @@ $("#submit").click(function () {
             "\"nik\" : \"" + $("#nikKaryawan").val() + "\"," +
             "\"nama\" : \"" + $("#namaKaryawan").val() + "\"," +
             "\"email\" : \"" + $("#emailKaryawan").val() + "\"," +
-            "\"tanggalLahir\" : \"" + $("#ttlKaryawan").val() + "\"," +
+            "\"tanggal_lahir\" : \"" + $("#ttlKaryawan").val() + "\"," +
             "\"alamat\" : \"" + $("#alamatKaryawan").val() + "\"," +
             "\"divisi\" : \"" + $("#divisiKaryawan").val() + "\"," +
+            "\"nik_manager\" : \"" + $("#nikManager").val() + "\"," +
             "\"role\": \"" + $("#roleKaryawan").val() + "\"," +
             "\"password\" : \"" + $("#nikKaryawan").val() + "\"" +
             "}";

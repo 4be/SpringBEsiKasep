@@ -80,13 +80,13 @@ public class UserServiceImpl implements UserService {
             userRequest.getNama(),
             userRequest.getNik(),
             userRequest.getAlamat(),
-            userRequest.getTanggalLahir(),
+            userRequest.getTanggal_lahir(),
             userRequest.getEmail(),
             encoder.encode(
                 userRequest.getPassword()
             ),
             userRequest.getDivisi(),
-            userRequest.getNikManager(),
+            userRequest.getNik_manager(),
             roles
         );
 
@@ -178,9 +178,10 @@ public class UserServiceImpl implements UserService {
 
             user.setNama(userRequest.getNama());
             user.setAlamat(userRequest.getAlamat());
-            user.setTanggalLahir(userRequest.getTanggalLahir());
+            user.setTanggalLahir(userRequest.getTanggal_lahir());
             user.setEmail(userRequest.getEmail());
             user.setDivisi(userRequest.getDivisi());
+            user.setNikManger(userRequest.getNik_manager());
             user.setRoles(roles);
             User save = userRepository.save(user);
 
