@@ -8,6 +8,13 @@ $(document).ready(function () {
 
 function awal() {
     var t = $('#dataUser').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            extend: 'csv',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
+        }],
         ajax: {
             url: "/api/user/",
             type: "GET",
@@ -29,9 +36,10 @@ function awal() {
             {data: "nik"},
             {data: "nama"},
             {data: "email"},
-            {data: "tanggalLahir"},
+            {data: "tanggal_lahir"},
             {data: "alamat"},
             {data: "divisi"},
+            {data: "nik_manager"},
             {data: "role"},
             {
                 data: "nik",
