@@ -86,6 +86,7 @@ public class UserServiceImpl implements UserService {
                 userRequest.getPassword()
             ),
             userRequest.getDivisi(),
+            userRequest.getNikManager(),
             roles
         );
 
@@ -126,6 +127,7 @@ public class UserServiceImpl implements UserService {
                         csvRecord.get("nik")
                     ),
                     csvRecord.get("divisi"),
+                    csvRecord.get("nik_manager"),
                     roles
                 );
 
@@ -148,6 +150,23 @@ public class UserServiceImpl implements UserService {
             return new SuccessResponse(HttpStatus.OK, "Success", userResponse);
         } catch (Exception e) {
             return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
+
+    @Override
+    public Object getUserByNikManager(String nikManager) {
+        try {
+            List<User> userList = userRepository.findUserByNikManger(nikManager);
+            List<UserResponse> UserResponseList = new ArrayList<>();
+
+            for (User user : userList) {
+                UserResponse userResponse = getUserResponse(user);
+                UserResponseList.add(userResponse);
+            }
+
+            return new SuccessResponse(HttpStatus.OK, "Success", UserResponseList);
+        } catch (Exception e) {
+            return new FailedResponse(HttpStatus.MULTI_STATUS, e.getMessage());
         }
     }
 
@@ -221,6 +240,7 @@ public class UserServiceImpl implements UserService {
             user.getTanggalLahir(),
             user.getEmail(),
             user.getDivisi(),
+            user.getNikManger(),
             user.getRoles().iterator().next().getRolename().toString()
         );
         return userResponse;

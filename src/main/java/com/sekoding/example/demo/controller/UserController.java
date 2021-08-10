@@ -46,6 +46,12 @@ public class UserController {
         return ResponseEntity.ok(data);
     }
 
+    @GetMapping("/manager/{nik}")
+    public ResponseEntity<Object> getUserByNikManager(@PathVariable String nik) {
+        Object data = userService.getUserByNikManager(nik);
+        return ResponseEntity.ok(data);
+    }
+
     @PatchMapping("/{nik}")
     public ResponseEntity<Object> updateUser(@RequestBody UserRequest userRequest, @PathVariable String nik) {
         Object data = userService.updateUserByNik(userRequest, nik);

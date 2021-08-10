@@ -43,13 +43,16 @@ public class User {
     @Column(length = 100)
     private String divisi;
 
+    @Column(length = 100)
+    private String nikManger;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tbl_user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String nama, String nik, String alamat, String tanggalLahir, String email, String password, String divisi, Set<Role> roles) {
+    public User(String username, String nama, String nik, String alamat, String tanggalLahir, String email, String password, String divisi, String nikManager, Set<Role> roles) {
         this.username = username;
         this.nama = nama;
         this.nik = nik;
@@ -58,6 +61,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.divisi = divisi;
+        this.nikManger = nikManager;
         this.roles = roles;
     }
 

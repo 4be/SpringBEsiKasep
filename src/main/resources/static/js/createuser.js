@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#sigagal").hide();
 });
 
-$("#btnSubmit").click(function (event) {
+$("#btnSubmit").click(function () {
     var form = $('#my-form')[0];
     var data = new FormData(form);
     $("#btnSubmit").prop("disabled", true);

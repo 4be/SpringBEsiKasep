@@ -13,6 +13,8 @@ public interface UserService {
 
     Object getUserById(Long id);
 
+    Object getUserByNikManager(String nikManager);
+
     Object updateUserByNik(UserRequest userRequest, String nik);
 
     Object deleteUser(Long id);
