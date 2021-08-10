@@ -3,6 +3,35 @@ $(document).ready(function () {
     $("#sigagal").hide();
 });
 
+$("#btnSubmit").click(function () {
+    var form = $('#my-form')[0];
+    var data = new FormData(form);
+    $("#btnSubmit").prop("disabled", true);
+
+    $.ajax({
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "/api/user/upload",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 800000,
+        headers: {Authorization: localStorage.getItem("token")},
+        success: function (data) {
+            if (data.status == 200) {
+                $("#sisukses").show();
+                setTimeout(function () {
+                    location.href = "/hcms/datauser";
+                }, 1000);
+            }
+        },
+        error: function () {
+            location.href = "/";
+        }
+    });
+});
+
 $("#submit").click(function () {
     var confir = confirm("Apakah anda yakin akan melakukan submit ?");
     if (confir == true) {
@@ -18,7 +47,7 @@ $("#submit").click(function () {
             "}";
 
         $.ajax({
-            url: '/api/user/add',
+            url: '/api/user/',
             type: 'POST',
             data: user,
             dataType: 'json',
