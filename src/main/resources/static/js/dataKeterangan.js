@@ -50,6 +50,17 @@ $(document).ready(function () {
             {"data": 'files'},
         ],
         "columnDefs": [{
+            "targets": 1,
+            "render": function (data, type, full, meta) {
+                var res = '-';
+                if (type === 'display') {
+                    if (data != null) {
+                        res = data;
+                    }
+                }
+                return res;
+            }
+        },{
             "targets": 5,
             "render": function (data, type, full, meta) {
                 if (type === 'display') {

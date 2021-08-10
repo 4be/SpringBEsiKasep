@@ -18,7 +18,7 @@
             <div class="no-arrow">
                 <h1 class="h3 text-gray-800">Summary Clock In/Out</h1>
             </div>
-            <span class="text-success">Kamis, 3 Agustus 2021</span>
+            <span class="text-success">Hari ini</span>
         </div>
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-4 col-md-4 mb-4">
@@ -27,7 +27,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock In</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="#clockin">20</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock fa-2x text-gray-300"></i>
@@ -44,7 +44,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock Out
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">97</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="#clockout">20</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock fa-2x text-gray-300"></i>
@@ -55,6 +55,8 @@
         </div>
     </div>
 </th:block>
-
+<th:block layout:fragment="custom_script">
+    <script src="/js/dashboard.js"></script>
+</th:block>
 </body>
 </html>
