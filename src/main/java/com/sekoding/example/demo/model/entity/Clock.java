@@ -24,10 +24,16 @@ class Clock implements Serializable {
     private Boolean working = false;
 
     @Column(length = 100)
-    private String location_clock;
+    private String location_clockin;
 
-    @Column(length = 300)
-    private String url_foto_clock;
+    @Column(length = 100)
+    private String location_clockout;
+
+        @Column(length = 300)
+        private String url_foto_clockin;
+
+        @Column(length = 300)
+        private String url_foto_clockout;
 
     @Column(length = 10)
     private Long level_kesehatan_fisik_id;

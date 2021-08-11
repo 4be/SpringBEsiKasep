@@ -47,8 +47,7 @@ public class ClockController {
             byte[] bytes = picture.getBytes();
             Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
             Files.write(path, bytes);
-            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename();
-            clockinr.setUrl_foto_clock(urlImage);
+            clockinr.setUrl_foto_clockin(path.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -99,8 +98,8 @@ public class ClockController {
             responseData.setPayload(null);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
-        clockinr.setTimes(java.time.LocalDateTime.now());
-        clockinr.setLocation_clock(clockoutData.getLocation_clock());
+        clockinr.setEnd_time(java.time.LocalDateTime.now());
+        clockinr.setLocation_clockout(clockoutData.getLocation_clockout());
         clockinr.setWorking(false);
         clockinr.setLevel_kesehatan_fisik_id(clockoutData.getLevel_kesehatan_fisik_id());
         clockinr.setLevel_kesehatan_mental_Id(clockoutData.getLevel_kesehatan_mental_Id());
@@ -112,18 +111,7 @@ public class ClockController {
     }
 
 
-//    @GetMapping("/clockin")
-//    public ResponseEntity<ResponseData<List<ClockResponse>>> findAll() {
-//        ResponseData<List<ClockResponse>> response = new ResponseData<>();
-//        List<ClockResponse> listClock = new ArrayList<>();
-//        clockService.findAll().forEach(clock -> {
-//            listClock.add(modelMapper.map(clock, ClockResponse.class));
-//        });
-//        response.setStatus(true);
-//        response.setPayload(listClock);
-//        return ResponseEntity.ok(response);
-//    }
-
+    @GetMapping("/clockin")
     public Iterable<Clock> findAll() {
         return clockService.findAll();
     }

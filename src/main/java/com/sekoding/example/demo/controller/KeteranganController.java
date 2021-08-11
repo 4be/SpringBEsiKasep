@@ -28,8 +28,8 @@ public class KeteranganController {
     @Autowired
     private KeteranganService keteranganService;
 
-    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
-//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
+    private static String UPLOADED_PATH = "C:/Users/HP/Desktop/springHCM/img/";
+//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/asset/";
 
     @PostMapping("/add")
     public ResponseEntity<ResponseData<Keterangan>> addket(@Valid @RequestParam("files") MultipartFile files, @ModelAttribute KeteranganData keteranganData, Errors errors) {
@@ -40,10 +40,9 @@ public class KeteranganController {
 
         try {
             byte[] bytes = files.getBytes();
-            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + files.getOriginalFilename());
-            Files.write(path, bytes);
-            String urlImage = "35.209.242.226/img/" + date.getTime() + files.getOriginalFilename();
-            keterangan.setFiles(urlImage);
+            Path path = Paths.get((UPLOADED_PATH) + files.getOriginalFilename());
+            Files.write(path,bytes);
+            keterangan.setFiles(path.toString());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
