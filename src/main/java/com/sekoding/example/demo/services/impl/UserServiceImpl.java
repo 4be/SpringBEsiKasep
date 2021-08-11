@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
                 userRequest.getPassword()
             ),
             userRequest.getDivisi(),
-            userRequest.getNik_manager(),
+            userRequest.getNik_manager().isEmpty() ? "-" : userRequest.getNik_manager(),
             roles
         );
 
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
                         csvRecord.get("nik")
                     ),
                     csvRecord.get("divisi"),
-                    csvRecord.get("nik_manager"),
+                    csvRecord.get("nik_manager").isEmpty() ? "-" : csvRecord.get("nik_manager"),
                     roles
                 );
 
@@ -181,7 +181,7 @@ public class UserServiceImpl implements UserService {
             user.setTanggalLahir(userRequest.getTanggal_lahir());
             user.setEmail(userRequest.getEmail());
             user.setDivisi(userRequest.getDivisi());
-            user.setNikManger(userRequest.getNik_manager());
+            user.setNikManger(userRequest.getNik_manager().isEmpty() ? "-" : userRequest.getNik_manager());
             user.setRoles(roles);
             User save = userRepository.save(user);
 

@@ -31,6 +31,14 @@ $(document).ready(function () {
 //    });
     // datatable implementation
     var table = $('#dataKeteranganTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            text: "Export CSV",
+            extend: 'csv',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
+        }],
         "ajax": {
             "url": '/api/keterangan/list',
             "dataSrc": data,
