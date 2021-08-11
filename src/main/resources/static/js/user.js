@@ -32,9 +32,10 @@ $(document).ready(function () {
             {data: "nik", class: "tbl-center"},
             {data: "nama", class: "tbl-center"},
             {data: "email", class: "tbl-center"},
-            {data: "tanggalLahir", class: "tbl-center"},
+            {data: "tanggal_lahir", class: "tbl-center"},
             {data: "alamat", class: "tbl-center"},
             {data: "divisi", class: "tbl-center"},
+            {data: "nik_manager", class: "tbl-center"},
             {data: "role", class: "tbl-center"},
             {
                 data: "nik",
