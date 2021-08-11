@@ -2,16 +2,11 @@ package com.sekoding.example.demo.controller;
 
 import com.sekoding.example.demo.model.entity.User;
 import com.sekoding.example.demo.repository.UserRepository;
-import com.sekoding.example.demo.services.UserService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 @Controller
 public class WebController {
@@ -43,10 +38,16 @@ public class WebController {
         return "dataClock/index";
     }
 
+    @GetMapping("/hcms/stories")
+    public String stories(Model model) {
+        model.addAttribute("title", "Data Stories");
+        return "stories/index";
+    }
+
     @GetMapping("/hcms/create")
     public String createUser(Model model) {
         model.addAttribute("title", "Tambah User");
-        return "create_user";
+        return "user/create_user";
     }
 
     @GetMapping("/hcms/update/{nik}")
@@ -54,12 +55,12 @@ public class WebController {
         model.addAttribute("title", "Ubah User");
         User user = userRepository.findUserByNik(nik);
         model.addAttribute("user", user);
-        return "ubah_user";
+        return "user/ubah_user";
     }
 
     @GetMapping("/hcms/datauser")
     public String dataUser(Model model) {
         model.addAttribute("title", "Data User");
-        return "data_user";
+        return "user/data_user";
     }
 }

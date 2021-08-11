@@ -11,9 +11,10 @@ public class UserResponse {
     private String nama;
     private String nik;
     private String alamat;
-    private String tanggalLahir;
+    private String tanggal_lahir;
     private String email;
     private String divisi;
+    private String nik_manager;
     private String role;
 
 }

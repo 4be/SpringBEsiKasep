@@ -13,7 +13,7 @@
 <body>
 <th:block layout:fragment="content">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800" th:text="${title}"></h1>
+    <h5 class="h3 mb-2 text-gray-800" th:text="${title}"></h5>
     <br>
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="sisukses">
         <strong>Sukses !</strong> User berhasil ditambahkan.
@@ -66,6 +66,18 @@
                                        placeholder="Masukkan Email"
                                        name="emailKaryawan"
                                        th:value="${user.email}">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                        <td style="width: 100px"></td>
+                        <td>
+                            <div class="form-group">
+                                <label for="nikManager">NIK Manager</label>
+                                <input type="text" class="form-control" id="nikManager"
+                                       placeholder="Masukkan NIK"
+                                       name="nikManager"
+                                       th:value="${user.nikManger}">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>

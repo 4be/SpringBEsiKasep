@@ -13,7 +13,7 @@
 <body>
 <th:block layout:fragment="content">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800" th:text="${title}"></h1>
+    <h5 class="h3 mb-2 text-gray-800" th:text="${title}"></h5>
     <br>
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="sisukses">
         <strong>Sukses !</strong> User berhasil ditambahkan.
@@ -29,6 +29,16 @@
     </div>
     <br>
     <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <form method="POST" enctype="multipart/form-data" id="my-form">
+                    <input type="file" name="file"><br/><br/>
+                    <input type="submit" value="Upload" id="btnSubmit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -62,6 +72,17 @@
                                 <input type="email" class="form-control" id="emailKaryawan"
                                        placeholder="Masukkan Email"
                                        name="emailKaryawan">
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </div>
+                        </td>
+                        <td style="width: 100px"></td>
+                        <td>
+                            <div class="form-group">
+                                <label for="nikManager">NIK Manager</label>
+                                <input type="text" class="form-control" id="nikManager"
+                                       placeholder="Masukkan NIK"
+                                       name="nikManager">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>

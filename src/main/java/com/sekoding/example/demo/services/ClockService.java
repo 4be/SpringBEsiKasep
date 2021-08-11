@@ -42,4 +42,8 @@ public class ClockService {
         return clockRepo.findByIdDesc(id);
     }
 
+    public List<Clock> findByTeam(String team){
+        return clockRepo.findByTeam(team);
+    }
+
 }

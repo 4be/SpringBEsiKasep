@@ -1,18 +1,25 @@
 package com.sekoding.example.demo.dto;
 
-
 import com.sekoding.example.demo.model.entity.User;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-@Setter
+
+
 @Getter
-public class ClockinData {
-    private String times;
-    private String location_clock;
-    private Long level_kesehatan_fisik_id;
-    private Long level_kesehatan_mental_Id;
+@Setter
+public class StoriesRequest {
+
+    private Long id;
+
     private MultipartFile picture;
-    private User user_id ;
+
+    private String description;
+
+    private User user_id;
+
+
 }

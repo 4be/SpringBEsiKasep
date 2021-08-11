@@ -1,15 +1,18 @@
-var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OSIsImlhdCI6MTYyODA0ODA4OCwiZXhwIjoxNjI4MTM0NDg4fQ.xmosnnHJGUWrts0trjbsR5P4YTuja1-z3PrMdGdG9OirFy7oUKqJoQMtQERIxCi3TggvDDAJj9tz0dgR1xcOPw";
-
+var data = null;
 $(document).ready(function () {
     $('#sihapus').hide();
     $('#siubah').hide();
-    awal();
-});
-
-function awal() {
-    var t = $('#dataUser').DataTable({
+    var table = $('#dataUser').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            text: "Export CSV",
+            extend: 'csv',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
+        }],
         ajax: {
-            url: "/api/user/list",
+            url: "/api/user/",
             type: "GET",
             data: "data",
             headers: {Authorization: localStorage.getItem("token")},
@@ -47,20 +50,20 @@ function awal() {
             }
         ],
     });
-    t.on('draw.dt', function () {
+    table.on('draw.dt', function () {
         var PageInfo = $('#dataUser').DataTable().page.info();
-        t.column(0, {page: 'current'}).nodes().each(function (cell, i) {
+        table.column(0, {page: 'current'}).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1 + PageInfo.start;
         });
     });
-}
+});
 
 function deleteUser(obj) {
     var nik = $(obj).attr('id');
     var confir = confirm("Apakah anda yakin akan menghapus data user ?");
     if (confir == true) {
         $.ajax({
-            url: "/api/user/" + nik,
+            url: "/api/user/nik/" + nik,
             type: "DELETE",
             headers: {Authorization: localStorage.getItem("token")},
             success: function () {
