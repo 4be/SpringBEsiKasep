@@ -32,6 +32,9 @@ public class StoriesServices {
         storiesRepo.deleteById(id);
     }
 
+    public Stories findById(Long id){
+        return storiesRepo.findById(id).get();
+    }
 
 
 

@@ -33,8 +33,8 @@ public class ClockController {
     @Autowired
     private ModelMapper modelMapper;
 
-    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
-//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
+//    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/clockin")
     public ResponseEntity<ResponseData<Clock>> clockin(@Valid @RequestParam("picture") MultipartFile picture, @ModelAttribute ClockinData clockinData, Errors errors) {
@@ -45,9 +45,9 @@ public class ClockController {
 
         try {
             byte[] bytes = picture.getBytes();
-            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
+            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_"));
             Files.write(path, bytes);
-            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename();
+            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_");
             clockinr.setUrl_foto_clock(urlImage);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -63,6 +63,7 @@ public class ClockController {
         }
         clockinr.setTimes(java.time.LocalDateTime.now());
         clockinr.setLocation_clock(clockinData.getLocation_clock());
+        clockinr.setCoordinate(clockinData.getCoordinate());
         clockinr.setWorking(true);
         clockinr.setLevel_kesehatan_fisik_id(clockinData.getLevel_kesehatan_fisik_id());
         clockinr.setLevel_kesehatan_mental_Id(clockinData.getLevel_kesehatan_mental_Id());
@@ -101,6 +102,7 @@ public class ClockController {
         }
         clockinr.setTimes(java.time.LocalDateTime.now());
         clockinr.setLocation_clock(clockoutData.getLocation_clock());
+        clockinr.setCoordinate(clockoutData.getCoordinate());
         clockinr.setWorking(false);
         clockinr.setLevel_kesehatan_fisik_id(clockoutData.getLevel_kesehatan_fisik_id());
         clockinr.setLevel_kesehatan_mental_Id(clockoutData.getLevel_kesehatan_mental_Id());
@@ -111,18 +113,6 @@ public class ClockController {
         return ResponseEntity.ok(responseData);
     }
 
-
-//    @GetMapping("/clockin")
-//    public ResponseEntity<ResponseData<List<ClockResponse>>> findAll() {
-//        ResponseData<List<ClockResponse>> response = new ResponseData<>();
-//        List<ClockResponse> listClock = new ArrayList<>();
-//        clockService.findAll().forEach(clock -> {
-//            listClock.add(modelMapper.map(clock, ClockResponse.class));
-//        });
-//        response.setStatus(true);
-//        response.setPayload(listClock);
-//        return ResponseEntity.ok(response);
-//    }
 
     public Iterable<Clock> findAll() {
         return clockService.findAll();
@@ -137,8 +127,6 @@ public class ClockController {
 
         return test;
     }
-
-
 
     @GetMapping("/clockin/{id}")
     public Clock findOne(@PathVariable("id") Long id) {
@@ -157,13 +145,16 @@ public class ClockController {
 
     @GetMapping("/clock/desc")
     public List<Clock> getClockDesc(){
-      return clockService.findAllDesc();
+        return clockService.findAllDesc();
     }
 
     @GetMapping("/clock/last/{id}")
     public List<Clock> getLastClock(@PathVariable("id") Long id){
         return clockService.findByIdDesc(id);
     }
+
+    @GetMapping("/clock/history/{id}")
+    public List<Clock> getHistoryClock(@PathVariable("id") Long id){ return clockService.findByIdHistory(id);}
 
     @GetMapping("/clock/team/{team}")
     public List<Clock> getClockTeam(@PathVariable("team") String team){

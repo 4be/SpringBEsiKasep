@@ -16,7 +16,7 @@ public class LoginController {
     LoginService loginService;
 
     @PostMapping("/")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest loginRequest) {
         Object data = loginService.loginUser(loginRequest);
         return ResponseEntity.ok(data);
     }

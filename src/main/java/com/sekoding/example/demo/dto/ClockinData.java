@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ClockinData {
     private String times;
     private String location_clock;
+    private String coordinate;
     private Long level_kesehatan_fisik_id;
     private Long level_kesehatan_mental_Id;
     private MultipartFile picture;

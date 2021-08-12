@@ -37,18 +37,22 @@ public class StoriesController {
 //    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/add")
-    public ResponseEntity<ResponseData<Stories>> addstories(@Valid @RequestParam("picture") MultipartFile picture, @ModelAttribute StoriesRequest storiesRequest, Errors errors){
+    public ResponseEntity<ResponseData<Stories>> addstories(@RequestParam("picture") MultipartFile picture, @ModelAttribute StoriesRequest storiesRequest, Errors errors){
         ResponseData<Stories> responseData = new ResponseData<>();
         Stories stories = new Stories();
         Date date = new Date();
 
         try {
-            byte[] bytes = picture.getBytes();
-            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
-            Files.write(path, bytes);
-            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename();
-            stories.setUrl_foto_stories(urlImage);
-        } catch (IOException ex){
+            if(picture.isEmpty()){
+                stories.setUrl_foto_stories(null);
+            }else {
+                byte[] bytes = picture.getBytes();
+                Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_"));
+                Files.write(path, bytes);
+                String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_");
+                stories.setUrl_foto_stories(urlImage);
+            }
+        } catch(IOException ex) {
             ex.printStackTrace();
         }
         if (errors.hasErrors()) {
@@ -80,20 +84,16 @@ public class StoriesController {
         return storiesServices.findAllDesc();
     }
 
+
+    @GetMapping("/id/{id}")
+    public Stories findStoriesId(@PathVariable("id") Long id){
+        return storiesServices.findById(id);
+    }
+
     @DeleteMapping("/delete/id/{id}")
     public void removeOne(@PathVariable("id") Long id){
         storiesServices.remmoveOne(id);
     }
 
-
-//    public ResponseEntity<ResponseData<List<StoriesResponse>>> findAll(){
-//        ResponseData<List<StoriesResponse>> response = new ResponseData<>();
-//        List<StoriesResponse> listStories = new ArrayList<>();
-//        storiesRepo.findAll().forEach(stories -> {
-//            listStories.add(modelMapper.map(stories, StoriesResponse.class));
-//        });
-//        response.setStatus(true);
-//        response.setPayload(listStories);
-//        return ResponseEntity.ok(response);
 
 }
