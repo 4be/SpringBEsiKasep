@@ -45,9 +45,9 @@ public class ClockController {
 
         try {
             byte[] bytes = picture.getBytes();
-            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename());
+            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_"));
             Files.write(path, bytes);
-            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename();
+            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_");
             clockinr.setUrl_foto_clock(urlImage);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -127,8 +127,6 @@ public class ClockController {
 
         return test;
     }
-
-
 
     @GetMapping("/clockin/{id}")
     public Clock findOne(@PathVariable("id") Long id) {
