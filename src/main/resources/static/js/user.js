@@ -1,15 +1,11 @@
-var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OSIsImlhdCI6MTYyODA0ODA4OCwiZXhwIjoxNjI4MTM0NDg4fQ.xmosnnHJGUWrts0trjbsR5P4YTuja1-z3PrMdGdG9OirFy7oUKqJoQMtQERIxCi3TggvDDAJj9tz0dgR1xcOPw";
-
+var data = null;
 $(document).ready(function () {
     $('#sihapus').hide();
     $('#siubah').hide();
-    awal();
-});
-
-function awal() {
-    var t = $('#dataUser').DataTable({
+    var table = $('#dataUser').DataTable({
         dom: 'Bfrtip',
         buttons: [{
+            text: "Export CSV",
             extend: 'csv',
             exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7]
@@ -33,14 +29,14 @@ function awal() {
         order: [[1, 'asc']],
         columns: [
             {data: null},
-            {data: "nik"},
-            {data: "nama"},
-            {data: "email"},
-            {data: "tanggal_lahir"},
-            {data: "alamat"},
-            {data: "divisi"},
-            {data: "nik_manager"},
-            {data: "role"},
+            {data: "nik", class: "tbl-center"},
+            {data: "nama", class: "tbl-center"},
+            {data: "email", class: "tbl-center"},
+            {data: "tanggal_lahir", class: "tbl-center"},
+            {data: "alamat", class: "tbl-center"},
+            {data: "divisi", class: "tbl-center"},
+            {data: "nik_manager", class: "tbl-center"},
+            {data: "role", class: "tbl-center"},
             {
                 data: "nik",
                 render: function (data) {
@@ -55,13 +51,13 @@ function awal() {
             }
         ],
     });
-    t.on('draw.dt', function () {
+    table.on('draw.dt', function () {
         var PageInfo = $('#dataUser').DataTable().page.info();
-        t.column(0, {page: 'current'}).nodes().each(function (cell, i) {
+        table.column(0, {page: 'current'}).nodes().each(function (cell, i) {
             cell.innerHTML = i + 1 + PageInfo.start;
         });
     });
-}
+});
 
 function deleteUser(obj) {
     var nik = $(obj).attr('id');
@@ -71,16 +67,17 @@ function deleteUser(obj) {
             url: "/api/user/nik/" + nik,
             type: "DELETE",
             headers: {Authorization: localStorage.getItem("token")},
-            success: function () {
-                window.scrollTo(0, 0);
-                $("#sihapus").show();
-                setTimeout(function () {
-                    location.reload();
-                }, 1500);
+            success: function (result) {
+                if (result.status == 200) {
+                    window.scrollTo(0, 0);
+                    $("#sihapus").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else if (result.status == 401) {
+                    location.href = "/";
+                }
             },
-            error: function () {
-                location.href = "/";
-            }
         });
     }
 }

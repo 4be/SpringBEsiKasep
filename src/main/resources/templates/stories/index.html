@@ -11,19 +11,19 @@
 <th:block layout:fragment="content">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i> Tabel Data Keterangan</h6>
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-table"></i> Tabel Data Stories</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped hover row-border compact stripe order-column" id="dataKeteranganTable" cellspacing="0" style="width:100%">
+                <table class="table table-bordered table-striped hover row-border compact stripe order-column"
+                       id="dataStories" cellspacing="0" style="width:100%">
                     <thead>
                     <tr>
                         <th>No</th>
+                        <th>URL</th>
+                        <th>Deskription</th>
+                        <th>Date</th>
                         <th>Nama</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Selesai</th>
-                        <th>Deskripsi</th>
-                        <th>Berkas Pendukung</th>
                     </tr>
                     </thead>
                 </table>
@@ -32,7 +32,7 @@
     </div>
 </th:block>
 <th:block layout:fragment="custom_script">
-    <script src="/js/dataKeterangan.js"></script>
+    <script src="/js/stories.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
 </th:block>

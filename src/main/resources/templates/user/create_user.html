@@ -13,7 +13,7 @@
 <body>
 <th:block layout:fragment="content">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800" th:text="${title}"></h1>
+    <h5 class="h3 mb-2 text-gray-800" th:text="${title}"></h5>
     <br>
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="sisukses">
         <strong>Sukses !</strong> User berhasil ditambahkan.
@@ -32,6 +32,16 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
+                <form method="POST" enctype="multipart/form-data" id="my-form">
+                    <input type="file" name="file"><br/><br/>
+                    <input type="submit" value="Upload" id="btnSubmit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
                 <table>
                     <tr>
                         <td>
@@ -39,9 +49,7 @@
                                 <label for="nikKaryawan">NIK</label>
                                 <input type="text" class="form-control" id="nikKaryawan"
                                        placeholder="Masukkan NIK"
-                                       name="nikKaryawan"
-                                       th:value="${user.nik}"
-                                       readonly>
+                                       name="nikKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -52,8 +60,7 @@
                                 <label for="namaKaryawan">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="namaKaryawan"
                                        placeholder="Masukkan Nama"
-                                       name="namaKaryawan"
-                                       th:value="${user.nama}">
+                                       name="namaKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -64,8 +71,7 @@
                                 <label for="emailKaryawan">Email</label>
                                 <input type="email" class="form-control" id="emailKaryawan"
                                        placeholder="Masukkan Email"
-                                       name="emailKaryawan"
-                                       th:value="${user.email}">
+                                       name="emailKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -76,8 +82,7 @@
                                 <label for="nikManager">NIK Manager</label>
                                 <input type="text" class="form-control" id="nikManager"
                                        placeholder="Masukkan NIK"
-                                       name="nikManager"
-                                       th:value="${user.nikManger}">
+                                       name="nikManager">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -89,8 +94,7 @@
                                 <label for="ttlKaryawan">Tanggal Lahir</label>
                                 <input type="date" class="form-control" id="ttlKaryawan"
                                        placeholder="Masukkan Tanggal Lahir"
-                                       name="ttlKaryawan"
-                                       th:value="${user.tanggalLahir}">
+                                       name="ttlKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -101,8 +105,7 @@
                                 <label for="alamatKaryawan">Alamat</label>
                                 <input type="text" class="form-control" id="alamatKaryawan"
                                        placeholder="Masukkan Alamat"
-                                       name="alamatKaryawan"
-                                       th:value="${user.alamat}">
+                                       name="alamatKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -113,8 +116,7 @@
                                 <label for="divisiKaryawan">Divisi</label>
                                 <input type="text" class="form-control" id="divisiKaryawan"
                                        placeholder="Masukkan Divisi"
-                                       name="divisiKaryawan"
-                                       th:value="${user.divisi}">
+                                       name="divisiKaryawan">
                                 <div class="valid-feedback">Valid.</div>
                                 <div class="invalid-feedback">Please fill out this field.</div>
                             </div>
@@ -142,7 +144,7 @@
     <script></script>
 </th:block>
 <th:block layout:fragment="custom_script">
-    <script src="/js/updateuser.js"></script>
+    <script src="/js/createuser.js"></script>
 </th:block>
 </body>
 </html>

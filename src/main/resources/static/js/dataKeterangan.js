@@ -31,6 +31,14 @@ $(document).ready(function () {
 //    });
     // datatable implementation
     var table = $('#dataKeteranganTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [{
+            text: "Export CSV",
+            extend: 'csv',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
+        }],
         "ajax": {
             "url": '/api/keterangan/list',
             "dataSrc": data,
@@ -50,6 +58,17 @@ $(document).ready(function () {
             {"data": 'files'},
         ],
         "columnDefs": [{
+            "targets": 1,
+            "render": function (data, type, full, meta) {
+                var res = '-';
+                if (type === 'display') {
+                    if (data != null) {
+                        res = data;
+                    }
+                }
+                return res;
+            }
+        },{
             "targets": 5,
             "render": function (data, type, full, meta) {
                 if (type === 'display') {

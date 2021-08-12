@@ -30,3 +30,7 @@
     background-image: linear-gradient(180deg,#FB4570 10%,#6E293A 100%);
     background-size: cover;
 }
+
+.tbl-center {
+    text-align: center;
+}
