@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    function parseDateValue (rawDate) {
+    function parseDateValue(rawDate) {
         if (rawDate == '') {
             return "";
         } else {
@@ -8,13 +8,14 @@ $(document).ready(function () {
             return parsedDate;
         }
     }
+
     $.fn.dataTable.ext.search.push(
         function (settings, data, index, rowData, counter) {
             var min = parseDateValue($('#min').val());
             var max = parseDateValue($('#max').val());
             var current = parseDateValue(data[2]);
             var flag = false;
-            if( (min == '' && max == '') ||
+            if ((min == '' && max == '') ||
                 (min <= current && max == '') ||
                 (min == '' && current <= max) ||
                 (min <= current && current <= max)) {
@@ -78,6 +79,11 @@ $(document).ready(function () {
                 }
                 console.log(result);
                 return result;
+            },
+            error: function (result) {
+                if (result.status == 401) {
+                    location.href = "/";
+                }
             }
             //  "beforeSend": function (xhr) {
             //      xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
@@ -118,7 +124,7 @@ $(document).ready(function () {
             {
                 "data": 'end_time',
                 "class": "tbl-center",
-                "render": function(data, type, row, meta) {
+                "render": function (data, type, row, meta) {
                     if (type == 'display') {
                         if (data != null) {
                             var time = data.split("T")[1];
@@ -154,20 +160,20 @@ $(document).ready(function () {
         // }
     });
     t.on('order.dt search.dt', function () {
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
+        t.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
             t.cell(cell).invalidate('dom');
         });
     }).draw();
     $('#min, #max').change(function () {
         t.draw();
     });
-    $('#btnClear').on('click',() => {
+    $('#btnClear').on('click', () => {
         $('#min').val("");
         $('#max').val("");
         t.draw();
     });
-    $('#btnToday').on('click',function () {
+    $('#btnToday').on('click', function () {
         var now = new Date();
         var dateNow = now.toISOString().split('T')[0];
         $('#min').val(dateNow);

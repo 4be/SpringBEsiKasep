@@ -33,8 +33,10 @@ $("#login").click(function () {
                 }, 2000)
             }
         },
-        error: function () {
-            location.href = "/";
+        error: function (result) {
+            if (result.status == 401) {
+                location.href = "/";
+            }
         }
     });
 });
