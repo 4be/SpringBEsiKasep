@@ -61,6 +61,11 @@ $(document).ready(function () {
             "headers": {Authorization: localStorage.getItem("token")},
             "dataSrc": function (result) {
                 return result;
+            },
+            "error": function (result) {
+                if (result.status == 401) {
+                    location.href = "/";
+                }
             }
 //            "beforeSend": function (xhr) {
 //                xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");

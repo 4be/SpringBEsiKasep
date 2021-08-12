@@ -16,8 +16,10 @@ $(document).ready(function () {
             type: "GET",
             data: "data",
             headers: {Authorization: localStorage.getItem("token")},
-            error: function () {
-                location.href = "/";
+            error: function (result) {
+                if (result.status == 401) {
+                    location.href = "/";
+                }
             }
         },
         columnDefs: [{
@@ -74,10 +76,13 @@ function deleteUser(obj) {
                     setTimeout(function () {
                         location.reload();
                     }, 1500);
-                } else if (result.status == 401) {
-                    location.href = "/";
                 }
             },
+            error: function (result) {
+                if (result.status == 401) {
+                    location.href = "/";
+                }
+            }
         });
     }
 }
