@@ -23,7 +23,6 @@ $(document).ready(function () {
             } else {
                 flag = false;
             }
-            console.log(data[3] + " " + current);
             return flag;
         }
     );
@@ -149,22 +148,11 @@ $(document).ready(function () {
                 }
             }
         ],
-        "order": [[3, 'desc']]
-        // "initComplete": function () {
-        //     this.api().columns('.tbl-dropdown-filter').every(function () {
-        //         var column = this;
-        //         var select = $('<select><option value="">Semua</option></select>')
-        //             .appendTo($(column.header()))
-        //             .on('change', function (e) {
-        //                 e.preventDefault();
-        //                 var val = $.fn.dataTable.util.escapeRegex($(this).val());
-        //                 column.search(val ? '^' + val + '$' : '', true, false).draw();
-        //             });
-        //         column.data().unique().sort().each(function (d, j) {
-        //             select.append('<option value="' + d + '">' + d + '</option>');
-        //         });
-        //     });
-        // }
+        "order": [[3, 'desc']],
+        "columnDefs": [ {
+            "targets": [0,8,9],
+            "orderable": false
+        } ]
     });
     t.on('draw.dt', function () {
         var PageInfo = $('#dataClockTable').DataTable().page.info();

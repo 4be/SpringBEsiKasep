@@ -1,36 +1,52 @@
-//var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2OSIsImlhdCI6MTYyODA0ODA4OCwiZXhwIjoxNjI4MTM0NDg4fQ.xmosnnHJGUWrts0trjbsR5P4YTuja1-z3PrMdGdG9OirFy7oUKqJoQMtQERIxCi3TggvDDAJj9tz0dgR1xcOPw";
-var data = null;
 $(document).ready(function () {
-    $.ajax({
-        url: "/api/keterangan/list",
-        type: "GET",
-        headers: {Authorization: localStorage.getItem("token")},
-        success: function (result) {
-            data = {data: result};
-        },
-        error: function () {
-            location.href = "/";
+    function parseDateValue(rawDate) {
+        if (rawDate == '') {
+            return "";
+        } else {
+            const dateArray = rawDate.split("-");
+            const parsedDate = new Date(parseInt(dateArray[0]), parseInt(dateArray[1]) - 1, parseInt(dateArray[2]));  // -1 because months are from 0 to 11
+            return parsedDate;
         }
+    }
+
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, index, rowData, counter) {
+            var min = parseDateValue($('#min').val());
+            var max = parseDateValue($('#max').val());
+            var current_start = parseDateValue(data[2]);
+            var current_end = parseDateValue(data[3]);
+            var flag = false;
+            if ((min == '' && max == '') ||
+                (min <= current_start && max == '') ||
+                (min == '' && current_end <= max) ||
+                (min <= current_start && current_end <= max)) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+            return flag;
+        }
+    );
+
+    $('#min').datepicker({
+        uiLibrary: 'bootstrap',
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        language: 'id',
+        immediateUpdates: true,
+        todayHighlight: true
+    });
+    $('#max').datepicker({
+        uiLibrary: 'bootstrap',
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        language: 'id',
+        immediateUpdates: true,
+        todayHighlight: true
     });
 
-    $('#dataKeteranganTable thead tr').clone(true).appendTo('#dataKeteranganTable thead');
-    // Search mode
-//    $('#dataClockTable thead tr:eq(1) th').each( function (i) {
-//        var title = $(this).text();
-//        var placeholder = "Cari "+title+"...";
-//        var width = placeholder.length;
-//        $(this).html('<input type="text" placeholder="'+placeholder+'" size="'+width+'" />');
-//        $( 'input', this ).on( 'keyup change', function () {
-//            if ( table.column(i).search() !== this.value ) {
-//                table
-//                    .column(i)
-//                    .search( this.value )
-//                    .draw();
-//            }
-//        });
-//    });
     // datatable implementation
-    var table = $('#dataKeteranganTable').DataTable({
+    var t = $('#dataKeteranganTable').DataTable({
         dom: 'Bfrtip',
         buttons: [{
             text: "Export CSV",
@@ -41,65 +57,87 @@ $(document).ready(function () {
         }],
         "ajax": {
             "url": '/api/keterangan/list',
-            "dataSrc": data,
             "type": "GET",
             "headers": {Authorization: localStorage.getItem("token")},
+            "dataSrc": function (result) {
+                return result;
+            }
 //            "beforeSend": function (xhr) {
 //                xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
 //                xhr.setRequestHeader("Authorization", token);
 //            },
         },
         "columns": [
-            {"data": 'id'},
-            {"data": 'user_id'},
-            {"data": 'start_date'},
-            {"data": 'end_date'},
-            {"data": 'description'},
-            {"data": 'files'},
-        ],
-        "columnDefs": [{
-            "targets": 1,
-            "render": function (data, type, full, meta) {
-                var res = '-';
-                if (type === 'display') {
-                    if (data != null) {
-                        res = data;
+            {"data": null, "class": "tbl-center"},
+            {"data": 'user_id.nama', "class": "tbl-center"},
+            {
+                "data": 'start_date',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        let date = data.split("-")[2];
+                        let month = data.split("-")[1];
+                        let year = data.split("-")[0];
+                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
                     }
+                    // data = datetime[0];
+                    return data;
                 }
-                return res;
-            }
-        },{
-            "targets": 5,
-            "render": function (data, type, full, meta) {
-                if (type === 'display') {
-                    data = '<a href="' + data + '"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
+            },
+            {
+                "data": 'end_date',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        var indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        let date = data.split("-")[2];
+                        let month = data.split("-")[1];
+                        let year = data.split("-")[0];
+                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
+                    }
+                    // data = datetime[0];
+                    return data;
                 }
-                return data;
-            }
-        }],
-        //Select box mode
-        "initComplete": function () {
-            this.api().columns().every(function (index) {
-                if (index < 5) {
-                    var column = this;
-                    var select = $('<select><option value="">Semua</option></select>')
-                        .appendTo($(column.header()).empty())
-                        .on('change', function () {
-                            var val = $.fn.dataTable.util.escapeRegex(
-                                $(this).val()
-                            );
-                            column
-                                .search(val ? '^' + val + '$' : '', true, false)
-                                .draw();
-                        });
-                    column.data().unique().sort().each(function (d, j) {
-                        select.append('<option value="' + d + '">' + d + '</option>');
-                    });
-                } else {
-                    $('Download')
-                        .appendTo($(column.header()).empty());
+            },
+            {"data": 'description', "class": "tbl-center"},
+            {
+                "data": 'files',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type === 'display') {
+                        let link = data;
+                        link = link.replace("/", ":8080/");
+                        data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
+                    }
+                    return data;
                 }
-            });
-        }
+            },
+        ],
+        "columnDefs": [ {
+            "targets": [0,5],
+            "orderable": false
+        } ]
+    });
+    t.on('draw.dt', function () {
+        var PageInfo = $('#dataKeteranganTable').DataTable().page.info();
+        t.column(0, {page: 'current'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1 + PageInfo.start;
+        });
+    });
+    $('#min, #max').change(function () {
+        t.draw();
+    });
+    $('#btnClear').on('click', () => {
+        $('#min').val("");
+        $('#max').val("");
+        t.draw();
+    });
+    $('#btnToday').on('click', function () {
+        var now = new Date();
+        var dateNow = now.toISOString().split('T')[0];
+        $('#min').val(dateNow);
+        $('#max').val(dateNow);
+        t.draw();
     });
 });
