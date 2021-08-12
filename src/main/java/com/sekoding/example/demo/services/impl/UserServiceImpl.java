@@ -3,9 +3,11 @@ package com.sekoding.example.demo.services.impl;
 import com.sekoding.example.demo.model.entity.ERole;
 import com.sekoding.example.demo.model.entity.Role;
 import com.sekoding.example.demo.model.entity.User;
+import com.sekoding.example.demo.model.repos.ClockRepo;
 import com.sekoding.example.demo.model.request.UserRequest;
 import com.sekoding.example.demo.model.response.FailedResponse;
 import com.sekoding.example.demo.model.response.SuccessResponse;
+import com.sekoding.example.demo.model.response.payload.TeamResponse;
 import com.sekoding.example.demo.model.response.payload.UserResponse;
 import com.sekoding.example.demo.repository.RoleRepository;
 import com.sekoding.example.demo.repository.UserRepository;
@@ -34,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ClockRepo clockRepo;
 
     @Autowired
     RoleRepository roleRepository;
@@ -157,14 +162,26 @@ public class UserServiceImpl implements UserService {
     public Object getUserByNikManager(String nikManager) {
         try {
             List<User> userList = userRepository.findUserByNikManger(nikManager);
-            List<UserResponse> UserResponseList = new ArrayList<>();
+            List<TeamResponse> teamResponseList = new ArrayList<>();
 
             for (User user : userList) {
-                UserResponse userResponse = getUserResponse(user);
-                UserResponseList.add(userResponse);
+                Boolean working = clockRepo.findStatusByIdDesc(user.getId());
+                TeamResponse teamResponse = new TeamResponse(
+                    user.getId(),
+                    user.getNama(),
+                    user.getNik(),
+                    user.getAlamat(),
+                    user.getTanggalLahir(),
+                    user.getEmail(),
+                    user.getDivisi(),
+                    user.getNikManger(),
+                    user.getRoles().iterator().next().getRolename().toString(),
+                    working
+                );
+                teamResponseList.add(teamResponse);
             }
 
-            return new SuccessResponse(HttpStatus.OK, "Success", UserResponseList);
+            return new SuccessResponse(HttpStatus.OK, "Success", teamResponseList);
         } catch (Exception e) {
             return new FailedResponse(HttpStatus.MULTI_STATUS, e.getMessage());
         }

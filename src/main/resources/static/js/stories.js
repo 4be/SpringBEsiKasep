@@ -30,6 +30,11 @@ $(document).ready(function () {
             // error: function () {
             //     location.href = "/";
             // }
+            error: function (result) {
+                if (result.status == 401) {
+                    location.href = "/";
+                }
+            }
         },
         columnDefs: [{
             searchable: false,

@@ -44,6 +44,11 @@ $(document).ready(function () {
             "dataSrc": data,
             "type": "GET",
             "headers": {Authorization: localStorage.getItem("token")},
+            error: function (result) {
+                if (result.status == 401) {
+                    location.href = "/";
+                }
+            }
 //            "beforeSend": function (xhr) {
 //                xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
 //                xhr.setRequestHeader("Authorization", token);
@@ -68,7 +73,7 @@ $(document).ready(function () {
                 }
                 return res;
             }
-        },{
+        }, {
             "targets": 5,
             "render": function (data, type, full, meta) {
                 if (type === 'display') {
