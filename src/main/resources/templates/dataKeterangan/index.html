@@ -15,6 +15,34 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <div class="row">
+                    <div class="col-lg-2">Tanggal Awal</div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <div class="input-group" id="minDatePicker">
+                                <input type="text" id="min" placeholder="YYYY-MM-DD"/>&nbsp;
+                                <i class="fas fa-calendar-alt fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-warning" id="btnClear"><i class="fas fa-minus-square"></i> Clear</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">Tanggal Akhir</div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <div class="input-group" id="maxDatePicker">
+                                <input type="text" id="max" placeholder="YYYY-MM-DD" />&nbsp;
+                                <i class="fas fa-calendar-alt fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <button class="btn btn-primary" id="btnToday"><i class="fas fa-calendar-day"></i> Keterangan Sakit Hari Ini</button>
+                    </div>
+                </div>
                 <table class="table table-bordered table-striped hover row-border compact stripe order-column" id="dataKeteranganTable" cellspacing="0" style="width:100%">
                     <thead>
                     <tr>

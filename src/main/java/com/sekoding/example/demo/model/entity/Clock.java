@@ -3,14 +3,14 @@ package com.sekoding.example.demo.model.entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @Entity
+@Setter
+@Getter
 @Table(name = "tbl_clock")
 public @Data
 class Clock implements Serializable {
