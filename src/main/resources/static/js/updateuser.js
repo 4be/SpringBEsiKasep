@@ -28,13 +28,12 @@ $("#submit").click(function () {
             success: function (result) {
                 if (result.status == 200) {
                     location.href = "/hcms/datauser";
+                } else if (result.status == 401) {
+                    location.href = "/";
                 } else {
                     window.location = window.location;
                 }
             },
-            error: function () {
-                location.href = "/";
-            }
         });
     }
 });

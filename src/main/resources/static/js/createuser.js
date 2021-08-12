@@ -24,11 +24,10 @@ $("#btnSubmit").click(function () {
                 setTimeout(function () {
                     location.href = "/hcms/datauser";
                 }, 1000);
+            } else if (data.status == 401) {
+                location.href = "/";
             }
         },
-        error: function () {
-            location.href = "/";
-        }
     });
 });
 
@@ -60,6 +59,8 @@ $("#submit").click(function () {
                     setTimeout(function () {
                         location.href = "/hcms/datauser";
                     }, 1000);
+                } else if (result.status == 401) {
+                    location.href = "/";
                 } else {
                     $("#sigagal").show();
                     setTimeout(function () {
@@ -67,9 +68,6 @@ $("#submit").click(function () {
                     }, 1000)
                 }
             },
-            error: function () {
-                location.href = "/";
-            }
         });
     }
 });

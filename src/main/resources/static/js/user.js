@@ -67,16 +67,17 @@ function deleteUser(obj) {
             url: "/api/user/nik/" + nik,
             type: "DELETE",
             headers: {Authorization: localStorage.getItem("token")},
-            success: function () {
-                window.scrollTo(0, 0);
-                $("#sihapus").show();
-                setTimeout(function () {
-                    location.reload();
-                }, 1500);
+            success: function (result) {
+                if (result.status == 200) {
+                    window.scrollTo(0, 0);
+                    $("#sihapus").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else if (result.status == 401) {
+                    location.href = "/";
+                }
             },
-            error: function () {
-                location.href = "/";
-            }
         });
     }
 }

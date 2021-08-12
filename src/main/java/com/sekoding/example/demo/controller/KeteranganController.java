@@ -40,9 +40,10 @@ public class KeteranganController {
 
         try {
             byte[] bytes = files.getBytes();
-            Path path = Paths.get((UPLOADED_PATH) + files.getOriginalFilename());
-            Files.write(path,bytes);
-            keterangan.setFiles(path.toString());
+            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + files.getOriginalFilename().replaceAll(" ","_"));
+            Files.write(path, bytes);
+            String urlImage = "35.209.242.226/img/" + date.getTime() + files.getOriginalFilename().replaceAll(" ","_");
+            keterangan.setFiles(urlImage);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
