@@ -29,14 +29,6 @@ $(document).ready(function () {
         order: [[1, 'asc']],
         columns: [
             {data: null},
-            // {data: "nik"},
-            // {data: "nama"},
-            // {data: "email"},
-            // {data: "tanggal_lahir"},
-            // {data: "alamat"},
-            // {data: "divisi"},
-            // {data: "nik_manager"},
-            // {data: "role"},
             {data: "nik", class: "tbl-center"},
             {data: "nama", class: "tbl-center"},
             {data: "email", class: "tbl-center"},
@@ -75,16 +67,17 @@ function deleteUser(obj) {
             url: "/api/user/nik/" + nik,
             type: "DELETE",
             headers: {Authorization: localStorage.getItem("token")},
-            success: function () {
-                window.scrollTo(0, 0);
-                $("#sihapus").show();
-                setTimeout(function () {
-                    location.reload();
-                }, 1500);
+            success: function (result) {
+                if (result.status == 200) {
+                    window.scrollTo(0, 0);
+                    $("#sihapus").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1500);
+                } else if (result.status == 401) {
+                    location.href = "/";
+                }
             },
-            error: function () {
-                location.href = "/";
-            }
         });
     }
 }
