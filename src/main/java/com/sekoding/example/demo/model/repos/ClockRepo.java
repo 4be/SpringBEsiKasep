@@ -22,4 +22,6 @@ public interface ClockRepo extends CrudRepository<Clock, Long> {
     public List<Clock> findByIdHistory(@PathParam("masuk") Long masuk);
 
 
+
+
 }
