@@ -34,3 +34,7 @@
 .tbl-center {
     text-align: center;
 }
+
+.finger-pointer {
+    cursor: pointer;
+}

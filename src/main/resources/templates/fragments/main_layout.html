@@ -201,20 +201,44 @@
 </a>
 
 <!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                <h5 class="modal-title" id="logoutModalLabel">Logout</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">Apakah anda yakin untuk Logout?</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <button class="btn btn-primary" type="button" data-dismiss="modal" id="logout">Logout</button>
+                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Cancel</button>
+                <button class="btn btn-success" type="button" data-dismiss="modal" id="logout"><i class="fas fa-fw fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="imageClockModal" tabindex="-1" role="dialog" aria-labelledby="imageClockModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="height: 80%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageClockModalLabel">Foto Clock</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img id="imageClock" style="max-width: 100%; max-height: 390px;"/>
+                </div>
+            </div>
+            <div class="modal-footer" id="imageClockDiv">
+                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Close</button>
+                <a class="btn btn-success" id="downloadImageClock"><i class="fas fa-fw fa-download"></i> Download</a>
             </div>
         </div>
     </div>

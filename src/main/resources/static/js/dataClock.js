@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    function parseDateValue (rawDate) {
+    function parseDateValue(rawDate) {
         if (rawDate == '') {
             return "";
         } else {
@@ -8,13 +8,14 @@ $(document).ready(function () {
             return parsedDate;
         }
     }
+
     $.fn.dataTable.ext.search.push(
         function (settings, data, index, rowData, counter) {
             var min = parseDateValue($('#min').val());
             var max = parseDateValue($('#max').val());
-            var current = parseDateValue(data[2]);
+            var current = parseDateValue(data[3].split("T")[0]);
             var flag = false;
-            if( (min == '' && max == '') ||
+            if ((min == '' && max == '') ||
                 (min <= current && max == '') ||
                 (min == '' && current <= max) ||
                 (min <= current && current <= max)) {
@@ -22,6 +23,7 @@ $(document).ready(function () {
             } else {
                 flag = false;
             }
+            console.log(data[3] + " " + current);
             return flag;
         }
     );
@@ -52,31 +54,17 @@ $(document).ready(function () {
             }
         }],
         "ajax": {
-            "url": '/api/clockin',
+            "url": '/api/clock/desc',
             "type": "GET",
             "headers": {Authorization: localStorage.getItem("token")},
             "dataSrc": function (result) {
-                var datetime, time, date, month, year;
-                var indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                for (var i = 0; i < result.length; i++) {
-                    // orderable desc time
-                    result[i].time = result[i].start_time;
-                    // date
-                    datetime = result[i].start_time.split("T");
-                    result[i].date = datetime[0];
-                    // start_time
-                    // time = datetime[1];
-                    // result[i].start_time = time.substr(0, 8);
-                    // end_time
-                    if (result[i].end_time == null) {
-                        result[i].end_time = '-';
-                    }
-                    // location_clockout
-                    if (result[i].location_clockout == null) {
-                        result[i].location_clockout = '-';
+                for(var i=0;i<result.length;i++) {
+                    if(result[i].working == true) {
+                        result[i].working = 'clock in';
+                    } else {
+                        result[i].working = 'clock out';
                     }
                 }
-                console.log(result);
                 return result;
             }
             //  "beforeSend": function (xhr) {
@@ -86,57 +74,82 @@ $(document).ready(function () {
         },
         "columns": [
             {"data": null, "class": "tbl-center"},
+            {
+                "data": 'working',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        let btnColor;
+                        let status;
+                        if (data == 'clock in') {
+                            btnColor = 'success';
+                            status = 'Clock In';
+                        } else if(data == 'clock out') {
+                            btnColor = 'danger';
+                            status = 'Clock Out';
+                        }
+                        data = '<span class="badge badge-pill badge-' + btnColor + '">' + status + '</span>';
+                    }
+                    return data;
+                }
+            },
             {"data": 'user_id.nama', "class": "tbl-center"},
             {
-                "data": 'date',
+                "data": 'times',
                 "class": "tbl-center",
                 "render": function (data, type, row, meta) {
+                    let datetime = data.split("T");
                     if (type == 'display') {
-                        var datetime = data.split("T");
-                        var indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                        var date = datetime[0].split("-")[2];
-                        var month = datetime[0].split("-")[1];
-                        var year = datetime[0].split("-")[0];
+                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        let date = datetime[0].split("-")[2];
+                        let month = datetime[0].split("-")[1];
+                        let year = datetime[0].split("-")[0];
                         data = date + " " + indoMonth[parseInt(month)] + " " + year;
                     }
+                    // data = datetime[0];
                     return data;
                 }
             },
             {
-                "data": 'start_time',
+                "data": 'times',
                 "class": "tbl-center",
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
-                        var datetime = data.split("T");
-                        var time = datetime[1];
-                        data = time.substr(0, 8);
+                        let datetime = data.split("T");
+                        data = datetime[1].substr(0, 8);
                     }
                     return data;
                 }
             },
-            {"data": 'location_clockin', "class": "tbl-center"},
-            {
-                "data": 'end_time',
-                "class": "tbl-center",
-                "render": function(data, type, row, meta) {
-                    if (type == 'display') {
-                        if (data != null) {
-                            var time = data.split("T")[1];
-                            data = time.substr(0, 8);
-                        } else {
-                            data = '-';
-                        }
-                    }
-                    return data;
-
-                }
-            },
-            {"data": 'location_clockout', "class": "tbl-center"},
+            {"data": 'location_clock', "class": "tbl-center"},
             {"data": 'level_kesehatan_fisik_id', "class": "tbl-center"},
             {"data": 'level_kesehatan_mental_Id', "class": "tbl-center"},
-            {"data": 'time', "visible": false}
+            {
+                "data": 'coordinate',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        data = data.replace(" ", "");
+                        data = '<a href="https://maps.google.com/maps?q=' + data + '" target="_blank" class="btn btn-primary"><i class="fas fa-map-marked-alt"></i></a>';
+                    }
+                    return data;
+                }
+            },
+            {
+                "data": 'url_foto_clock',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        let id = data;
+                        // id = id.replace("/", ":8080/");
+                        data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="'+id+'"><i class="fas fa-eye"></i></a>';
+
+                    }
+                    return data;
+                }
+            }
         ],
-        "order": [[9, 'desc']]
+        "order": [[3, 'desc']]
         // "initComplete": function () {
         //     this.api().columns('.tbl-dropdown-filter').every(function () {
         //         var column = this;
@@ -153,25 +166,32 @@ $(document).ready(function () {
         //     });
         // }
     });
-    t.on('order.dt search.dt', function () {
-        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-            cell.innerHTML = i+1;
-            t.cell(cell).invalidate('dom');
+    t.on('draw.dt', function () {
+        var PageInfo = $('#dataClockTable').DataTable().page.info();
+        t.column(0, {page: 'current'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1 + PageInfo.start;
         });
-    }).draw();
+    });
     $('#min, #max').change(function () {
         t.draw();
     });
-    $('#btnClear').on('click',() => {
+    $('#btnClear').on('click', () => {
         $('#min').val("");
         $('#max').val("");
         t.draw();
     });
-    $('#btnToday').on('click',function () {
+    $('#btnToday').on('click', function () {
         var now = new Date();
         var dateNow = now.toISOString().split('T')[0];
         $('#min').val(dateNow);
         $('#max').val(dateNow);
         t.draw();
     });
+    $('#imageClockModal').on('shown.bs.modal', function (e) {
+        var id = $(e.relatedTarget).data('link');
+        $('#imageClock').attr('src', 'http://' + id);
+        $('#downloadImageClock').attr('download', 'http://' + id);
+        $('#downloadImageClock').attr('target', '_blank');
+        $('#downloadImageClock').attr('href', 'http://' + id);
+    })
 });
