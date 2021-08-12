@@ -33,8 +33,8 @@ public class StoriesController {
     @Autowired
     private ModelMapper modelMapper;
 
-        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
-//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
+//        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/add")
     public ResponseEntity<ResponseData<Stories>> addstories(@Valid @RequestParam("picture") MultipartFile picture, @ModelAttribute StoriesRequest storiesRequest, Errors errors){
@@ -80,20 +80,18 @@ public class StoriesController {
         return storiesServices.findAllDesc();
     }
 
+
+    @GetMapping("/id/{id}")
+    public Stories findStoriesId(@PathVariable("id") Long id){
+        return storiesServices.findById(id);
+    }
+
+
+
     @DeleteMapping("/delete/id/{id}")
     public void removeOne(@PathVariable("id") Long id){
         storiesServices.remmoveOne(id);
     }
 
-
-//    public ResponseEntity<ResponseData<List<StoriesResponse>>> findAll(){
-//        ResponseData<List<StoriesResponse>> response = new ResponseData<>();
-//        List<StoriesResponse> listStories = new ArrayList<>();
-//        storiesRepo.findAll().forEach(stories -> {
-//            listStories.add(modelMapper.map(stories, StoriesResponse.class));
-//        });
-//        response.setStatus(true);
-//        response.setPayload(listStories);
-//        return ResponseEntity.ok(response);
 
 }
