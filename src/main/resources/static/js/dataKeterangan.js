@@ -20,7 +20,7 @@ $(document).ready(function () {
 
     // datatable implementation
     var t = $('#dataKeteranganTable').DataTable({
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
         buttons: [{
             text: "Export CSV",
             extend: 'csv',
@@ -28,6 +28,10 @@ $(document).ready(function () {
                 columns: [1, 2, 3, 4]
             }
         }],
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
         "ajax": {
             "url": '/api/keterangan/list',
             "type": "GET",

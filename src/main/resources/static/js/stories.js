@@ -18,7 +18,7 @@ $(document).ready(function () {
     );
 
     var t = $('#dataStories').DataTable({
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
         buttons: [{
             text: "Export CSV",
             extend: 'csv',
@@ -26,6 +26,10 @@ $(document).ready(function () {
                 columns: [2, 3, 4]
             }
         }],
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
         ajax: {
             url: "/api/stories/list/desc/",
             type: "GET",
@@ -65,9 +69,12 @@ $(document).ready(function () {
                 render: function (data, type, row, meta) {
                     if (type == 'display') {
                         let id = data;
-                        id = id.replace("/", ":8080/");
-                        data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
-
+                        if (id != null) {
+                            id = id.replace("/", ":8080/");
+                            data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
+                        } else {
+                            data = "Tanpa Foto";
+                        }
                     }
                     return data;
                 }

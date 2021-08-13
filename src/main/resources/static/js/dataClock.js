@@ -10,15 +10,24 @@ $(document).ready(function () {
                 (min == '' && current <= max) ||
                 (min <= current && current <= max)) {
                 flag = true;
-            } else {
-                flag = false;
+            }
+            return flag;
+        }
+    );
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, index, rowData, counter) {
+            var status = $('#statusClock').val();
+            var flag = false;
+            console.log(data[1]);
+            if (status == 'all' || status == data[1]) {
+                flag = true;
             }
             return flag;
         }
     );
     // datatable implementation
     var t = $('#dataClockTable').DataTable({
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
         buttons: [{
             text: "Export CSV",
             extend: 'csv',
@@ -26,6 +35,10 @@ $(document).ready(function () {
                 columns: [1, 2, 3, 4, 5, 6, 7]
             }
         }],
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
         "ajax": {
             "url": '/api/clock/desc/',
             "type": "GET",
@@ -57,12 +70,12 @@ $(document).ready(function () {
                         let status;
                         if (data == 'clock in') {
                             btnColor = 'success';
-                            status = 'Clock In';
+                            status = 'clock in';
                         } else if (data == 'clock out') {
                             btnColor = 'danger';
-                            status = 'Clock Out';
+                            status = 'clock out';
                         }
-                        data = '<span class="badge badge-pill badge-' + btnColor + '">' + status + '</span>';
+                        data = '<span class="badge badge-pill badge-' + btnColor + '"><i class="far fa-clock"></i> ' + status + '</span>';
                     }
                     return data;
                 }
@@ -135,7 +148,7 @@ $(document).ready(function () {
             t.cell(cell).invalidate('dom');
         });
     });
-    $('#min, #max').change(function () {
+    $('#min, #max, #statusClock').change(function () {
         t.draw();
     });
     $('#btnClear').on('click', () => {
