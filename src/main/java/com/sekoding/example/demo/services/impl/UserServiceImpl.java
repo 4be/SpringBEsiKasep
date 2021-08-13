@@ -2,6 +2,7 @@ package com.sekoding.example.demo.services.impl;
 
 import com.sekoding.example.demo.model.entity.ERole;
 import com.sekoding.example.demo.model.entity.Role;
+import com.sekoding.example.demo.model.entity.Status;
 import com.sekoding.example.demo.model.entity.User;
 import com.sekoding.example.demo.model.repos.ClockRepo;
 import com.sekoding.example.demo.model.request.UserRequest;
@@ -10,6 +11,7 @@ import com.sekoding.example.demo.model.response.SuccessResponse;
 import com.sekoding.example.demo.model.response.payload.TeamResponse;
 import com.sekoding.example.demo.model.response.payload.UserResponse;
 import com.sekoding.example.demo.repository.RoleRepository;
+import com.sekoding.example.demo.repository.StatusRepository;
 import com.sekoding.example.demo.repository.UserRepository;
 import com.sekoding.example.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -39,6 +44,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     ClockRepo clockRepo;
+
+    @Autowired
+    StatusRepository statusRepository;
 
     @Autowired
     RoleRepository roleRepository;
@@ -97,6 +105,9 @@ public class UserServiceImpl implements UserService {
 
         User save = userRepository.save(user);
 
+        Status status = getStatus(save);
+        statusRepository.save(status);
+
         UserResponse userResponse = getUserResponse(save);
         return new SuccessResponse(HttpStatus.OK, "Success", userResponse);
     }
@@ -137,6 +148,9 @@ public class UserServiceImpl implements UserService {
                 );
 
                 User save = userRepository.save(user);
+
+                Status status = getStatus(save);
+                statusRepository.save(status);
 
                 UserResponse userResponse = getUserResponse(save);
                 userResponseList.add(userResponse);
@@ -212,6 +226,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object deleteUser(Long id) {
         try {
+            statusRepository.deleteByUserId(id);
             userRepository.deleteById(id);
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
@@ -223,6 +238,7 @@ public class UserServiceImpl implements UserService {
     public Object deleteUserByNik(String nik) {
         try {
             User user = userRepository.findUserByNik(nik);
+            statusRepository.deleteByUserId(user.getId());
             userRepository.deleteById(user.getId());
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
@@ -262,6 +278,16 @@ public class UserServiceImpl implements UserService {
             user.getRoles().iterator().next().getRolename().toString()
         );
         return userResponse;
+    }
+
+    public Status getStatus(User user) {
+        Status status = new Status(
+            user.getId(),
+            user.getNik(),
+            user.getNama(),
+            Boolean.FALSE
+        );
+        return status;
     }
 
 }

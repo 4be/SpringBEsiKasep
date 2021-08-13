@@ -33,7 +33,7 @@ public class ClockController {
     @Autowired
     private ModelMapper modelMapper;
 
-//    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+//        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
     private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/clockin")
@@ -45,9 +45,9 @@ public class ClockController {
 
         try {
             byte[] bytes = picture.getBytes();
-            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_"));
+            Path path = Paths.get((UPLOADED_PATH) + date.getTime() + picture.getOriginalFilename().replaceAll(" ", "_"));
             Files.write(path, bytes);
-            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename().replaceAll(" ","_");
+            String urlImage = "35.209.242.226/img/" + date.getTime() + picture.getOriginalFilename().replaceAll(" ", "_");
             clockinr.setUrl_foto_clock(urlImage);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -70,7 +70,7 @@ public class ClockController {
         clockinr.setUser_id(clockinData.getUser_id());
 
         responseData.setStatus(true);
-        responseData.setPayload(clockService.create(clockinr));
+        responseData.setPayload(clockService.create(clockinr, Boolean.TRUE));
         return ResponseEntity.status(HttpStatus.CREATED).body(responseData);
     }
 
@@ -109,7 +109,7 @@ public class ClockController {
         clockinr.setUser_id(clockoutData.getUser_id());
 
         responseData.setStatus(true);
-        responseData.setPayload(clockService.create(clockinr));
+        responseData.setPayload(clockService.create(clockinr, Boolean.FALSE));
         return ResponseEntity.ok(responseData);
     }
 
@@ -135,7 +135,7 @@ public class ClockController {
 
     @PutMapping("/clockin")
     public Clock update(@RequestBody Clock clockin) {
-        return clockService.create(clockin);
+        return clockService.create(clockin, Boolean.TRUE);
     }
 
     @DeleteMapping("/clockin/delete/{id}")
@@ -144,20 +144,22 @@ public class ClockController {
     }
 
     @GetMapping("/clock/desc")
-    public List<Clock> getClockDesc(){
+    public List<Clock> getClockDesc() {
         return clockService.findAllDesc();
     }
 
     @GetMapping("/clock/last/{id}")
-    public List<Clock> getLastClock(@PathVariable("id") Long id){
+    public List<Clock> getLastClock(@PathVariable("id") Long id) {
         return clockService.findByIdDesc(id);
     }
 
     @GetMapping("/clock/history/{id}")
-    public List<Clock> getHistoryClock(@PathVariable("id") Long id){ return clockService.findByIdHistory(id);}
+    public List<Clock> getHistoryClock(@PathVariable("id") Long id) {
+        return clockService.findByIdHistory(id);
+    }
 
     @GetMapping("/clock/team/{team}")
-    public List<Clock> getClockTeam(@PathVariable("team") String team){
+    public List<Clock> getClockTeam(@PathVariable("team") String team) {
         return clockService.findByTeam(team);
     }
 
