@@ -28,6 +28,7 @@ $(document).ready(function () {
     // datatable implementation
     var t = $('#dataClockTable').DataTable({
         dom: 'Blfrtip',
+        // dom: '<"top"fBlr>t<"bottom"i<"clear">p>',
         buttons: [{
             text: "Export CSV",
             extend: 'csv',

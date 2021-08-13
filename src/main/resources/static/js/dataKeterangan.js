@@ -29,8 +29,8 @@ $(document).ready(function () {
             }
         }],
         lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+            [10, 25, 50, -1],
+            ['10 rows', '25 rows', '50 rows', 'Show all']
         ],
         "ajax": {
             "url": '/api/keterangan/list',
@@ -86,18 +86,17 @@ $(document).ready(function () {
                     if (type === 'display') {
                         let link = data;
                         link = link.replace("/", ":8080/");
-                        let filename = link.split("/")[2];
-                        data = '<a href="http:\/\/' + link + '" target="_blank" download="'+filename+'"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
+                        data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
                     return data;
                 }
             },
         ],
-        "order": [[2, 'desc']],
-        "columnDefs": [ {
-            "targets": [0,5],
+        "columnDefs": [{
+            "targets": [0, 5],
             "orderable": false
-        } ]
+        }]
+
     });
     t.on('draw.dt', function () {
         var PageInfo = $('#dataKeteranganTable').DataTable().page.info();
@@ -120,4 +119,5 @@ $(document).ready(function () {
         $('#max').val(dateNow);
         t.draw();
     });
-});
+})
+;

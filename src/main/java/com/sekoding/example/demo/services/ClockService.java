@@ -1,7 +1,9 @@
 package com.sekoding.example.demo.services;
 
 import com.sekoding.example.demo.model.entity.Clock;
+import com.sekoding.example.demo.model.entity.Status;
 import com.sekoding.example.demo.model.repos.ClockRepo;
+import com.sekoding.example.demo.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,13 @@ public class ClockService {
     @Autowired
     private ClockRepo clockRepo;
 
-    public Clock create(Clock clock) {
+    @Autowired
+    StatusRepository statusRepository;
+
+    public Clock create(Clock clock, Boolean bool) {
+        Status status = statusRepository.findByUserId(clock.getUser_id().getId());
+        status.setUserStatus(bool);
+        statusRepository.save(status);
         return clockRepo.save(clock);
     }
 
@@ -34,17 +42,19 @@ public class ClockService {
         clockRepo.deleteById(id);
     }
 
-    public List<Clock> findAllDesc(){
+    public List<Clock> findAllDesc() {
         return clockRepo.findAllDesc();
     }
 
-    public List<Clock> findByIdDesc(Long id){
+    public List<Clock> findByIdDesc(Long id) {
         return clockRepo.findByIdDesc(id);
     }
 
-    public List<Clock> findByIdHistory(Long id){return clockRepo.findByIdHistory(id);}
+    public List<Clock> findByIdHistory(Long id) {
+        return clockRepo.findByIdHistory(id);
+    }
 
-    public List<Clock> findByTeam(String team){
+    public List<Clock> findByTeam(String team) {
         return clockRepo.findByTeam(team);
     }
 

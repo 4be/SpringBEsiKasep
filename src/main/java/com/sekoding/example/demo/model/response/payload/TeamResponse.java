@@ -6,6 +6,7 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class TeamResponse {
+
     private Long id;
     private String nama;
     private String nik;
@@ -16,4 +17,5 @@ public class TeamResponse {
     private String nik_manager;
     private String role;
     private Boolean status;
+
 }

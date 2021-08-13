@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {
@@ -22,7 +20,7 @@ public class RoleController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> addRole(@Valid @RequestBody RoleRequest roleRequest) {
+    public ResponseEntity<?> addRole(@RequestBody RoleRequest roleRequest) {
         Object data = roleService.createRole(roleRequest);
         return ResponseEntity.ok(data);
     }

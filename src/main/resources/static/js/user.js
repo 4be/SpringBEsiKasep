@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#sihapus').hide();
     $('#siubah').hide();
     var table = $('#dataUser').DataTable({
-        dom: 'Bfrtip',
+        dom: 'Blfrtip',
         buttons: [{
             text: "Export CSV",
             extend: 'csv',
