@@ -1,6 +1,9 @@
 $(document).ready(function () {
     $("#sigagal1").hide();
     $("#sigagal2").hide();
+    if(localStorage.getItem("token") != null) {
+        location.href = "/hcms/";
+    }
 });
 
 $("#login").click(function () {
@@ -19,7 +22,7 @@ $("#login").click(function () {
             if (result.status == 200) {
                 if (result.data.role == 'HCM') {
                     localStorage.setItem("token", result.data.token);
-                    location.href = "/hcms/datauser";
+                    location.href = "/hcms/";
                 } else {
                     $("#sigagal2").show();
                     setTimeout(function () {

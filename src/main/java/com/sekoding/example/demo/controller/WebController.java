@@ -28,7 +28,7 @@ public class WebController {
 
     @GetMapping("/hcms/dataketerangan")
     public String dataKeterangan(Model model) {
-        model.addAttribute("title", "Data Keterangan");
+        model.addAttribute("title", "Data Keterangan Sakit");
         return "dataKeterangan/index";
     }
 
