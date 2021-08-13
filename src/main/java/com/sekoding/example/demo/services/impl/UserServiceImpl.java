@@ -33,7 +33,10 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -223,6 +226,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object deleteUser(Long id) {
         try {
+            statusRepository.deleteByUserId(id);
             userRepository.deleteById(id);
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
@@ -234,6 +238,7 @@ public class UserServiceImpl implements UserService {
     public Object deleteUserByNik(String nik) {
         try {
             User user = userRepository.findUserByNik(nik);
+            statusRepository.deleteByUserId(user.getId());
             userRepository.deleteById(user.getId());
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
