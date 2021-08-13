@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    function parseDateValue(rawDate) {
-        if (rawDate == '') {
-            return "";
-        } else {
-            const dateArray = rawDate.split("-");
-            const parsedDate = new Date(parseInt(dateArray[0]), parseInt(dateArray[1]) - 1, parseInt(dateArray[2]));  // -1 because months are from 0 to 11
-            return parsedDate;
-        }
-    }
-
     $.fn.dataTable.ext.search.push(
         function (settings, data, index, rowData, counter) {
             var min = parseDateValue($('#min').val());
@@ -26,22 +16,6 @@ $(document).ready(function () {
             return flag;
         }
     );
-    $('#min').datepicker({
-        uiLibrary: 'bootstrap',
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        language: 'id',
-        immediateUpdates: true,
-        todayHighlight: true
-    });
-    $('#max').datepicker({
-        uiLibrary: 'bootstrap',
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        language: 'id',
-        immediateUpdates: true,
-        todayHighlight: true
-    });
     // datatable implementation
     var t = $('#dataClockTable').DataTable({
         dom: 'Bfrtip',
@@ -53,12 +27,12 @@ $(document).ready(function () {
             }
         }],
         "ajax": {
-            "url": '/api/clock/desc',
+            "url": '/api/clock/desc/',
             "type": "GET",
             "headers": {Authorization: localStorage.getItem("token")},
             "dataSrc": function (result) {
-                for(var i=0;i<result.length;i++) {
-                    if(result[i].working == true) {
+                for (var i = 0; i < result.length; i++) {
+                    if (result[i].working == true) {
                         result[i].working = 'clock in';
                     } else {
                         result[i].working = 'clock out';
@@ -71,10 +45,6 @@ $(document).ready(function () {
                     location.href = "/";
                 }
             }
-            //  "beforeSend": function (xhr) {
-            //      xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
-            //      xhr.setRequestHeader("Authorization", "Bearer " + token);
-            //  },
         },
         "columns": [
             {"data": null, "class": "tbl-center"},
@@ -88,7 +58,7 @@ $(document).ready(function () {
                         if (data == 'clock in') {
                             btnColor = 'success';
                             status = 'Clock In';
-                        } else if(data == 'clock out') {
+                        } else if (data == 'clock out') {
                             btnColor = 'danger';
                             status = 'Clock Out';
                         }
@@ -118,8 +88,8 @@ $(document).ready(function () {
                 "data": 'times',
                 "class": "tbl-center",
                 "render": function (data, type, row, meta) {
+                    let datetime = data.split("T");
                     if (type == 'display') {
-                        let datetime = data.split("T");
                         data = datetime[1].substr(0, 8);
                     }
                     return data;
@@ -145,8 +115,8 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
                         let id = data;
-                        // id = id.replace("/", ":8080/");
-                        data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="'+id+'"><i class="fas fa-eye"></i></a>';
+                        id = id.replace("/", ":8080/");
+                        data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
 
                     }
                     return data;
@@ -154,15 +124,16 @@ $(document).ready(function () {
             }
         ],
         "order": [[3, 'desc']],
-        "columnDefs": [ {
-            "targets": [0,8,9],
+        "columnDefs": [{
+            "targets": [0, 8, 9],
             "orderable": false
-        } ]
+        }]
     });
-    t.on('draw.dt', function () {
-        var PageInfo = $('#dataClockTable').DataTable().page.info();
-        t.column(0, {page: 'current'}).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1 + PageInfo.start;dy
+    t.on('order.dt search.dt', function () {
+        t.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+            t.cell(cell).invalidate('dom');
+
         });
     });
     $('#min, #max').change(function () {
@@ -180,11 +151,5 @@ $(document).ready(function () {
         $('#max').val(dateNow);
         t.draw();
     });
-    $('#imageClockModal').on('shown.bs.modal', function (e) {
-        var id = $(e.relatedTarget).data('link');
-        $('#imageClock').attr('src', 'http://' + id);
-        $('#downloadImageClock').attr('download', 'http://' + id);
-        $('#downloadImageClock').attr('target', '_blank');
-        $('#downloadImageClock').attr('href', 'http://' + id);
-    })
+
 });

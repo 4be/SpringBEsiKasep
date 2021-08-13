@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    function parseDateValue(rawDate) {
-        if (rawDate == '') {
-            return "";
-        } else {
-            const dateArray = rawDate.split("-");
-            const parsedDate = new Date(parseInt(dateArray[0]), parseInt(dateArray[1]) - 1, parseInt(dateArray[2]));  // -1 because months are from 0 to 11
-            return parsedDate;
-        }
-    }
-
     $.fn.dataTable.ext.search.push(
         function (settings, data, index, rowData, counter) {
             var min = parseDateValue($('#min').val());
@@ -28,23 +18,6 @@ $(document).ready(function () {
         }
     );
 
-    $('#min').datepicker({
-        uiLibrary: 'bootstrap',
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        language: 'id',
-        immediateUpdates: true,
-        todayHighlight: true
-    });
-    $('#max').datepicker({
-        uiLibrary: 'bootstrap',
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        language: 'id',
-        immediateUpdates: true,
-        todayHighlight: true
-    });
-
     // datatable implementation
     var t = $('#dataKeteranganTable').DataTable({
         dom: 'Bfrtip',
@@ -52,7 +25,7 @@ $(document).ready(function () {
             text: "Export CSV",
             extend: 'csv',
             exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7]
+                columns: [1, 2, 3, 4]
             }
         }],
         "ajax": {
@@ -62,63 +35,66 @@ $(document).ready(function () {
             "dataSrc": function (result) {
                 return result;
             },
-            error: function (result) {
+
+            "error": function (result) {
                 if (result.status == 401) {
                     location.href = "/";
                 }
+            }
+        },
+        "columns": [
+            {"data": null, "class": "tbl-center"},
+            {"data": 'user_id.nama', "class": "tbl-center"},
+            {
+                "data": 'start_date',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        let date = data.split("-")[2];
+                        let month = data.split("-")[1];
+                        let year = data.split("-")[0];
+                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
+                    }
+                    // data = datetime[0];
+                    return data;
+                }
             },
-            "columns": [
-                {"data": null, "class": "tbl-center"},
-                {"data": 'user_id.nama', "class": "tbl-center"},
-                {
-                    "data": 'start_date',
-                    "class": "tbl-center",
-                    "render": function (data, type, row, meta) {
-                        if (type == 'display') {
-                            let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                            let date = data.split("-")[2];
-                            let month = data.split("-")[1];
-                            let year = data.split("-")[0];
-                            data = date + " " + indoMonth[parseInt(month)] + " " + year;
-                        }
-                        // data = datetime[0];
-                        return data;
+            {
+                "data": 'end_date',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        var indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        let date = data.split("-")[2];
+                        let month = data.split("-")[1];
+                        let year = data.split("-")[0];
+                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
                     }
-                },
-                {
-                    "data": 'end_date',
-                    "class": "tbl-center",
-                    "render": function (data, type, row, meta) {
-                        if (type == 'display') {
-                            var indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                            let date = data.split("-")[2];
-                            let month = data.split("-")[1];
-                            let year = data.split("-")[0];
-                            data = date + " " + indoMonth[parseInt(month)] + " " + year;
-                        }
-                        // data = datetime[0];
-                        return data;
+                    // data = datetime[0];
+                    return data;
+                }
+            },
+            {"data": 'description', "class": "tbl-center"},
+            {
+                "data": 'files',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    if (type === 'display') {
+                        let link = data;
+                        link = link.replace("/", ":8080/");
+                        let filename = link.split("/")[2];
+                        data = '<a href="http:\/\/' + link + '" target="_blank" download="'+filename+'"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
-                },
-                {"data": 'description', "class": "tbl-center"},
-                {
-                    "data": 'files',
-                    "class": "tbl-center",
-                    "render": function (data, type, row, meta) {
-                        if (type === 'display') {
-                            let link = data;
-                            link = link.replace("/", ":8080/");
-                            data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
-                        }
-                        return data;
-                    }
-                },
-            ],
-            "columnDefs": [{
-                "targets": [0, 5],
-                "orderable": false
-            }]
-        }
+                    return data;
+                }
+            },
+        ],
+        "order": [[2, 'desc']],
+        "columnDefs": [ {
+            "targets": [0,5],
+            "orderable": false
+        } ]
     });
     t.on('draw.dt', function () {
         var PageInfo = $('#dataKeteranganTable').DataTable().page.info();
