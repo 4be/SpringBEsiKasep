@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public interface StatusRepository extends JpaRepository<Status, Long> {
 
     Status findByUserId(Long userId);
