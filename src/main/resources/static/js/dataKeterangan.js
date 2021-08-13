@@ -1,14 +1,4 @@
 $(document).ready(function () {
-    function parseDateValue(rawDate) {
-        if (rawDate == '') {
-            return "";
-        } else {
-            const dateArray = rawDate.split("-");
-            const parsedDate = new Date(parseInt(dateArray[0]), parseInt(dateArray[1]) - 1, parseInt(dateArray[2]));  // -1 because months are from 0 to 11
-            return parsedDate;
-        }
-    }
-
     $.fn.dataTable.ext.search.push(
         function (settings, data, index, rowData, counter) {
             var min = parseDateValue($('#min').val());
@@ -28,23 +18,6 @@ $(document).ready(function () {
         }
     );
 
-    $('#min').datepicker({
-        uiLibrary: 'bootstrap',
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        language: 'id',
-        immediateUpdates: true,
-        todayHighlight: true
-    });
-    $('#max').datepicker({
-        uiLibrary: 'bootstrap',
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        language: 'id',
-        immediateUpdates: true,
-        todayHighlight: true
-    });
-
     // datatable implementation
     var t = $('#dataKeteranganTable').DataTable({
         dom: 'Bfrtip',
@@ -52,7 +25,7 @@ $(document).ready(function () {
             text: "Export CSV",
             extend: 'csv',
             exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7]
+                columns: [1, 2, 3, 4]
             }
         }],
         "ajax": {
@@ -67,10 +40,6 @@ $(document).ready(function () {
                     location.href = "/";
                 }
             }
-//            "beforeSend": function (xhr) {
-//                xhr.setRequestHeader("Access-Control-Allow-Origin", "http://35.209.242.226/");
-//                xhr.setRequestHeader("Authorization", token);
-//            },
         },
         "columns": [
             {"data": null, "class": "tbl-center"},
@@ -113,12 +82,14 @@ $(document).ready(function () {
                     if (type === 'display') {
                         let link = data;
                         link = link.replace("/", ":8080/");
-                        data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
+                        let filename = link.split("/")[2];
+                        data = '<a href="http:\/\/' + link + '" target="_blank" download="'+filename+'"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
                     return data;
                 }
             },
         ],
+        "order": [[2, 'desc']],
         "columnDefs": [ {
             "targets": [0,5],
             "orderable": false

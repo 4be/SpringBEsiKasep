@@ -74,7 +74,7 @@
         <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms/dataclock' ? 'active':''}" >
             <a class="nav-link" th:href="@{/hcms/dataclock}">
                 <i class="fas fa-fw fa-user-clock"></i>
-                <span>Data Clock In/Out</span></a>
+                <span>Data Clock</span></a>
         </li>
         <!-- Nav Item - Tables -->
         <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms/dataketerangan' ? 'active':''}">
@@ -224,6 +224,7 @@
         location.href = "/";
     })
 </script>
+<script type="text/javascript" src="/js/filter.js"></script>
 <th:block layout:fragment="custom_script"></th:block>
 </body>
 </html>

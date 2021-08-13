@@ -1,41 +1,78 @@
-var data = null;
 $(document).ready(function () {
-    // $.ajax({
-    //     url: "http://35.209.242.226/api/stories/list",
-    //     type: "GET",
-    //     headers: {Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNMDAwMDMiLCJpYXQiOjE2Mjg1Nzg4NzcsImV4cCI6MTYyODY2NTI3N30.Eeg7192C_iguAjbaHa8q2Ee-54mLHqxY6t6Lq-kse-SVHMys6JJCB82fqVQIflmjorlC6Y1oLWrQowHesHC05Q"},
-    //     success: function (result) {
-    //         data = {data: result};
-    //     },
-    //     // error: function () {
-    //     //     location.href = "/";
-    //     // }
-    // });
-    // $('#dataStories thead tr').clone(true).appendTo('#dataStories thead');
+    $.fn.dataTable.ext.search.push(
+        function (settings, data, index, rowData, counter) {
+            var min = parseDateValue($('#min').val());
+            var max = parseDateValue($('#max').val());
+            var current = parseDateValue(data[2].split("T")[0]);
+            var flag = false;
+            if ((min == '' && max == '') ||
+                (min <= current && max == '') ||
+                (min == '' && current <= max) ||
+                (min <= current && current <= max)) {
+                flag = true;
+            } else {
+                flag = false;
+            }
+            return flag;
+        }
+    );
 
-    var table = $('#dataStories').DataTable({
+    var t = $('#dataStories').DataTable({
         dom: 'Bfrtip',
         buttons: [{
             text: "Export CSV",
             extend: 'csv',
             exportOptions: {
-                columns: [1, 2, 3, 4, 5, 6, 7]
+                columns: [2, 3, 4]
             }
         }],
         ajax: {
-            url: "http://35.209.242.226/api/stories/list",
+            url: "/api/stories/list/desc/",
             type: "GET",
-            data: "data",
-            headers: {Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJNMDAwMDMiLCJpYXQiOjE2Mjg1Nzg4NzcsImV4cCI6MTYyODY2NTI3N30.Eeg7192C_iguAjbaHa8q2Ee-54mLHqxY6t6Lq-kse-SVHMys6JJCB82fqVQIflmjorlC6Y1oLWrQowHesHC05Q"},
-            // error: function () {
-            //     location.href = "/";
-            // }
+            headers: {Authorization: localStorage.getItem("token")},
+            dataSrc: function (result) {
+                return result;
+            },
             error: function (result) {
                 if (result.status == 401) {
                     location.href = "/";
                 }
             }
         },
+        columns: [
+            {data: null, "class": "tbl-center"},
+            {data: "user_id.nama", class: "tbl-center"},
+            {
+                "data": 'date_published',
+                "class": "tbl-center",
+                "render": function (data, type, row, meta) {
+                    let datetime = data.split("T");
+                    if (type == 'display') {
+                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+                        let date = datetime[0].split("-")[2];
+                        let month = datetime[0].split("-")[1];
+                        let year = datetime[0].split("-")[0];
+                        let time = datetime[1].substr(0, 8);
+                        data = date + " " + indoMonth[parseInt(month)] + " " + year + " | " + time;
+                    }
+                    return data;
+                }
+            },
+            {data: "description", class: "tbl-center"},
+            {
+                data: "url_foto_stories",
+                class: "tbl-center",
+                render: function (data, type, row, meta) {
+                    if (type == 'display') {
+                        let id = data;
+                        id = id.replace("/", ":8080/");
+                        data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
+
+                    }
+                    return data;
+                }
+            },
+        ],
         columnDefs: [{
             searchable: false,
             orderable: false,
@@ -43,18 +80,26 @@ $(document).ready(function () {
         }],
         ScrollX: true,
         order: [[1, 'asc']],
-        columns: [
-            {data: null},
-            {data: "url_foto_stories"},
-            {data: "description"},
-            {data: "date_published"},
-            {data: "user_id.nama"}
-        ],
     });
-    table.on('draw.dt', function () {
-        var PageInfo = $('#dataStories').DataTable().page.info();
-        table.column(0, {page: 'current'}).nodes().each(function (cell, i) {
-            cell.innerHTML = i + 1 + PageInfo.start;
+    t.on('order.dt search.dt', function () {
+        t.column(0, {search: 'applied', order: 'applied'}).nodes().each(function (cell, i) {
+            cell.innerHTML = i + 1;
+            t.cell(cell).invalidate('dom');
         });
+    });
+    $('#min, #max').change(function () {
+        t.draw();
+    });
+    $('#btnClear').on('click', () => {
+        $('#min').val("");
+        $('#max').val("");
+        t.draw();
+    });
+    $('#btnToday').on('click', function () {
+        var now = new Date();
+        var dateNow = now.toISOString().split('T')[0];
+        $('#min').val(dateNow);
+        $('#max').val(dateNow);
+        t.draw();
     });
 });
