@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -23,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
+    public ResponseEntity<?> createUser(@RequestBody UserRequest userRequest) {
         Object data = userService.createUser(userRequest);
         return ResponseEntity.ok(data);
     }
