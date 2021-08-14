@@ -82,7 +82,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
                         let link = data;
-                        link = link.replace("/", ":8080/");
+//                        link = link.replace("/", ":8080/");
                         let filename = link.split("/")[2];
                         data = '<a href="http:\/\/' + link + '" target="_blank" download="'+filename+'"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
