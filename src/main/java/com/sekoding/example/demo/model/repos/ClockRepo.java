@@ -24,5 +24,15 @@ public interface ClockRepo extends CrudRepository<Clock, Long> {
     @Query(value = "SELECT working FROM tbl_clock WHERE tbl_clock.user_id_id=:id ORDER BY id DESC LIMIT 1", nativeQuery = true)
     Boolean findStatusByIdDesc(@PathParam("id") Long id);
 
+    @Query(value = "SELECT (SELECT count(tbl_clock.working) FROM tbl_clock where tbl_clock.working=true AND date_part('month', tbl_clock.times)=date_part('month',current_date)) as ClockIN,(select count(tbl_clock.working) FROM tbl_clock where tbl_clock.working=false AND date_part('month', tbl_clock.times)=date_part('month',current_date)) as ClockOut",nativeQuery = true)
+    public Iterable<String> getTotalClockthisMonth();
+
+    @Query(value = "SELECT (SELECT count(tbl_clock.working) FROM tbl_clock where tbl_clock.working=true AND date_part('month', tbl_clock.times)=date_part('month',current_date)-1) as ClockIN,(select count(tbl_clock.working) FROM tbl_clock where tbl_clock.working=false AND date_part('month',\n" +
+        "tbl_clock.times)=date_part('month',current_date)-1) as ClockOut",nativeQuery = true)
+    public Iterable<String> getTotalClockthisMonthMinOne();
+
+    @Query(value = "SELECT (SELECT count(tbl_clock.working) FROM tbl_clock where tbl_clock.working=true AND date_part('month', tbl_clock.times)=:bulan) as ClockIN,(select count(tbl_clock.working) FROM tbl_clock where tbl_clock.working=false AND date_part('month', tbl_clock.times)=:bulan) as ClockOut",nativeQuery = true)
+    public Iterable<String> getTotalClockPerMonth(@PathParam("bulan")Long bulan);
+
 
 }

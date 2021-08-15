@@ -41,6 +41,9 @@ public class KeteranganService {
         return keteranganRepo.findKesByTeam(team);
     }
 
+    public Iterable<String>findTotalKesMonth(Long month){
+        return keteranganRepo.findTotalKesMonth(month);
+    }
 
 
 }

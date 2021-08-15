@@ -58,4 +58,16 @@ public class ClockService {
         return clockRepo.findByTeam(team);
     }
 
+    public Iterable<String> getClockMonth(){
+        return clockRepo.getTotalClockthisMonth();
+    }
+
+    public Iterable<String> getClockMonthMin(){
+        return clockRepo.getTotalClockthisMonthMinOne();
+    }
+
+    public Iterable<String> getClockPerMonth(Long bulan){
+        return clockRepo.getTotalClockPerMonth(bulan);
+    }
+
 }

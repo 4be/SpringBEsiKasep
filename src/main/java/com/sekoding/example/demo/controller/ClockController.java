@@ -124,7 +124,6 @@ public class ClockController {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Jakarta"));
         Date date = new Date();
         String test = date.toString();
-
         return test;
     }
 
@@ -162,6 +161,23 @@ public class ClockController {
     public List<Clock> getClockTeam(@PathVariable("team") String team) {
         return clockService.findByTeam(team);
     }
+
+    @GetMapping("/clock/totalbymonth/")
+    public Iterable<String> getTotalClockbyMonth(){
+        return clockService.getClockMonth();
+    }
+
+    @GetMapping("/clock/totalbylastmonth/")
+    public Iterable<String> getTotalClockLastMonth(){
+        return clockService.getClockMonthMin();
+    }
+
+    @GetMapping("/clock/total/month/{month}")
+    public Iterable<String> getTotalPerMonth(@PathVariable("month") Long month){
+        return clockService.getClockPerMonth(month);
+    }
+
+
 
 }
 

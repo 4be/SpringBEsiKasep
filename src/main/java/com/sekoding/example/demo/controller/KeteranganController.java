@@ -93,4 +93,9 @@ public class KeteranganController {
         return keteranganService.findKesByTeam(team);
     }
 
+    @GetMapping("/total/month/{month}")
+    public Iterable<String> getTotalKesMonth(@PathVariable("month")Long month){
+        return keteranganService.findTotalKesMonth(month);
+    }
+
 }
