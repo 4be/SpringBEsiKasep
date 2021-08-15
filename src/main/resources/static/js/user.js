@@ -18,7 +18,8 @@ $(document).ready(function () {
             headers: {Authorization: localStorage.getItem("token")},
             error: function (result) {
                 if (result.status == 401) {
-                    location.href = "/";
+                    // location.href = "/";
+                    console.log(result.message);
                 }
             }
         },
@@ -42,13 +43,13 @@ $(document).ready(function () {
             {
                 data: "nik",
                 render: function (data) {
-                    return '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info">Ubah</button></a>'
+                    return '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info"><span class="fas fa-edit"></span> Ubah</button></a>'
                 }
             },
             {
                 data: "nik",
                 render: function (data) {
-                    return '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger">Hapus</button>'
+                    return '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger"><span class="fas fa-trash"></span> Hapus</button>'
                 }
             }
         ],

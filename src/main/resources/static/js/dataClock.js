@@ -27,18 +27,25 @@ $(document).ready(function () {
     );
     // datatable implementation
     var t = $('#dataClockTable').DataTable({
-        dom: 'Blfrtip',
-        // dom: '<"top"fBlr>t<"bottom"i<"clear">p>',
+        dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
+            "<'row'<'col-md-12'tr>>" +
+            "<'row'<'col-md-5'i><'col-md-7'p>>",
         buttons: [{
-            text: "Export CSV",
+            text: "<i class=\"fas fa-download\"></i> Export CSV",
             extend: 'csv',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
+        }, {
+            text: "<i class=\"fas fa-download\"></i> Export Excel",
+            extend: 'excel',
             exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7]
             }
         }],
         lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+            [10, 25, 50, -1],
+            ['10 rows', '25 rows', '50 rows', 'Show all']
         ],
         "ajax": {
             "url": '/api/clock/desc/',

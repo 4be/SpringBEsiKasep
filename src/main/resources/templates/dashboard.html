@@ -10,10 +10,8 @@
 <body>
 
 <th:block layout:fragment="content">
-
     <!-- Content Row -->
     <div class="row">
-
         <div class="col-xl-4 col-md-4 mt-2">
             <div class="no-arrow">
                 <h1 class="h3 text-gray-800">Summary Clock In/Out</h1>
@@ -27,7 +25,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock In</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="#clockin">20</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="clockInCount"></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock fa-2x text-gray-300"></i>
@@ -44,11 +42,53 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock Out
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="#clockout">20</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="clockOutCount"></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock fa-2x text-gray-300"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-pie"></i> Data Clock</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="clockLastMonth"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-pie"></i> Data Clock Tahun ini</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="clockThisYear"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-chart-pie"></i> Data Keterangan Sakit Tahun Ini</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="chart-pie">
+                        <canvas id="dataKeterangan"></canvas>
                     </div>
                 </div>
             </div>
