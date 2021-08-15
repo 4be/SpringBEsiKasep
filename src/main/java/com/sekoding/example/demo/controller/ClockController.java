@@ -163,17 +163,17 @@ public class ClockController {
     }
 
     @GetMapping("/clock/totalbymonth/")
-    public Iterable<String> getTotalClockbyMonth(){
+    public List<String> getTotalClockbyMonth(){
         return clockService.getClockMonth();
     }
 
     @GetMapping("/clock/totalbylastmonth/")
-    public Iterable<String> getTotalClockLastMonth(){
+    public List<String> getTotalClockLastMonth(){
         return clockService.getClockMonthMin();
     }
 
     @GetMapping("/clock/total/month/{month}")
-    public Iterable<String> getTotalPerMonth(@PathVariable("month") Long month){
+    public List<String> getTotalPerMonth(@PathVariable("month") Long month){
         return clockService.getClockPerMonth(month);
     }
 

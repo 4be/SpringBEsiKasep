@@ -18,7 +18,7 @@ public interface KeteranganRepo extends CrudRepository<Keterangan,Long> {
     public List<Keterangan> findKesByTeam(@PathParam("team") String team);
 
     @Query(value = "SELECT COUNT(tbl_keterangan.id) from tbl_keterangan WHERE date_part('month', tbl_keterangan.start_date)=:month",nativeQuery = true)
-    public Iterable<String> findTotalKesMonth(@PathParam("month") Long month);
+    public List<String> findTotalKesMonth(@PathParam("month") Long month);
 
 
 
