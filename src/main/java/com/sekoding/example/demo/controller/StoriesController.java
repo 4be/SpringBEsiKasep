@@ -33,8 +33,8 @@ public class StoriesController {
     @Autowired
     private ModelMapper modelMapper;
 
-        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
-//    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
+//        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+    private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/add")
     public ResponseEntity<ResponseData<Stories>> addstories(@RequestParam("picture") MultipartFile picture, @ModelAttribute StoriesRequest storiesRequest, Errors errors){

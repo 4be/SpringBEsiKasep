@@ -93,7 +93,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
                         let link = data;
-                        link = link.replace("/", ":8080/");
+                        // link = link.replace("/", ":8080/");
                         data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
                     return data;
@@ -104,7 +104,6 @@ $(document).ready(function () {
             "targets": [0, 5],
             "orderable": false
         }]
-
     });
     t.on('draw.dt', function () {
         var PageInfo = $('#dataKeteranganTable').DataTable().page.info();
