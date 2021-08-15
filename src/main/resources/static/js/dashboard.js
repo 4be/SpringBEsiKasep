@@ -4,17 +4,13 @@ $.ajax({
     type: "GET",
     headers: {Authorization: localStorage.getItem("token")},
     success: function (result) {
-        // var clockin = $(result).filter(function (i, n) {
-        //     return n.working == true;
-        // }).length;
-        // var clockout = $(result).filter(function (i, n) {
-        //     return n.working == false;
-        // }).length;
         $('#clockInCount').html(result.data);
     },
     error: function (result) {
         if (result.status == 401) {
-            console.log(result);
+            alert(result.responseJSON.message);
+            localStorage.removeItem("token");
+            location.href = "/";
         }
     }
 });
@@ -34,44 +30,15 @@ $.ajax({
 });
 
 //chart
-function int_random(min, max) {
-    var res = Math.random() * (max - min) + min;
-    return parseInt(res);
-}
 
-let r4, r5, r6;
-
-function rgb_random() {
-    var r1 = int_random(0, 255);
-    var r2 = int_random(0, 255);
-    var r3 = int_random(0, 255);
-    if (r1 >= 20) {
-        r4 = r1 - 20;
-    } else {
-        r4 = r1 + 20;
-    }
-    if (r2 >= 20) {
-        r5 = r2 - 20;
-    } else {
-        r5 = r2 + 20;
-    }
-    if (r3 >= 20) {
-        r6 = r3 - 20;
-    } else {
-        r6 = r3 + 20;
-    }
-    var rgb1 = 'rgb(' + r1.toString() + ',' + r2.toString() + ',' + r3.toString() + ')';
-    return rgb1;
-}
-
-function rgb_random2() {
-    var rgb2 = 'rgb(' + r4.toString() + ',' + r5.toString() + ',' + r6.toString() + ')';
-    return rgb2;
+function generateRGBA(r, g, b, a) {
+    return 'rgba(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ',' + a.toString() + ')';
 }
 
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
-function cvs_pie(cvsid, xlabel, val, bc, hbc) {
+
+function cvs_pie(cvsid, xlabel, val) {
     var ctx = $(cvsid);
     var myPieChart = new Chart(ctx, {
         type: 'pie',
@@ -79,11 +46,12 @@ function cvs_pie(cvsid, xlabel, val, bc, hbc) {
             labels: xlabel,
             datasets: [{
                 data: val,
-                backgroundColor: bc,
-                hoverBackgroundColor: hbc,
+                backgroundColor: [generateRGBA(49, 247, 66, 0.7), generateRGBA(230, 42, 9, 0.7)],
+                hoverBackgroundColor: [generateRGBA(49, 247, 66, 0.9), generateRGBA(230, 42, 9, 0.9)],
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
+        radius:  0.1,
         options: {
             maintainAspectRatio: false,
             tooltips: {
@@ -103,68 +71,46 @@ function cvs_pie(cvsid, xlabel, val, bc, hbc) {
     });
 }
 
-function cvs_bar(cvsid, xlabel, val, bc, hbc) {
+function cvs_bar(cvsid, data) {
     var ctx = $(cvsid);
     var myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["January", "February", "March", "April", "May", "June"],
-            datasets: [{
-                label: "Revenue",
-                backgroundColor: "#4e73df",
-                hoverBackgroundColor: "#2e59d9",
-                borderColor: "#4e73df",
-                data: [4215, 5312, 6251, 7841, 9821, 14984],
-            }],
+            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+            datasets: data,
         },
         options: {
             maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    left: 10,
-                    right: 25,
-                    top: 25,
-                    bottom: 0
-                }
-            },
             scales: {
-                xAxes: [{
-                    time: {
-                        unit: 'month'
-                    },
-                    gridLines: {
-                        display: false,
-                        drawBorder: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 6
-                    },
-                    maxBarThickness: 25,
-                }],
                 yAxes: [{
+                    position: "left",
                     ticks: {
-                        min: 0,
-                        max: 15000,
-                        maxTicksLimit: 5,
-                        padding: 10,
-                        // Include a dollar sign in the ticks
-                        callback: function(value, index, values) {
-                            return '$' + number_format(value);
-                        }
+                        beginAtZero: true,
+                        stepSize: 1
                     },
-                    gridLines: {
-                        color: "rgb(234, 236, 244)",
-                        zeroLineColor: "rgb(234, 236, 244)",
-                        drawBorder: false,
-                        borderDash: [2],
-                        zeroLineBorderDash: [2]
-                    }
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Total Clock'
+                    },
+
                 }],
+                xAxes: [{
+                    position: "bottom",
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Bulan'
+                    },
+                }]
             },
+            responsive: true,
             legend: {
-                display: false
+                display: true
             },
             tooltips: {
+                mode: 'index',
                 titleMarginBottom: 10,
                 titleFontColor: '#6e707e',
                 titleFontSize: 14,
@@ -176,12 +122,6 @@ function cvs_bar(cvsid, xlabel, val, bc, hbc) {
                 yPadding: 15,
                 displayColors: false,
                 caretPadding: 10,
-                callbacks: {
-                    label: function(tooltipItem, chart) {
-                        var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                        return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
-                    }
-                }
             },
         }
     });
@@ -189,18 +129,13 @@ function cvs_bar(cvsid, xlabel, val, bc, hbc) {
 
 // data clock last month
 $.ajax({
-    url: "/json/clockLastMonth.json",
+    url: "/api/clock/totalbylastmonth/",
     type: "GET",
     headers: {Authorization: localStorage.getItem("token")},
     success: function (result) {
-        let key = ['Clock In','Clock Out'];
-        let val = [result.data.clockin,result.data.clockout];
-        let background = [],hoverBackground = [];
-        for(let i=0;i<2;i++) {
-            background[i] = rgb_random();
-            hoverBackground[i] = rgb_random2();
-        }
-        cvs_pie('#clockLastMonth', key, val, background, hoverBackground);
+        let key = ['Clock In', 'Clock Out'];
+        let val = [parseInt(result[0].split(",")[0]), parseInt(result[0].split(",")[1])];
+        cvs_pie('#clockLastMonth', key, val);
     },
     error: function (result) {
         if (result.status == 401) {
@@ -208,3 +143,99 @@ $.ajax({
         }
     }
 });
+
+// data clock this month
+$.ajax({
+    url: "/api/clock/totalbymonth/",
+    type: "GET",
+    headers: {Authorization: localStorage.getItem("token")},
+    success: function (result) {
+        let key = ['Clock In', 'Clock Out'];
+        let val = [parseInt(result[0].split(",")[0]), parseInt(result[0].split(",")[1])];
+        cvs_pie('#clockThisMonth', key, val);
+    },
+    error: function (result) {
+        if (result.status == 401) {
+            console.log(result);
+        }
+    }
+});
+
+// data clock this year
+function clockThisYear() {
+    let valClockIn = [], valClockOut = [];
+    for (let i = 1; i <= 12; i++) {
+        $.ajax({
+            url: "/api/clock/total/month/" + i.toString(),
+            type: "GET",
+            headers: {Authorization: localStorage.getItem("token")},
+            success: function (result) {
+                valClockIn[i] = parseInt(result[0].split(",")[0]);
+                valClockOut[i] = parseInt(result[0].split(",")[1]);
+            },
+            error: function (result) {
+                if (result.status == 401) {
+                    console.log(result);
+                }
+            }
+        });
+    }
+    let output = [{
+        label: "Clock In",
+        backgroundColor: generateRGBA(49, 247, 66, 0.7),
+        hoverBackgroundColor: generateRGBA(49, 247, 66, 0.9),
+        borderColor: generateRGBA(49, 247, 66, 0.9),
+        data: valClockIn,
+    }, {
+        label: "Clock Out",
+        backgroundColor: generateRGBA(230, 42, 9, 0.7),
+        hoverBackgroundColor: generateRGBA(230, 42, 9, 0.9),
+        borderColor: generateRGBA(230, 42, 9, 0.9),
+        data: valClockOut,
+    }];
+    setTimeout(() => {
+        cvs_bar('#clockThisYear', output);
+    }, 1000);
+    let ctx = $("#clockThisYear").get(0).getContext("2d");
+    ctx.width = 10;
+    ctx.height = 10;
+}
+
+clockThisYear();
+
+// data clock this year
+function keteranganThisYear() {
+    let keterangan = [];
+    for (let i = 1; i <= 12; i++) {
+        $.ajax({
+            url: "/api/keterangan/total/month/" + i.toString(),
+            type: "GET",
+            headers: {Authorization: localStorage.getItem("token")},
+            success: function (result) {
+                keterangan[i] = parseInt(result[0]);
+                ;
+            },
+            error: function (result) {
+                if (result.status == 401) {
+                    console.log(result);
+                }
+            }
+        });
+    }
+    let output = [{
+        label: "Keterangan Sakit",
+        backgroundColor: generateRGBA(242, 27, 12, 0.7),
+        hoverBackgroundColor: generateRGBA(242, 27, 12, 0.9),
+        borderColor: generateRGBA(242, 27, 12, 0.9),
+        data: keterangan,
+        categoryPercentage: 0.25,
+        barPercentage: 0.5
+    }];
+    setTimeout(() => {
+        cvs_bar('#keteranganThisYear', output);
+    }, 1000);
+}
+
+keteranganThisYear();
+
+
