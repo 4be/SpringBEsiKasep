@@ -118,7 +118,17 @@ $(document).ready(function () {
                     return data;
                 }
             },
-            {"data": 'location_clock', "class": "tbl-center"},
+            {
+                "data": 'location_clock',
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        console.log(row);
+                        let coor = row.coordinate.replace(" ", "");
+                        data = '<a href="https://maps.google.com/maps?q=' + coor + '" target="_blank">'+data+'</a>';
+                    }
+                    return data;
+                }
+            },
             {"data": 'level_kesehatan_fisik_id', "class": "tbl-center"},
             {"data": 'level_kesehatan_mental_Id', "class": "tbl-center"},
             {
@@ -150,6 +160,9 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": [0, 8, 9],
             "orderable": false
+        },{
+            "targets": [8],
+            "visible": false
         }]
     });
     t.on('order.dt search.dt', function () {

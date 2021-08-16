@@ -51,7 +51,7 @@ function cvs_pie(cvsid, xlabel, val) {
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
             }],
         },
-        radius:  0.1,
+        radius: 0.1,
         options: {
             maintainAspectRatio: false,
             tooltips: {
@@ -71,12 +71,12 @@ function cvs_pie(cvsid, xlabel, val) {
     });
 }
 
-function cvs_bar(cvsid, data) {
+function cvs_bar(cvsid, labels, data, xlabel, ylabel) {
     var ctx = $(cvsid);
     var myBarChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+            labels: labels,
             datasets: data,
         },
         options: {
@@ -90,7 +90,7 @@ function cvs_bar(cvsid, data) {
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Total Clock'
+                        labelString: ylabel
                     },
 
                 }],
@@ -101,7 +101,7 @@ function cvs_bar(cvsid, data) {
                     },
                     scaleLabel: {
                         display: true,
-                        labelString: 'Bulan'
+                        labelString: xlabel
                     },
                 }]
             },
@@ -161,6 +161,98 @@ $.ajax({
     }
 });
 
+// data clock Yesterday
+function clockYesterday() {
+    let valClockIn = [], valClockOut = [];
+    let labels = [];
+    for (let i = 0; i < 24; i++) {
+        $.ajax({
+            url: "/api/clock/totalclockyesterday/hour/" + i.toString(),
+            type: "GET",
+            headers: {Authorization: localStorage.getItem("token")},
+            success: function (result) {
+                valClockIn[i] = parseInt(result[0].split(",")[0]);
+                valClockOut[i] = parseInt(result[0].split(",")[1]);
+            },
+            error: function (result) {
+                if (result.status == 401) {
+                    console.log(result);
+                }
+            }
+        });
+        if (i < 10) {
+            labels[i] = "0" + i + ".00";
+        } else {
+            labels[i] = i + ".00";
+        }
+
+    }
+    let output = [{
+        label: "Clock In",
+        backgroundColor: generateRGBA(49, 247, 66, 0.7),
+        hoverBackgroundColor: generateRGBA(49, 247, 66, 0.9),
+        borderColor: generateRGBA(49, 247, 66, 0.9),
+        data: valClockIn,
+    }, {
+        label: "Clock Out",
+        backgroundColor: generateRGBA(230, 42, 9, 0.7),
+        hoverBackgroundColor: generateRGBA(230, 42, 9, 0.9),
+        borderColor: generateRGBA(230, 42, 9, 0.9),
+        data: valClockOut,
+    }];
+    setTimeout(() => {
+        cvs_bar('#clockYesterday', labels, output, 'Jam', 'Total Clock');
+    }, 1000);
+}
+
+clockYesterday();
+
+// data clock today
+function clockToday() {
+    let valClockIn = [], valClockOut = [];
+    let labels = [];
+    for (let i = 0; i < 24; i++) {
+        $.ajax({
+            url: "/api/clock/totalclock/hour/" + i.toString(),
+            type: "GET",
+            headers: {Authorization: localStorage.getItem("token")},
+            success: function (result) {
+                valClockIn[i] = parseInt(result[0].split(",")[0]);
+                valClockOut[i] = parseInt(result[0].split(",")[1]);
+            },
+            error: function (result) {
+                if (result.status == 401) {
+                    console.log(result);
+                }
+            }
+        });
+        if (i < 10) {
+            labels[i] = "0" + i + ".00";
+        } else {
+            labels[i] = i + ".00";
+        }
+
+    }
+    let output = [{
+        label: "Clock In",
+        backgroundColor: generateRGBA(49, 247, 66, 0.7),
+        hoverBackgroundColor: generateRGBA(49, 247, 66, 0.9),
+        borderColor: generateRGBA(49, 247, 66, 0.9),
+        data: valClockIn,
+    }, {
+        label: "Clock Out",
+        backgroundColor: generateRGBA(230, 42, 9, 0.7),
+        hoverBackgroundColor: generateRGBA(230, 42, 9, 0.9),
+        borderColor: generateRGBA(230, 42, 9, 0.9),
+        data: valClockOut,
+    }];
+    setTimeout(() => {
+        cvs_bar('#clockToday', labels, output, 'Jam', 'Total Clock');
+    }, 1000);
+}
+
+clockToday();
+
 // data clock this year
 function clockThisYear() {
     let valClockIn = [], valClockOut = [];
@@ -193,17 +285,15 @@ function clockThisYear() {
         borderColor: generateRGBA(230, 42, 9, 0.9),
         data: valClockOut,
     }];
+    let labels = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     setTimeout(() => {
-        cvs_bar('#clockThisYear', output);
+        cvs_bar('#clockThisYear', labels, output, 'Bulan', 'Total Clock');
     }, 1000);
-    let ctx = $("#clockThisYear").get(0).getContext("2d");
-    ctx.width = 10;
-    ctx.height = 10;
 }
 
 clockThisYear();
 
-// data clock this year
+// keterangan this year
 function keteranganThisYear() {
     let keterangan = [];
     for (let i = 1; i <= 12; i++) {
@@ -231,8 +321,9 @@ function keteranganThisYear() {
         categoryPercentage: 0.25,
         barPercentage: 0.5
     }];
+    let labels = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     setTimeout(() => {
-        cvs_bar('#keteranganThisYear', output);
+        cvs_bar('#keteranganThisYear', labels, output, 'Bulan', 'Total Clock');
     }, 1000);
 }
 

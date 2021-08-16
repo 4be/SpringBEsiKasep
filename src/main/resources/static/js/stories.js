@@ -18,7 +18,7 @@ $(document).ready(function () {
     );
 
     var t = $('#dataStories').DataTable({
-        dom:  "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
+        dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
             "<'row'<'col-md-12'tr>>" +
             "<'row'<'col-md-5'i><'col-md-7'p>>",
         buttons: [{
@@ -35,8 +35,8 @@ $(document).ready(function () {
             }
         }],
         lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+            [10, 25, 50, -1],
+            ['10 rows', '25 rows', '50 rows', 'Show all']
         ],
         ajax: {
             url: "/api/stories/list/desc/",
@@ -79,11 +79,11 @@ $(document).ready(function () {
                 render: function (data, type, row, meta) {
                     if (type == 'display') {
                         let id = data;
-                        if(id!=null){
+                        if (id != null) {
 //                        id = id.replace("/", ":8080/");
-                        data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
-                        }else{
-                        data = "Tanpa Foto";
+                            data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
+                        } else {
+                            data = "Tanpa Foto";
                         }
                     }
                     return data;
