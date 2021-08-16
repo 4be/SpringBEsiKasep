@@ -14,7 +14,7 @@ public interface KeteranganRepo extends CrudRepository<Keterangan,Long> {
     public List<Keterangan> findKesByIdDesc(@PathParam("masuk") Long masuk);
 
 
-    @Query(value = "SELECT * FROM tbl_keterangan JOIN tbl_user ON tbl_keterangan.user_id_id = tbl_user.id where tbl_user.nik_manger=:team ORDER BY tbl_keterangan.id DESC",nativeQuery = true)
+    @Query(value = "SELECT * FROM tbl_keterangan JOIN tbl_user ON tbl_keterangan.user_id_id = tbl_user.id where tbl_user.nik_manager=:team ORDER BY tbl_keterangan.id DESC",nativeQuery = true)
     public List<Keterangan> findKesByTeam(@PathParam("team") String team);
 
     @Query(value = "SELECT COUNT(tbl_keterangan.id) from tbl_keterangan WHERE date_part('month', tbl_keterangan.start_date)=:month",nativeQuery = true)
