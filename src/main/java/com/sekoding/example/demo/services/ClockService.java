@@ -58,12 +58,12 @@ public class ClockService {
         return clockRepo.findByTeam(team);
     }
 
-    public List<String> getClockMonth(){
-        return clockRepo.getTotalClockthisMonth();
+    public List<String> getClockMonth(Long jam){
+        return clockRepo.getTotalClockthisMonth(jam);
     }
 
-    public List<String> getClockMonthMin(){
-        return clockRepo.getTotalClockthisMonthMinOne();
+    public List<String> getClockMonthMin(Long jam){
+        return clockRepo.getTotalClockthisMonthMinOne(jam);
     }
 
     public List<String> getClockPerMonth(Long bulan){
