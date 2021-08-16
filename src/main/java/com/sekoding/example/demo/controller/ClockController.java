@@ -162,14 +162,14 @@ public class ClockController {
         return clockService.findByTeam(team);
     }
 
-    @GetMapping("/clock/totalbymonth/")
-    public List<String> getTotalClockbyMonth(){
-        return clockService.getClockMonth();
+    @GetMapping("/clock/totalclock/hour/{jam}")
+    public List<String> getTotalClockbyMonth(@PathVariable("jam") Long jam){
+        return clockService.getClockMonth(jam);
     }
 
-    @GetMapping("/clock/totalbylastmonth/")
-    public List<String> getTotalClockLastMonth(){
-        return clockService.getClockMonthMin();
+    @GetMapping("/clock/totalclockyesterday/hour/{jam}")
+    public List<String> getTotalClockLastMonth(@PathVariable("jam") Long jam){
+        return clockService.getClockMonthMin(jam);
     }
 
     @GetMapping("/clock/total/month/{month}")
