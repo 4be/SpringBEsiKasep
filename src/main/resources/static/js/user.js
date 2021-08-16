@@ -3,14 +3,26 @@ $(document).ready(function () {
     $('#sihapus').hide();
     $('#siubah').hide();
     var table = $('#dataUser').DataTable({
-        dom: 'Bfrtip',
+        dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
+            "<'row'<'col-md-12'tr>>" +
+            "<'row'<'col-md-5'i><'col-md-7'p>>",
         buttons: [{
-            text: "Export CSV",
+            text: "<i class=\"fas fa-download\"></i> Export CSV",
             extend: 'csv',
             exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7]
             }
+        }, {
+            text: "<i class=\"fas fa-download\"></i> Export Excel",
+            extend: 'excel',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
         }],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            ['10 rows', '25 rows', '50 rows', 'Show all']
+        ],
         ajax: {
             url: "/api/user/",
             type: "GET",
@@ -18,6 +30,8 @@ $(document).ready(function () {
             headers: {Authorization: localStorage.getItem("token")},
             error: function (result) {
                 if (result.status == 401) {
+                    alert(result.responseJSON.message);
+                    localStorage.removeItem("token");
                     location.href = "/";
                 }
             }
@@ -25,7 +39,7 @@ $(document).ready(function () {
         columnDefs: [{
             searchable: false,
             orderable: false,
-            targets: 0
+            targets: [0,9,10]
         }],
         ScrollX: true,
         order: [[1, 'asc']],
@@ -42,13 +56,13 @@ $(document).ready(function () {
             {
                 data: "nik",
                 render: function (data) {
-                    return '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info">Ubah</button></a>'
+                    return '<a href="/hcms/update/' + data + '"><button id="' + data + '" class="btn btn-info"><span class="fas fa-edit"></span> Ubah</button></a>'
                 }
             },
             {
                 data: "nik",
                 render: function (data) {
-                    return '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger">Hapus</button>'
+                    return '<button id="' + data + '" onclick="deleteUser(this)" class="btn btn-danger"><span class="fas fa-trash"></span> Hapus</button>'
                 }
             }
         ],

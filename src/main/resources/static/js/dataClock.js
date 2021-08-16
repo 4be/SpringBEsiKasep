@@ -27,10 +27,18 @@ $(document).ready(function () {
     );
     // datatable implementation
     var t = $('#dataClockTable').DataTable({
-        dom: 'Blfrtip',
+        dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
+            "<'row'<'col-md-12'tr>>" +
+            "<'row'<'col-md-5'i><'col-md-7'p>>",
         buttons: [{
-            text: "Export CSV",
+            text: "<i class=\"fas fa-download\"></i> Export CSV",
             extend: 'csv',
+            exportOptions: {
+                columns: [1, 2, 3, 4, 5, 6, 7]
+            }
+        }, {
+            text: "<i class=\"fas fa-download\"></i> Export Excel",
+            extend: 'excel',
             exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7]
             }
@@ -55,6 +63,8 @@ $(document).ready(function () {
             },
             error: function (result) {
                 if (result.status == 401) {
+                    alert(result.responseJSON.message);
+                    localStorage.removeItem("token");
                     location.href = "/";
                 }
             }
@@ -108,7 +118,17 @@ $(document).ready(function () {
                     return data;
                 }
             },
-            {"data": 'location_clock', "class": "tbl-center"},
+            {
+                "data": 'location_clock',
+                "render": function (data, type, row, meta) {
+                    if (type == 'display') {
+                        console.log(row);
+                        let coor = row.coordinate.replace(" ", "");
+                        data = '<a href="https://maps.google.com/maps?q=' + coor + '" target="_blank">'+data+'</a>';
+                    }
+                    return data;
+                }
+            },
             {"data": 'level_kesehatan_fisik_id', "class": "tbl-center"},
             {"data": 'level_kesehatan_mental_Id', "class": "tbl-center"},
             {
@@ -128,7 +148,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
                         let id = data;
-                        id = id.replace("/", ":8080/");
+//                        id = id.replace("/", ":8080/");
                         data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
 
                     }
@@ -140,6 +160,9 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": [0, 8, 9],
             "orderable": false
+        },{
+            "targets": [8],
+            "visible": false
         }]
     });
     t.on('order.dt search.dt', function () {

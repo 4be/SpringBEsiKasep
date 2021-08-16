@@ -20,12 +20,20 @@ $(document).ready(function () {
 
     // datatable implementation
     var t = $('#dataKeteranganTable').DataTable({
-        dom: 'Blfrtip',
+        dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
+            "<'row'<'col-md-12'tr>>" +
+            "<'row'<'col-md-5'i><'col-md-7'p>>",
         buttons: [{
-            text: "Export CSV",
+            text: "<i class=\"fas fa-download\"></i> Export CSV",
             extend: 'csv',
             exportOptions: {
                 columns: [1, 2, 3, 4]
+            }
+        },{
+            text: "<i class=\"fas fa-download\"></i> Export Excel",
+            extend: 'excel',
+            exportOptions: {
+                columns: [1, 2, 3,4]
             }
         }],
         lengthMenu: [
@@ -41,6 +49,8 @@ $(document).ready(function () {
             },
             "error": function (result) {
                 if (result.status == 401) {
+                    alert(result.responseJSON.message);
+                    localStorage.removeItem("token");
                     location.href = "/";
                 }
             }
@@ -85,7 +95,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
                         let link = data;
-                        link = link.replace("/", ":8080/");
+                        // link = link.replace("/", ":8080/");
                         data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
                     return data;
@@ -118,4 +128,5 @@ $(document).ready(function () {
         $('#max').val(dateNow);
         t.draw();
     });
-});
+})
+;

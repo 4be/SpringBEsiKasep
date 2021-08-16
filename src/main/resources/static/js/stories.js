@@ -18,17 +18,25 @@ $(document).ready(function () {
     );
 
     var t = $('#dataStories').DataTable({
-        dom: 'Blfrtip',
+        dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
+            "<'row'<'col-md-12'tr>>" +
+            "<'row'<'col-md-5'i><'col-md-7'p>>",
         buttons: [{
-            text: "Export CSV",
+            text: "<i class=\"fas fa-download\"></i> Export CSV",
             extend: 'csv',
             exportOptions: {
-                columns: [2, 3, 4]
+                columns: [1, 2, 3]
+            }
+        }, {
+            text: "<i class=\"fas fa-download\"></i> Export Excel",
+            extend: 'excel',
+            exportOptions: {
+                columns: [1, 2, 3]
             }
         }],
         lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+            [10, 25, 50, -1],
+            ['10 rows', '25 rows', '50 rows', 'Show all']
         ],
         ajax: {
             url: "/api/stories/list/desc/",
@@ -39,6 +47,8 @@ $(document).ready(function () {
             },
             error: function (result) {
                 if (result.status == 401) {
+                    alert(result.responseJSON.message);
+                    localStorage.removeItem("token");
                     location.href = "/";
                 }
             }
@@ -70,7 +80,7 @@ $(document).ready(function () {
                     if (type == 'display') {
                         let id = data;
                         if (id != null) {
-                            id = id.replace("/", ":8080/");
+//                        id = id.replace("/", ":8080/");
                             data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
                         } else {
                             data = "Tanpa Foto";

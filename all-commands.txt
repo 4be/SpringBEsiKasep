@@ -1,10 +1,10 @@
 connect vm :
-ssh -p 22 -i "C:\Users\HP\.ssh\id_rsa" jordykristia@35.209.90.48 
+ssh -p 22 -i "C:\Users\HP\.ssh\id_rsa" jordykristia@35.209.90.48
 
 terminate vm :
 ~.
 
-run local : 
+run local :
 mvn spring-boot:run -D"spring-boot.run.profiles"=local
 
 test local :
@@ -18,3 +18,8 @@ mvn package -DskipTests
 
 run di vm:
 java -jar <nama jar nya>.jar
+
+start server:
+sudo nginx -t
+sudo systemctl reload nginx
+sudo systemctl daemon-reload

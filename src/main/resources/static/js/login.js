@@ -1,9 +1,6 @@
 $(document).ready(function () {
     $("#sigagal1").hide();
     $("#sigagal2").hide();
-    if(localStorage.getItem("token") != null) {
-        location.href = "/hcms/";
-    }
 });
 
 $("#login").click(function () {

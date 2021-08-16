@@ -28,6 +28,8 @@ $("#btnSubmit").click(function () {
         },
         error: function (result) {
             if (result.status == 401) {
+                alert(result.responseJSON.message);
+                localStorage.removeItem("token");
                 location.href = "/";
             }
         }

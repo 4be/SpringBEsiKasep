@@ -33,7 +33,7 @@ public class ClockController {
     @Autowired
     private ModelMapper modelMapper;
 
-    //    private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
+//        private static String UPLOADED_PATH = "/Users/HP/Desktop/springHCM/src/main/resources/static/images/";
     private static String UPLOADED_PATH = "/home/adiabdurrakh/opt/sinarmas/demo/public/img/";
 
     @PostMapping("/clockin")
@@ -124,7 +124,6 @@ public class ClockController {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Jakarta"));
         Date date = new Date();
         String test = date.toString();
-
         return test;
     }
 
@@ -162,6 +161,23 @@ public class ClockController {
     public List<Clock> getClockTeam(@PathVariable("team") String team) {
         return clockService.findByTeam(team);
     }
+
+    @GetMapping("/clock/totalclock/hour/{jam}")
+    public List<String> getTotalClockbyMonth(@PathVariable("jam") Long jam){
+        return clockService.getClockMonth(jam);
+    }
+
+    @GetMapping("/clock/totalclockyesterday/hour/{jam}")
+    public List<String> getTotalClockLastMonth(@PathVariable("jam") Long jam){
+        return clockService.getClockMonthMin(jam);
+    }
+
+    @GetMapping("/clock/total/month/{month}")
+    public List<String> getTotalPerMonth(@PathVariable("month") Long month){
+        return clockService.getClockPerMonth(month);
+    }
+
+
 
 }
 
