@@ -30,7 +30,6 @@ $.ajax({
 });
 
 //chart
-
 function generateRGBA(r, g, b, a) {
     return 'rgba(' + r.toString() + ',' + g.toString() + ',' + b.toString() + ',' + a.toString() + ')';
 }
@@ -71,7 +70,7 @@ function cvs_pie(cvsid, xlabel, val) {
     });
 }
 
-function cvs_bar(cvsid, labels, data, xlabel, ylabel) {
+function cvs_bar(cvsid, labels, data, xlabel, ylabel, ymax) {
     var ctx = $(cvsid);
     var myBarChart = new Chart(ctx, {
         type: 'bar',
@@ -86,7 +85,7 @@ function cvs_bar(cvsid, labels, data, xlabel, ylabel) {
                     position: "left",
                     ticks: {
                         beginAtZero: true,
-                        stepSize: 1
+                        max: ymax,
                     },
                     scaleLabel: {
                         display: true,
@@ -201,8 +200,11 @@ function clockYesterday() {
         data: valClockOut,
     }];
     setTimeout(() => {
-        cvs_bar('#clockYesterday', labels, output, 'Jam', 'Total Clock');
-    }, 1000);
+        let max = Math.max(...valClockIn,...valClockOut);
+        let yMax = max + Math.ceil(0.1*max);
+        console.log(yMax);
+        cvs_bar('#clockYesterday', labels, output, 'Jam', 'Total Clock',yMax);
+    }, 2000);
 }
 
 clockYesterday();
@@ -231,7 +233,6 @@ function clockToday() {
         } else {
             labels[i] = i + ":00";
         }
-
     }
     let output = [{
         label: "Clock In",
@@ -247,8 +248,11 @@ function clockToday() {
         data: valClockOut,
     }];
     setTimeout(() => {
-        cvs_bar('#clockToday', labels, output, 'Jam', 'Total Clock');
-    }, 1000);
+        let max = Math.max(...valClockIn,...valClockOut);
+        let yMax = max + Math.ceil(0.1*max);
+        console.log(yMax);
+        cvs_bar('#clockToday', labels, output, 'Jam', 'Total Clock',yMax);
+    }, 2000);
 }
 
 clockToday();
@@ -287,8 +291,11 @@ function clockThisYear() {
     }];
     let labels = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     setTimeout(() => {
-        cvs_bar('#clockThisYear', labels, output, 'Bulan', 'Total Clock');
-    }, 1000);
+        let max = Math.max(...valClockIn,...valClockOut);
+        let yMax = max + Math.ceil(0.1*max);
+        console.log(yMax);
+        cvs_bar('#clockThisYear', labels, output, 'Bulan', 'Total Clock',yMax);
+    }, 2000);
 }
 
 clockThisYear();
@@ -318,13 +325,14 @@ function keteranganThisYear() {
         hoverBackgroundColor: generateRGBA(242, 27, 12, 0.9),
         borderColor: generateRGBA(242, 27, 12, 0.9),
         data: keterangan,
-        categoryPercentage: 0.25,
-        barPercentage: 0.5
     }];
-    let labels = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
     setTimeout(() => {
-        cvs_bar('#keteranganThisYear', labels, output, 'Bulan', 'Total Clock');
-    }, 1000);
+        let labels = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+        let max = Math.max(...keterangan);
+        let yMax = max + Math.ceil(0.1*max);
+        console.log(yMax);
+        cvs_bar('#keteranganThisYear', labels, output, 'Bulan', 'Total Clock',yMax);
+    }, 2000);
 }
 
 keteranganThisYear();
