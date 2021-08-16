@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 @Service
-@Transactional
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
@@ -44,6 +43,11 @@ public class LoginServiceImpl implements LoginService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtUtils.generateJwtToken(authentication);
             User user = userRepository.findUserByUsernameOrEmail(loginRequest.getUsername(), loginRequest.getUsername());
+
+            if (user.getIsaktif().equals(Boolean.FALSE)) {
+                return new FailedResponse(HttpStatus.FORBIDDEN, "User tidak aktif");
+            }
+
             LoginResponse loginResponse = new LoginResponse(
                 user.getId(),
                 user.getNama(),
