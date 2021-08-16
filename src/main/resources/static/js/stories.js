@@ -93,7 +93,7 @@ $(document).ready(function () {
         columnDefs: [{
             searchable: false,
             orderable: false,
-            targets: 0
+            targets: [0,4]
         }],
         ScrollX: true,
         order: [[1, 'asc']],

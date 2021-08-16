@@ -227,9 +227,9 @@ function clockToday() {
             }
         });
         if (i < 10) {
-            labels[i] = "0" + i + ".00";
+            labels[i] = "0" + i + ":00";
         } else {
-            labels[i] = i + ".00";
+            labels[i] = i + ":00";
         }
 
     }
