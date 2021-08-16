@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object getAllUser() {
         try {
-            List<User> userList = userRepository.findAll();
+            List<User> userList = userRepository.findUsersByIsaktif(Boolean.TRUE);
             List<UserResponse> UserResponseList = new ArrayList<>();
 
             for (User user : userList) {
@@ -100,6 +100,7 @@ public class UserServiceImpl implements UserService {
             ),
             userRequest.getDivisi(),
             userRequest.getNik_manager().isEmpty() ? "-" : userRequest.getNik_manager(),
+            Boolean.TRUE,
             roles
         );
 
@@ -144,6 +145,7 @@ public class UserServiceImpl implements UserService {
                     ),
                     csvRecord.get("divisi"),
                     csvRecord.get("nik_manager").isEmpty() ? "-" : csvRecord.get("nik_manager"),
+                    Boolean.TRUE,
                     roles
                 );
 
@@ -175,7 +177,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object getUserByNikManager(String nikManager) {
         try {
-            List<User> userList = userRepository.findUserByNikManger(nikManager);
+            List<User> userList = userRepository.findUserByNikManager(nikManager);
             List<TeamResponse> teamResponseList = new ArrayList<>();
 
             for (User user : userList) {
@@ -188,7 +190,8 @@ public class UserServiceImpl implements UserService {
                     user.getTanggalLahir(),
                     user.getEmail(),
                     user.getDivisi(),
-                    user.getNikManger(),
+                    user.getNikManager(),
+                    user.getIsaktif(),
                     user.getRoles().iterator().next().getRolename().toString(),
                     working
                 );
@@ -212,7 +215,7 @@ public class UserServiceImpl implements UserService {
             user.setTanggalLahir(userRequest.getTanggal_lahir());
             user.setEmail(userRequest.getEmail());
             user.setDivisi(userRequest.getDivisi());
-            user.setNikManger(userRequest.getNik_manager().isEmpty() ? "-" : userRequest.getNik_manager());
+            user.setNikManager(userRequest.getNik_manager().isEmpty() ? "-" : userRequest.getNik_manager());
             user.setRoles(roles);
             User save = userRepository.save(user);
 
@@ -226,8 +229,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Object deleteUser(Long id) {
         try {
-            statusRepository.deleteByUserId(id);
-            userRepository.deleteById(id);
+            User user = userRepository.findById(id).get();
+            user.setIsaktif(Boolean.FALSE);
+            userRepository.save(user);
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
             return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -238,8 +242,8 @@ public class UserServiceImpl implements UserService {
     public Object deleteUserByNik(String nik) {
         try {
             User user = userRepository.findUserByNik(nik);
-            statusRepository.deleteByUserId(user.getId());
-            userRepository.deleteById(user.getId());
+            user.setIsaktif(Boolean.FALSE);
+            userRepository.save(user);
             return new SuccessResponse(HttpStatus.OK, "Deleted", "");
         } catch (Exception e) {
             return new FailedResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -274,7 +278,8 @@ public class UserServiceImpl implements UserService {
             user.getTanggalLahir(),
             user.getEmail(),
             user.getDivisi(),
-            user.getNikManger(),
+            user.getNikManager(),
+            user.getIsaktif(),
             user.getRoles().iterator().next().getRolename().toString()
         );
         return userResponse;
