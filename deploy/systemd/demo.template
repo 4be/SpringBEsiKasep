@@ -3,9 +3,9 @@ Description=Aplikasi Demo
 After=syslog.target
 
 [Service]
-User=adiabdurrakh
+User=jordykristia
 WorkingDirectory=/opt/sinarmas/demo
-ExecStart=java -jar /opt/sinarmas/demo/gege.jar
+ExecStart=java -jar /opt/sinarmas/demo/demo.jar
 SuccessExitStatus=143
 Restart=on-failure
 RestartSec=5
