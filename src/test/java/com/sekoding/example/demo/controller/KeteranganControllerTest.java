@@ -40,16 +40,14 @@ class KeteranganControllerTest {
     @Test
     @WithMockUser(authorities = "EMPLOYEE")
     @DisplayName("GET /api/keterangan/list ambil data keterangan")
-    public void testListKeterangan() throws Exception {
-        List<Keterangan> listKet = new ArrayList();
-        listKet.add(new Keterangan());
-        listKet.add(new Keterangan());
-        Mockito.when(ketRepo.findAll()).thenReturn(listKet);
-        String url = "/api/keterangan/list";
-        mockMvc.perform(get(url)).andExpect(status().isOk());
+        public void findAll() throws Exception {
+            List<Keterangan> listKet = new ArrayList();
+            listKet.add(new Keterangan());
+            listKet.add(new Keterangan());
+            Mockito.when(ketRepo.findAll()).thenReturn(listKet);
+            String url = "/api/keterangan/list";
+            mockMvc.perform(get(url)).andExpect(status().isOk());
+        }
     }
 
 
-
-
-}
