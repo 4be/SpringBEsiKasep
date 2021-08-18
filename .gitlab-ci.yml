@@ -100,7 +100,7 @@ deploy:
   script:
     - ssh -o StrictHostKeyChecking=no adiabdurrakh@35.209.242.226 sudo systemctl stop speed.service
     - ssh -o StrictHostKeyChecking=no adiabdurrakh@35.209.242.226 sudo rm -f /home/adiabdurrakh/opt/sinarmas/demo/demo-0.0.1-SNAPSHOT.jar
-    - scp -o StrictHostKeyChecking=no target/*.jar adiabdurrakh@35.209.242.226:/home/adiabdurrakh/opt/sinarmas/gege
+    - scp -o StrictHostKeyChecking=no target/*.jar adiabdurrakh@35.209.242.226:/home/adiabdurrakh/opt/sinarmas/demo/
     - ssh -o StrictHostKeyChecking=no adiabdurrakh@35.209.242.226 sudo systemctl start speed.service
     - ssh -o StrictHostKeyChecking=no adiabdurrakh@35.209.242.226 sudo systemctl status speed.service
 
