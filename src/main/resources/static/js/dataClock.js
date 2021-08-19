@@ -18,14 +18,15 @@ $(document).ready(function () {
         function (settings, data, index, rowData, counter) {
             var status = $('#statusClock').val();
             var flag = false;
-            console.log(data[1]);
             if (status == 'all' || status == data[1]) {
                 flag = true;
             }
             return flag;
         }
     );
+
     // datatable implementation
+    // $('#dataClockTable').append('<caption style="caption-side: bottom">A fictional company staff table.</caption>');
     var t = $('#dataClockTable').DataTable({
         dom: "<'row'<'col-md-3'l><'col-md-5 text-left'B><'col-md-4'f>>" +
             "<'row'<'col-md-12'tr>>" +
@@ -41,6 +42,13 @@ $(document).ready(function () {
             extend: 'excel',
             exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7]
+            },
+            title: function () {
+                let date = new Date().toLocaleDateString();
+                return 'SIKASEP - Rekap Data Clock (dibuat pada ' + formatDate(date,false,"mdy") + ')';
+            },
+            messageTop: function () {
+                return exportRange($('#min').val(), $('#max').val());
             }
         }],
         lengthMenu: [
@@ -97,11 +105,7 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     let datetime = data.split("T");
                     if (type == 'display') {
-                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                        let date = datetime[0].split("-")[2];
-                        let month = datetime[0].split("-")[1];
-                        let year = datetime[0].split("-")[0];
-                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
+                        data = formatDate(datetime[0]);
                     }
                     // data = datetime[0];
                     return data;
@@ -122,9 +126,8 @@ $(document).ready(function () {
                 "data": 'location_clock',
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
-                        console.log(row);
                         let coor = row.coordinate.replace(" ", "");
-                        data = '<a href="https://maps.google.com/maps?q=' + coor + '" target="_blank">'+data+'</a>';
+                        data = '<a href="https://maps.google.com/maps?q=' + coor + '" target="_blank">' + data + '</a>';
                     }
                     return data;
                 }
@@ -148,7 +151,9 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
                         let id = data;
-//                        id = id.replace("/", ":8080/");
+                        if (location.hostname == 'localhost') {
+                            id = id.replace("/", ":8080/");
+                        }
                         data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
 
                     }
@@ -158,9 +163,9 @@ $(document).ready(function () {
         ],
         "order": [[3, 'desc']],
         "columnDefs": [{
-            "targets": [0, 8, 9],
+            "targets": [0, 8],
             "orderable": false
-        },{
+        }, {
             "targets": [8],
             "visible": false
         }]
@@ -181,7 +186,7 @@ $(document).ready(function () {
     });
     $('#btnToday').on('click', function () {
         var now = new Date();
-        var dateNow = now.toISOString().split('T')[0];
+        var dateNow = formatDate(now.toLocaleDateString(), true,'mdy');
         $('#min').val(dateNow);
         $('#max').val(dateNow);
         t.draw();

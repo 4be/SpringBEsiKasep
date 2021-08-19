@@ -17,6 +17,13 @@ $(document).ready(function () {
             extend: 'excel',
             exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7]
+            },
+            title: function () {
+                let date = new Date().toLocaleDateString();
+                return 'SIKASEP - Rekap Data User (dibuat pada ' + formatDate(date,false,'mdy') + ')';
+            },
+            messageTop: function () {
+                return ' ';
             }
         }],
         lengthMenu: [
