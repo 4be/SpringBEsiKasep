@@ -12,7 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -38,16 +38,17 @@ class KeteranganControllerTest {
     private KeteranganRepo ketRepo;
 
     @Test
-    @WithMockUser(authorities = "EMPLOYEE")
+//    @WithMockUser(authorities = "EMPLOYEE")
     @DisplayName("GET /api/keterangan/list ambil data keterangan")
-        public void findAll() throws Exception {
-            List<Keterangan> listKet = new ArrayList();
-            listKet.add(new Keterangan());
-            listKet.add(new Keterangan());
-            Mockito.when(ketRepo.findAll()).thenReturn(listKet);
-            String url = "/api/keterangan/list";
-            mockMvc.perform(get(url)).andExpect(status().isOk());
-        }
+    public void findAll() throws Exception {
+        List<Keterangan> listKet = new ArrayList();
+        listKet.add(new Keterangan());
+        listKet.add(new Keterangan());
+        Mockito.when(ketRepo.findAll()).thenReturn(listKet);
+        String url = "/api/keterangan/list";
+        mockMvc.perform(get(url)).andExpect(status().isOk());
     }
+}
+
 
 
