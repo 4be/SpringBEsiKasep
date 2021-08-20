@@ -29,11 +29,18 @@ $(document).ready(function () {
             exportOptions: {
                 columns: [1, 2, 3, 4]
             }
-        },{
+        }, {
             text: "<i class=\"fas fa-download\"></i> Export Excel",
             extend: 'excel',
             exportOptions: {
-                columns: [1, 2, 3,4]
+                columns: [1, 2, 3, 4]
+            },
+            title: function () {
+                let date = new Date().toLocaleDateString();
+                return 'SIKASEP - Rekap Data Keterangan Sakit (dibuat pada ' + formatDate(date,false,'mdy') + ')';
+            },
+            messageTop: function () {
+                return exportRange($('#min').val(),$('#max').val());
             }
         }],
         lengthMenu: [
@@ -63,11 +70,7 @@ $(document).ready(function () {
                 "class": "tbl-center",
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
-                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                        let date = data.split("-")[2];
-                        let month = data.split("-")[1];
-                        let year = data.split("-")[0];
-                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
+                        data = formatDate(data);
                     }
                     // data = datetime[0];
                     return data;
@@ -78,13 +81,8 @@ $(document).ready(function () {
                 "class": "tbl-center",
                 "render": function (data, type, row, meta) {
                     if (type == 'display') {
-                        var indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                        let date = data.split("-")[2];
-                        let month = data.split("-")[1];
-                        let year = data.split("-")[0];
-                        data = date + " " + indoMonth[parseInt(month)] + " " + year;
+                        data = formatDate(data);
                     }
-                    // data = datetime[0];
                     return data;
                 }
             },
@@ -95,7 +93,9 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     if (type === 'display') {
                         let link = data;
-                        // link = link.replace("/", ":8080/");
+                        if (location.hostname == 'localhost') {
+                            link = link.replace("/", ":8080/");
+                        }
                         data = '<a href="http:\/\/' + link + '" target="_blank"><button class="btn btn-success"><i class="fas fa-download"></i></button></a>';
                     }
                     return data;
@@ -123,7 +123,7 @@ $(document).ready(function () {
     });
     $('#btnToday').on('click', function () {
         var now = new Date();
-        var dateNow = now.toISOString().split('T')[0];
+        var dateNow = formatDate(now.toLocaleDateString(), true,'mdy');
         $('#min').val(dateNow);
         $('#max').val(dateNow);
         t.draw();

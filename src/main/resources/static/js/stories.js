@@ -32,6 +32,13 @@ $(document).ready(function () {
             extend: 'excel',
             exportOptions: {
                 columns: [1, 2, 3]
+            },
+            title: function () {
+                let date = new Date().toLocaleDateString();
+                return 'SIKASEP - Rekap Data Stories (dibuat pada ' + formatDate(date,false,'mdy') + ')';
+            },
+            messageTop: function () {
+                return exportRange($('#min').val(),$('#max').val());
             }
         }],
         lengthMenu: [
@@ -62,12 +69,8 @@ $(document).ready(function () {
                 "render": function (data, type, row, meta) {
                     let datetime = data.split("T");
                     if (type == 'display') {
-                        let indoMonth = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-                        let date = datetime[0].split("-")[2];
-                        let month = datetime[0].split("-")[1];
-                        let year = datetime[0].split("-")[0];
                         let time = datetime[1].substr(0, 8);
-                        data = date + " " + indoMonth[parseInt(month)] + " " + year + " | " + time;
+                        data = formatDate(datetime[0]) + " | " + time;
                     }
                     return data;
                 }
@@ -80,7 +83,9 @@ $(document).ready(function () {
                     if (type == 'display') {
                         let id = data;
                         if (id != null) {
-//                        id = id.replace("/", ":8080/");
+                            if (location.hostname == 'localhost') {
+                                id = id.replace("/", ":8080/");
+                            }
                             data = '<a id="' + id + '" href="#" class="btn btn-primary finger-pointer" data-toggle="modal" data-target="#imageClockModal" data-link="' + id + '"><i class="fas fa-eye"></i></a>';
                         } else {
                             data = "Tanpa Foto";
@@ -93,7 +98,7 @@ $(document).ready(function () {
         columnDefs: [{
             searchable: false,
             orderable: false,
-            targets: [0,4]
+            targets: [0, 4]
         }],
         ScrollX: true,
         order: [[1, 'asc']],
@@ -114,7 +119,7 @@ $(document).ready(function () {
     });
     $('#btnToday').on('click', function () {
         var now = new Date();
-        var dateNow = now.toISOString().split('T')[0];
+        var dateNow = formatDate(now.toLocaleDateString(), true,'mdy');
         $('#min').val(dateNow);
         $('#max').val(dateNow);
         t.draw();

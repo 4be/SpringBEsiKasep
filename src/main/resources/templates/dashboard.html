@@ -14,9 +14,8 @@
     <div class="row">
         <div class="col-xl-4 col-md-4 mt-2">
             <div class="no-arrow">
-                <h1 class="h3 text-gray-800">Summary Clock In/Out</h1>
+                <h1 class="h3 text-gray-800">Summary Data SIKASEP</h1>
             </div>
-            <span class="text-success">Hari ini</span>
         </div>
         <!-- Earnings (Monthly) Card Example -->
         <div class="col-xl-4 col-md-4 mb-4">
@@ -25,7 +24,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock In</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="clockInCount"></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="clockInCount"></span> / <span class="userCount"></span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock fa-2x text-gray-300"></i>
@@ -42,7 +41,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Clock Out
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="clockOutCount"></div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="clockOutCount"></span> / <span class="userCount"></span></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-clock fa-2x text-gray-300"></i>
@@ -63,7 +62,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h6 class="text-center">Hari Ini</h6>
+                            <h6 class="text-center">Hari Ini (<span id="todayDate" class="text-primary"></span>)</h6>
                             <div class="chart-pie">
                                 <canvas id="clockToday"></canvas>
                             </div>
@@ -72,7 +71,7 @@
                             <hr />
                         </div>
                         <div class="col-lg-12">
-                            <h6 class="text-center">Kemarin</h6>
+                            <h6 class="text-center">Kemarin (<span id="yesterdayDate" class="text-primary"></span>)</h6>
                             <div class="chart-pie">
                                 <canvas id="clockYesterday"></canvas>
                             </div>

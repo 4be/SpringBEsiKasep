@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="/img/logo-sinarmas-favicon.jpg" rel="icon" type="image/x-icon" />
+    <link href="/img/logo-sinarmas-favicon.jpg" rel="icon" type="image/x-icon"/>
     <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">SIKASEP</title>
     <script src="https://kit.fontawesome.com/5e59a4bfec.js" crossorigin="anonymous"></script>
     <link
@@ -38,7 +38,7 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms' ? 'active':''}" >
+        <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms' ? 'active':''}">
             <a class="nav-link" th:href="@{/hcms}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -50,7 +50,8 @@
             ALAT
         </div>
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms/datauser' || #request.requestURI == '/hcms/create' ? 'active':''}">
+        <li class="nav-item"
+            th:classappend="${ #request.requestURI == '/hcms/datauser' || #request.requestURI == '/hcms/create' ? 'active':''}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-user-cog"></i>
@@ -73,14 +74,14 @@
         <div class="sidebar-heading">
             FITUR
         </div>
-        <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms/dataclock' ? 'active':''}" >
+        <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms/dataclock' ? 'active':''}">
             <a class="nav-link" th:href="@{/hcms/dataclock}">
                 <i class="fas fa-fw fa-user-clock"></i>
                 <span>Data Clock</span></a>
         </li>
         <!-- Nav Item - Tables -->
         <li class="nav-item" th:classappend="${ #request.requestURI == '/hcms/dataketerangan' ? 'active':''}">
-            <a class="nav-link" th:href="@{/hcms/dataketerangan}"  >
+            <a class="nav-link" th:href="@{/hcms/dataketerangan}">
                 <i class="fas fa-fw fa-head-side-cough"></i>
                 <span>Data Keterangan Sakit</span>
             </a>
@@ -118,6 +119,13 @@
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
                 </button>
+                <h5 class="mt-2">
+                    <span class="text-primary font-weight-bold">Si</span>stem <span
+                    class="text-primary font-weight-bold">K</span>ehadir<span
+                    class="text-primary font-weight-bold">a</span>n <span
+                    class="text-primary font-weight-bold">Se</span>derhanda dan Ter<span
+                    class="text-primary font-weight-bold">p</span>ercaya
+                </h5>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - User Information -->
@@ -147,6 +155,15 @@
             <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; SIKASEP 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
     </div>
     <!-- End of Content Wrapper -->
 </div>
@@ -169,8 +186,12 @@
             </div>
             <div class="modal-body">Apakah anda yakin untuk Logout?</div>
             <div class="modal-footer">
-                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Cancel</button>
-                <button class="btn btn-success" type="button" data-dismiss="modal" id="logout"><i class="fas fa-fw fa-sign-out-alt"></i> Logout</button>
+                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fas fa-fw fa-times"></i>
+                    Cancel
+                </button>
+                <button class="btn btn-success" type="button" data-dismiss="modal" id="logout"><i
+                    class="fas fa-fw fa-sign-out-alt"></i> Logout
+                </button>
             </div>
         </div>
     </div>
@@ -189,16 +210,19 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    <img id="imageClock" style="max-width: 100%; max-height: 390px;"/>
+                    <img id="imageClock" src="/img/loading.gif" style="max-width: 100%; max-height: 390px;"/>
                 </div>
             </div>
             <div class="modal-footer" id="imageClockDiv">
-                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fas fa-fw fa-times"></i> Close</button>
+                <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fas fa-fw fa-times"></i>
+                    Close
+                </button>
                 <a class="btn btn-success" id="downloadImageClock"><i class="fas fa-fw fa-download"></i> Download</a>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Bootstrap core JavaScript-->
 <script src="/vendor/jquery/jquery.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
