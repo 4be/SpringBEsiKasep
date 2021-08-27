@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpMethod;
 //import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -38,7 +39,7 @@ class KeteranganControllerTest {
     private KeteranganRepo ketRepo;
 
     @Test
-//    @WithMockUser(authorities = "EMPLOYEE")
+    @WithMockUser(authorities = "EMPLOYEE")
     @DisplayName("GET /api/keterangan/list ambil data keterangan")
     public void findAll() throws Exception {
         List<Keterangan> listKet = new ArrayList();
