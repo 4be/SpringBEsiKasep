@@ -99,8 +99,3 @@ Silakan lihat dokumen terkait di folder [`./deploy`](./deploy/README.md).
 
 Kode sumber ini dapat disalin, dimodifikasi, ataupun dibagi secara terbuka
 selama mengikuti syarat dan ketentuan yang berlaku dalam lisensi [MIT](./LICENSE.md).
-
-Hak Cipta (c) 2021 [Pusat Ilmu Komputer Universitas Indonesia] & [PT. Bank Sinarmas Tbk.]
-
-[Pusat Ilmu Komputer Universitas Indonesia]: https://pusilkom.ui.ac.id
-[PT. Bank Sinarmas Tbk.]: https://www.banksinarmas.com
